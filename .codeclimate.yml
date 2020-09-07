@@ -20,10 +20,11 @@ checks:
         enabled: true
     identical-code:
         enabled: true
-eslint:
-    enabled: true
-    config:
-        config: ./.eslintrc.json
+plugins:
+    eslint:
+        enabled: true
+        config:
+            config: ./.eslintrc.json
 exclude_patterns:
 - "config/"
 - "db/"
