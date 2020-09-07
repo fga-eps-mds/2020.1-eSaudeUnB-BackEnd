@@ -1,14 +1,14 @@
 {
     "env": {
         "commonjs": true,
-        "es2017": true,
+        "es2021": true,
         "node": true
     },
     "extends": [
         "airbnb-base"
     ],
     "parserOptions": {
-        "ecmaVersion": 8
+        "ecmaVersion": 12
     },
     "rules": {
         "indent": ["error", 4]
