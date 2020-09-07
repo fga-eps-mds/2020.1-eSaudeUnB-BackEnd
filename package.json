@@ -6,7 +6,7 @@
   "scripts": {
     "test": "./node_modules/.bin/jest",
     "dev": "nodemon ./src/server.js",
-    "lint": "./node_modules/.bin/eslint src/*.js --fix"
+    "lint": "./node_modules/.bin/eslint --fix src"
   },
   "repository": {
     "type": "git",
