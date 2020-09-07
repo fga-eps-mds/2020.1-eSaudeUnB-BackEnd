@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "./node_modules/.bin/jest",
     "dev": "nodemon ./src/server.js",
     "lint": "./node_modules/.bin/eslint src/*.js --fix"
   },
@@ -24,6 +24,7 @@
     "eslint-plugin-import": "^2.22.0",
     "git-commit-msg-linter": "^2.6.0",
     "husky": "^4.3.0",
+    "jest": "^26.4.2",
     "nodemon": "^2.0.4"
   },
   "dependencies": {
