@@ -2,10 +2,7 @@ name: build
 on:
   push:
     branches:
-      - master
       - develop
-    tags:
-      - '!*' # Do not execute on tags
     paths:
       - src/*
       - test/*
