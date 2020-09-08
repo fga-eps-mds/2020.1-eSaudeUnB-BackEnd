@@ -2,10 +2,10 @@
   "name": "e-saude-unb",
   "version": "1.0.0",
   "description": "",
-  "main": "src/server.js",
+  "main": "src/start.js",
   "scripts": {
     "test": "./node_modules/.bin/jest --coverage",
-    "dev": "nodemon ./src/server.js",
+    "dev": "nodemon ./src/start.js",
     "lint": "./node_modules/.bin/eslint --fix src"
   },
   "repository": {
@@ -25,7 +25,8 @@
     "git-commit-msg-linter": "^2.6.0",
     "husky": "^4.3.0",
     "jest": "^26.4.2",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "supertest": "^4.0.2"
   },
   "dependencies": {
     "cors": "^2.8.5",
