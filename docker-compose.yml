@@ -1,5 +1,8 @@
 version: '3.8'
 
+networks:
+    esaude-net:
+
 services:
 
     e-saude-backend:
@@ -12,3 +15,15 @@ services:
         volumes:
             - '.:/app'
             - '/app/node_modules'
+        networks:
+            - esaude-net
+
+    db:
+        image: postgres:12.4
+        restart: always
+        environment:
+            POSTGRES_PASSWORD: root
+            POSTGRES_USER: root
+            POSTGRES_DB: esaudeunb
+        networks:
+            - esaude-net
