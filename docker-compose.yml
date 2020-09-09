@@ -1,8 +1,5 @@
 version: '3.8'
 
-networks:
-    esaude-net:
-
 services:
 
     e-saude-backend:
@@ -15,8 +12,9 @@ services:
         volumes:
             - '.:/app'
             - '/app/node_modules'
-        networks:
-            - esaude-net
+        environment:
+            # DB_PATH: postgres://root:root@db:5432/esaude-db
+            NODE_ENV: development-container
 
     db:
         image: postgres:12.4
@@ -27,5 +25,3 @@ services:
             POSTGRES_DB: esaude-db
         ports:
             - 5432:5432
-        networks:
-            - esaude-net
