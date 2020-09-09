@@ -19,6 +19,7 @@ Baixe na sua máquina as seguintes dependências:
 
 * O BackEnd será executado na porta 8000, usando o docker-compose
 
+* O Banco de Dados Postgres será executado na porta 5432, usando o docker-compose
 
 ## Comandos importantes a serem executados
 
