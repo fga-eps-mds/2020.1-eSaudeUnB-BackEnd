@@ -1,15 +1,19 @@
 const models = require('../models');
 const UserPatient = models.Patient;
+const uuid = require('uuid');
 
 module.exports = {
     
     async store(req, res) {
-    //Não funcionava se não tivesse await UserPatient.sync({force: true});
-    //No entanto com essa função a tabela sempre resetava, não podendo salvar mais de 1 User
-    //Depois de executar uma vez e retirar a função, funciona normalmente, mas talvez dê problema no futuro
-        const user = await UserPatient.create(req.body);
+    //caso haja alguma alteração na tabela, deverá ser usado sync({alter: true});
+    
+    
+    await UserPatient.sync();
+    req.body._id = uuid.v4();
+    const user = await UserPatient.create(req.body);
+    await user.save();
 
-        return res.json(user);
+    return res.json(user);
     },
 
     async show(req, res) {
