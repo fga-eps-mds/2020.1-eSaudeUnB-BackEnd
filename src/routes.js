@@ -4,10 +4,10 @@ const PatientController = require('./controllers/PatientController');
 const routes = express.Router();
 
 routes.get('/users', PatientController.index);
-routes.get('/users/:id', PatientController.show);
+routes.get('/users/:_id', PatientController.show);
 routes.post('/users', PatientController.store);
-routes.delete('/users/:id', PatientController.destroy);
-routes.put('/users/:id', PatientController.update);
+routes.delete('/users/:_id', PatientController.destroy);
+routes.put('/users/:_id', PatientController.update);
 
 
 module.exports = routes;

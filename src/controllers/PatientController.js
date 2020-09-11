@@ -19,7 +19,7 @@ module.exports = {
     async show(req, res) {
         const user = await UserPatient.findAll({
             where: {
-                id: req.params.id
+                _id: req.params._id
             }
         });
 
@@ -35,7 +35,7 @@ module.exports = {
     async destroy(req, res){
         await UserPatient.destroy({
             where:{
-                id: req.params.id,
+                _id: req.params._id,
             }
         });
 
@@ -54,7 +54,7 @@ module.exports = {
             link: req.body.link,
         }, {
             where:{
-                id: req.params.id
+                _id: req.params._id
             }
         });
 
