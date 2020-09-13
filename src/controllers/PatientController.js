@@ -8,28 +8,41 @@ module.exports = {
     //caso haja alguma alteração na tabela, deverá ser usado sync({alter: true});
     
     
-    await UserPatient.sync();
+    try {await UserPatient.sync({});
     req.body._id = uuid.v4();
     const user = await UserPatient.create(req.body);
     await user.save();
 
     return res.json(user);
-    },
+    }
+    catch(err){
+        return res.status(401).json({error: err.message});
+    }
+
+
+},
 
     async show(req, res) {
-        const user = await UserPatient.findAll({
-            where: {
-                _id: req.params._id
-            }
-        });
+        try {
+            const user = await UserPatient.findAll({
+                where: {
+                    _id: req.params._id
+                }
+            });
 
-        return res.json(user);
+            return res.json(user);
+        } catch(err) {
+            return res.status(500).json({error: err.message});
+        }
     },
 
     async index(req, res) {
-        const user = await UserPatient.findAll();
-
-        return res.json(user);
+        try {
+            const users = await UserPatient.findAll();
+            return res.json(users);
+        } catch(err) {
+            return res.status(204).json({message: "nenhum usuario encontrado"});
+        }
     },
 
     async destroy(req, res){
@@ -39,10 +52,11 @@ module.exports = {
             }
         });
 
-        return res.json({message: "User Deleted"});
+        return res.json();
     },
 
     async update(req, res){
+              
         await UserPatient.update({
             name: req.body.name,
             surname: req.body.surname,
@@ -58,7 +72,14 @@ module.exports = {
             }
         });
 
-        return res.json({message: "Updated Successfully"});
+
+        const user = await UserPatient.findAll({
+            where: {
+                _id: req.params._id
+            }
+        });
+        
+        return res.json(user);
     }
 
 };
