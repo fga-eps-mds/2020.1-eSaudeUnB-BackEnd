@@ -1,43 +1,39 @@
-module.exports = (sequelize, DataTypes) => {
-    
-    return sequelize.define('Patient', {
-    _id: {
+module.exports = (sequelize, DataTypes) => sequelize.define('Patient', {
+    id: {
         type: DataTypes.STRING,
-        primaryKey: true
+        primaryKey: true,
     },
-    
-    name: { 
+
+    name: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
     },
     surname: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
     },
     email: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
     },
     phoneNumber: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
     },
     password: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
     },
     registration: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
     },
     gender: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
     },
     link: {
         type: DataTypes.STRING,
-        allowNull: false
-    }
+        allowNull: false,
+    },
 });
-
-}
