@@ -12,3 +12,16 @@ services:
         volumes:
             - '.:/app'
             - '/app/node_modules'
+        environment:
+            # DB_PATH: postgres://root:root@db:5432/esaude-db
+            NODE_ENV: development-container
+
+    db:
+        image: postgres:12.4
+        restart: always
+        environment:
+            POSTGRES_PASSWORD: root
+            POSTGRES_USER: root
+            POSTGRES_DB: esaude-db
+        ports:
+            - 5432:5432
