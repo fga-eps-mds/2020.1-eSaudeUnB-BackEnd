@@ -9,13 +9,24 @@ module.exports = {
         try {
             await UserPatient.sync({ alter: true });
             req.body.id = uuid.v4();
-            //adicionar status nas responses
-            
-            const user = {id, name, lastName, email, phone, password, unbRegistration, bond} = req.body;
+            // adicionar status nas responses
 
-            await UserPatient.create(user);
+            const {
+                id, name, lastName, email, phone, password, unbRegistration, bond,
+            } = req.body;
 
-            return res.status(201).json(user);
+            await UserPatient.create({
+                id,
+                name,
+                lastName,
+                email,
+                phone,
+                password,
+                unbRegistration,
+                bond,
+            });
+
+            return res.status(201).json(req.body);
         } catch (err) {
             return res.status(401).json({ error: err.message });
         }
@@ -56,7 +67,7 @@ module.exports = {
 
     async update(req, res) {
         const {
-            name, surname, email, phoneNumber, password, registration, gender, link,
+            name, lastName, email, phone, password, unbRegistration, gender, bond,
         } = req.body;
 
         await UserPatient.update({
@@ -82,6 +93,5 @@ module.exports = {
 
         return res.status(200).json(user);
     },
-
 
 };
