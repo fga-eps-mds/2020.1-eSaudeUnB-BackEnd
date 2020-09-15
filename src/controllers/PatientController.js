@@ -9,10 +9,13 @@ module.exports = {
         try {
             await UserPatient.sync({ alter: true });
             req.body.id = uuid.v4();
-            const user = await UserPatient.create(req.body);
-            await user.save();
+            //adicionar status nas responses
+            
+            const user = {id, name, lastName, email, phone, password, unbRegistration, bond} = req.body;
 
-            return res.json(user);
+            await UserPatient.create(user);
+
+            return res.status(201).json(user);
         } catch (err) {
             return res.status(401).json({ error: err.message });
         }
@@ -26,7 +29,7 @@ module.exports = {
                 },
             });
 
-            return res.json(user);
+            return res.status(200).json(user);
         } catch (err) {
             return res.status(500).json({ error: err.message });
         }
@@ -35,7 +38,7 @@ module.exports = {
     async index(req, res) {
         try {
             const users = await UserPatient.findAll();
-            return res.json(users);
+            return res.status(200).json(users);
         } catch (err) {
             return res.status(204).json({ message: 'nenhum usuario encontrado' });
         }
@@ -48,7 +51,7 @@ module.exports = {
             },
         });
 
-        return res.json();
+        return res.status(200);
     },
 
     async update(req, res) {
@@ -58,13 +61,13 @@ module.exports = {
 
         await UserPatient.update({
             name,
-            surname,
+            lastName,
             email,
-            phoneNumber,
+            phone,
             password,
-            registration,
+            unbRegistration,
             gender,
-            link,
+            bond,
         }, {
             where: {
                 id: req.params.id,
@@ -77,7 +80,8 @@ module.exports = {
             },
         });
 
-        return res.json(user);
+        return res.status(200).json(user);
     },
+
 
 };

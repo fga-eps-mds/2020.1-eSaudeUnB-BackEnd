@@ -3,12 +3,11 @@ module.exports = (sequelize, DataTypes) => sequelize.define('Patient', {
         type: DataTypes.STRING,
         primaryKey: true,
     },
-
     name: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    surname: {
+    lastName: {
         type: DataTypes.STRING,
         allowNull: false,
     },
@@ -16,7 +15,7 @@ module.exports = (sequelize, DataTypes) => sequelize.define('Patient', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    phoneNumber: {
+    phone: {
         type: DataTypes.STRING,
         allowNull: false,
     },
@@ -24,15 +23,11 @@ module.exports = (sequelize, DataTypes) => sequelize.define('Patient', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    registration: {
+    unbRegistration: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    gender: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    link: {
+    bond: {
         type: DataTypes.STRING,
         allowNull: false,
     },
