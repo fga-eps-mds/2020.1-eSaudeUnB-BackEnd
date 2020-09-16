@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => sequelize.define('Patient', {
 
     gender: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
     },
 
     unbRegistration: {

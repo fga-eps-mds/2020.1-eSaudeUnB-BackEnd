@@ -12,11 +12,11 @@ module.exports = {
                 },
             });
 
-            if(user != null){
-                if (user.password  === req.body.password) {
+            if (user != null) {
+                if (user.password === req.body.password) {
                     return res.status(201).json(user);
                 }
-                else if (user.password !== req.body.password) {
+                if (user.password !== req.body.password) {
                     return res.status(400).json('Senha Incorreta');
                 }
             }
