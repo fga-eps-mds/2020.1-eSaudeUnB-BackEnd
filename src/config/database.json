@@ -3,13 +3,6 @@
     "username": "root",
     "password": "root",
     "database": "esaude-db",
-    "host": "localhost",
-    "dialect": "postgres"
-  },
-  "development-container": {
-    "username": "root",
-    "password": "root",
-    "database": "esaude-db",
     "host": "db",
     "dialect": "postgres"
   },

@@ -6,7 +6,7 @@ const UserPatient = models.Patient;
 
 const request = supertest(app);
 
-const user1 = JSON.parse({
+const user1 = {
     name: 'Vinicius',
     lastName: 'Lima',
     email: 'viniciusfa.delima@gmail.com',
@@ -15,9 +15,9 @@ const user1 = JSON.parse({
     unbunbRegistration: '180000000',
     gender: 'M',
     bond: 'graduando',
-});
+};
 
-const user2 = JSON.parse({
+const user2 = {
     name: 'Rafael',
     lastName: 'Leão',
     email: 'rafaelltm10@hotmail.com',
@@ -26,7 +26,7 @@ const user2 = JSON.parse({
     unbRegistration: '180000001',
     gender: 'M',
     bond: 'graduando',
-});
+};
 
 describe('Patient', () => {
     beforeEach(() => UserPatient.sync({ force: true }));
