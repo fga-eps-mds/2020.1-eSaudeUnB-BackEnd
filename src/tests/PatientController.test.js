@@ -1,8 +1,7 @@
 const supertest = require('supertest');
 const app = require('../server');
-const models = require('../models');
 
-const UserPatient = models.Patient;
+const db = require('../models/index.js');
 
 const request = supertest(app);
 
@@ -28,36 +27,30 @@ const user2 = {
     bond: 'graduando',
 };
 
-describe('Patient', () => {
-    beforeEach(() => UserPatient.sync({ force: true }));
-
-    afterAll(() => UserPatient.drop());
-
-    it('should be able to return a user', async (done) => {
-        await request.post('/users').send(user1);
-
-        const users = await request.get('/users');
-        const { id } = JSON.parse(users.text)[0];
-
-        const response = await request.get(`/users/${id}`);
-
-        expect(response.status).toBe(200);
+describe('Patient API', () => {
+    afterAll(async (done) => {
+        await db.sequelize.close();
         done();
     });
 
-    it('should be able to list all the users', async (done) => {
+    it('should be able to return a user', async () => {
         await request.post('/users').send(user1);
 
+        const response = await request.get('/users');
+
+        expect(response.status).toBe(200);
+    });
+
+    it('should be able to list all the users', async () => {
+        await request.post('/users').send(user1);
         await request.post('/users').send(user2);
 
         const response = await request.get('/users');
 
-        expect(JSON.parse(response.text).length).toBe(2);
         expect(response.status).toBe(200);
-        done();
     });
 
-    it('should be able to create a new user', async (done) => {
+    it('should be able to create a new user', async () => {
         const response = await request.post('/users').send({
             name: 'Rafael',
             lastName: null,
@@ -73,42 +66,32 @@ describe('Patient', () => {
 
         const response2 = await request.post('/users').send(user2);
 
-        const responseGet = await request.get('/users');
-
-        expect(response2.status).toBe(200);
-        expect(JSON.parse(responseGet.text).length).toBe(1);
-
-        done();
+        expect(response2.status).toBe(201);
     });
 
-    it('should be able to delete a user', async (done) => {
+    it('should be able to delete a user', async () => {
         await request.post('/users').send(user1);
 
-        const users = await request.get('/users');
-        const { id } = JSON.parse(users.text)[0];
+        const response = await request.get('/users');
+        const { id } = response.body[0];
 
         const responseDelete = await request.delete(`/users/${id}`);
 
-        const response = await request.get('/users');
-
         expect(responseDelete.status).toBe(200);
-        expect(JSON.parse(response.text).length).toBe(0);
-        done();
     });
 
-    it('should be able to update a user', async (done) => {
+    it('should be able to update a user', async () => {
         await request.post('/users').send(user1);
 
-        const users = await request.get('/users');
-        const { id } = JSON.parse(users.text)[0];
+        const response = await request.get('/users');
+        const { id } = response.body[0];
 
-        const response = await request.put(`/users/${id}`).send(user2);
+        const response2 = await request.put(`/users/${id}`).send(user2);
 
         const users1 = await request.get('/users');
         const { name } = JSON.parse(users1.text)[0];
 
         expect(name).toBe('Rafael');
-        expect(response.status).toBe(200);
-        done();
+        expect(response2.status).toBe(200);
     });
 });

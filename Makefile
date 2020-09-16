@@ -45,6 +45,9 @@ down-remove-images:
 migrate:
 	docker-compose run --rm e-saude-backend npx sequelize db:migrate
 
+createtest:
+	docker-compose run --rm e-saude-backend npm run db:create:test
+
 test:
 	docker-compose run --rm e-saude-backend npm run test
 

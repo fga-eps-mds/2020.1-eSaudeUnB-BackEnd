@@ -9,7 +9,7 @@
   "test": {
     "username": "root",
     "password": "root",
-    "database": "esaude-db",
+    "database": "esaude-db-test",
     "host": "db",
     "dialect": "postgres"
   },

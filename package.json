@@ -4,9 +4,12 @@
   "description": "",
   "main": "src/start.js",
   "scripts": {
-    "test": "./node_modules/.bin/jest --coverage",
+    "test": "cross-env NODE_ENV=test jest --detectOpenHandles --testTimeout=10000",
+    "pretest": "cross-env NODE_ENV=test npm run db:reset",
+    "db:create:test": "cross-env NODE_ENV=test npx sequelize-cli db:create",
     "dev": "nodemon ./src/start.js",
-    "lint": "./node_modules/.bin/eslint --fix src"
+    "lint": "eslint --fix .",
+    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
   },
   "repository": {
     "type": "git",
@@ -19,6 +22,7 @@
   },
   "homepage": "https://github.com/fga-eps-mds/2020.1-eSaudeUnB-BackEnd#readme",
   "devDependencies": {
+    "cross-env": "^7.0.2",
     "eslint": "^7.8.1",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
@@ -37,6 +41,12 @@
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.3.5",
     "uuid": "^8.3.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   },
   "husky": {
     "hooks": {
