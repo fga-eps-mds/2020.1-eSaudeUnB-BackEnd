@@ -7,12 +7,11 @@ module.exports = {
 
     async store(req, res) {
         try {
-            await UserPatient.sync({ alter: true });
-            req.body.id = uuid.v4();
-            // adicionar status nas responses
+            await UserPatient.sync();
+            const id = uuid.v4();
 
             const {
-                id, name, lastName, email, phone, password, unbRegistration, bond,
+                name, lastName, email, phone, password, gender, unbRegistration, bond,
             } = req.body;
 
             await UserPatient.create({
@@ -22,6 +21,7 @@ module.exports = {
                 email,
                 phone,
                 password,
+                gender,
                 unbRegistration,
                 bond,
             });
@@ -62,7 +62,7 @@ module.exports = {
             },
         });
 
-        return res.status(200);
+        return res.status(200).json();
     },
 
     async update(req, res) {
@@ -76,8 +76,8 @@ module.exports = {
             email,
             phone,
             password,
-            unbRegistration,
             gender,
+            unbRegistration,
             bond,
         }, {
             where: {

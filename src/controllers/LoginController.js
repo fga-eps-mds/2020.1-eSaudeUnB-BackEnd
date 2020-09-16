@@ -12,11 +12,13 @@ module.exports = {
                 },
             });
 
-            if (user.password === req.body.password) {
-                return res.status(201).json(user);
-            }
-            if (user.password !== req.body.password) {
-                return res.status(400).json('Senha Incorreta');
+            if(user != null){
+                if (user.password  === req.body.password) {
+                    return res.status(201).json(user);
+                }
+                else if (user.password !== req.body.password) {
+                    return res.status(400).json('Senha Incorreta');
+                }
             }
 
             return res.status(404).json('Usuário não encontrado');
