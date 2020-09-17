@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/start.js",
   "scripts": {
-    "test": "jest --detectOpenHandles --testTimeout=10000",
+    "test": "jest --detectOpenHandles --testTimeout=10000 --coverage",
     "dev": "nodemon ./src/start.js",
     "lint": "eslint --fix ."
   },
