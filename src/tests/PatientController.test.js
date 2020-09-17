@@ -1,95 +1,98 @@
-// const supertest = require('supertest');
-// const app = require('../server');
+const mongoose = require('mongoose');
+const supertest = require('supertest');
 
-// const request = supertest(app);
+const app = require('../server');
 
-// const user1 = {
-//     name: 'Vinicius',
-//     lastName: 'Lima',
-//     email: 'viniciusfa.delima@gmail.com',
-//     phone: '061999999999',
-//     password: 'password',
-//     unbunbRegistration: '180000000',
-//     gender: 'M',
-//     bond: 'graduando',
-// };
+const request = supertest(app);
 
-// const user2 = {
-//     name: 'Rafael',
-//     lastName: 'Leão',
-//     email: 'rafaelltm10@hotmail.com',
-//     phone: '061988888888',
-//     password: 'password',
-//     unbRegistration: '180000001',
-//     gender: 'M',
-//     bond: 'graduando',
-// };
+const user1 = {
+    name: 'Vinicius',
+    lastName: 'Lima',
+    email: 'viniciusfa.delima@gmail.com',
+    phone: '061999999999',
+    password: 'password',
+    unbunbRegistration: '180000000',
+    gender: 'M',
+    bond: 'graduando',
+};
 
-// describe('Patient API', () => {
-//     afterAll(async (done) => {
-//         await db.sequelize.close();
-//         done();
-//     });
+const user2 = {
+    name: 'Rafael',
+    lastName: 'Leão',
+    email: 'rafaelltm10@hotmail.com',
+    phone: '061988888888',
+    password: 'password',
+    unbRegistration: '180000001',
+    gender: 'M',
+    bond: 'graduando',
+};
 
-//     it('should be able to return a user', async () => {
-//         await request.post('/users').send(user1);
+describe('Patient API', () => {
+    beforeAll(async () => {
+        mongoose.connect(process.env.MONGO_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useCreateIndex: true,
+            useFindAndModify: false,
+        });
+    });
 
-//         const response = await request.get('/users');
+    afterAll(async (done) => {
+        await mongoose.connection.close();
+        done();
+    });
 
-//         expect(response.status).toBe(200);
-//     });
+    it('should be able to return a user', async () => {
+        await request.post('/users').send(user1);
 
-//     it('should be able to list all the users', async () => {
-//         await request.post('/users').send(user1);
-//         await request.post('/users').send(user2);
+        const response = await request.get('/users');
 
-//         const response = await request.get('/users');
+        expect(response.status).toBe(200);
+    });
 
-//         expect(response.status).toBe(200);
-//     });
+    it('should be able to list all the users', async () => {
+        await request.post('/users').send(user1);
+        await request.post('/users').send(user2);
 
-//     it('should be able to create a new user', async () => {
-//         const response = await request.post('/users').send({
-//             name: 'Rafael',
-//             lastName: null,
-//             email: 'rafaelltm10@hotmail.com',
-//             phone: '061988888888',
-//             password: 'password',
-//             unbRegistration: '180000001',
-//             gender: 'M',
-//             bond: 'graduando',
-//         });
+        const response = await request.get('/users');
 
-//         expect(response.status).toBe(401);
+        expect(response.status).toBe(200);
+    });
 
-//         const response2 = await request.post('/users').send(user2);
+    it('should be able to create a new user', async () => {
+        const response = await request.post('/users').send({
+            name: 'Rafael',
+            lastName: null,
+            email: 'teste@hotmail.com',
+            phone: '061988888888',
+            password: 'password',
+            unbRegistration: '180000001',
+            gender: 'M',
+            bond: 'graduando',
+        });
 
-//         expect(response2.status).toBe(201);
-//     });
+        expect(response.status).toBe(400);
+    });
 
-//     it('should be able to delete a user', async () => {
-//         await request.post('/users').send(user1);
+    it('should be able to delete a user', async () => {
+        await request.post('/users').send(user1);
 
-//         const response = await request.get('/users');
-//         const { id } = response.body[0];
+        const responseDelete = await request.delete('/user').send({
+            email: 'teste@hotmail.com',
+        });
 
-//         const responseDelete = await request.delete(`/users/${id}`);
+        expect(responseDelete.status).toBe(200);
+    });
 
-//         expect(responseDelete.status).toBe(200);
-//     });
+    it('should be able to update a user', async () => {
+        await request.post('/users').send(user1);
 
-//     it('should be able to update a user', async () => {
-//         await request.post('/users').send(user1);
+        const response2 = await request.put('/user/').send(user2);
 
-//         const response = await request.get('/users');
-//         const { id } = response.body[0];
+        const res = await request.get('/user').send({ email: user2.email });
+        const { name } = res.body;
 
-//         const response2 = await request.put(`/users/${id}`).send(user2);
-
-//         const users1 = await request.get('/users');
-//         const { name } = JSON.parse(users1.text)[0];
-
-//         expect(name).toBe('Rafael');
-//         expect(response2.status).toBe(200);
-//     });
-// });
+        expect(name).toBe('Rafael');
+        expect(response2.status).toBe(200);
+    });
+});

@@ -4,12 +4,9 @@
   "description": "",
   "main": "src/start.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test jest --detectOpenHandles --testTimeout=10000",
-    "pretest": "cross-env NODE_ENV=test npm run db:reset",
-    "db:create:test": "cross-env NODE_ENV=test npx sequelize-cli db:create",
+    "test": "jest --detectOpenHandles --testTimeout=10000",
     "dev": "nodemon ./src/start.js",
-    "lint": "eslint --fix .",
-    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
+    "lint": "eslint --fix ."
   },
   "repository": {
     "type": "git",
@@ -33,6 +30,7 @@
     "supertest": "^4.0.2"
   },
   "dependencies": {
+    "@shelf/jest-mongodb": "^1.2.3",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongoose": "^5.10.5",
