@@ -1,40 +1,39 @@
-module.exports = (sequelize, DataTypes) => sequelize.define('Patient', {
-    id: {
-        type: DataTypes.STRING,
-        primaryKey: true,
-    },
+const mongoose = require('mongoose');
+
+const UserPatientSchema = new mongoose.Schema({
     name: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: String,
+        required: true,
     },
     lastName: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: String,
+        required: true,
     },
     email: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: String,
+        unique: true,
+        required: true,
     },
     phone: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: String,
+        required: true,
     },
     password: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: String,
+        required: true,
     },
-
     gender: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: String,
+        required: true,
     },
-
     unbRegistration: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: String,
+        default: false,
     },
     bond: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: String,
+        required: true,
     },
-});
+}, { collection: 'users' });
+
+module.exports = mongoose.model('UserPatient', UserPatientSchema);
