@@ -5,10 +5,11 @@ const PatientController = require('./controllers/PatientController');
 const routes = express.Router();
 
 routes.get('/users', PatientController.index);
-routes.get('/user', PatientController.show);
+routes.get('/users/:id', PatientController.show);
 routes.post('/users', PatientController.store);
-routes.delete('/user', PatientController.destroy);
-routes.put('/user', PatientController.update);
+routes.delete('/users/:id', PatientController.destroy);
+routes.put('/users/:id', PatientController.update);
+routes.put('/user/:email', PatientController.updatePassword);
 routes.post('/login', LoginController.show);
 
 module.exports = routes;
