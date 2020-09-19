@@ -21,8 +21,16 @@ module.exports = (sequelize, DataTypes) => sequelize.define('Psychologist', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    bibliography : {
+    gender: {
         type: DataTypes.STRING,
+        allowNull: false
+    },
+    bond: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    bibliography : {
+        type: DataTypes.TEXT,
     },
     specialization:{
         type: DataTypes.STRING,

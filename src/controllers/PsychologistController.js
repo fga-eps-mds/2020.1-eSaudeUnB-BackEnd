@@ -1,6 +1,6 @@
 const uuid = require('uuid');
 const models = require('../models');
-const { destroy } = require('./PatientController');
+const generatePassword = require('password-generator');
 
 const Psychologist = models.Psychologist;
 
@@ -8,15 +8,19 @@ module.exports = {
     async store(req, res){
         await Psychologist.sync();
         const id = uuid.v4();
-        
-        const {name, lastName, password, email} = req.body;
+        const password = generatePassword(8, false);
+        const {name, lastName, email, specialization, bibliography, gender, bond} = req.body;
 
         await Psychologist.create({
             id,
             name,
             lastName,
             email,
-            password
+            gender,
+            bond,
+            password,
+            specialization,
+            bibliography
         });
 
         return res.status(201).json(req.body);
