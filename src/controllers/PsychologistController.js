@@ -44,7 +44,9 @@ module.exports = {
 
     async destroy(req, res) {
         try {
-            await Psychologist.deleteOne({ id: req.body.id });
+            const { email } = req.params;
+
+            await Psychologist.deleteOne({ email });
 
             return res.status(200).json();
         } catch (err) {
