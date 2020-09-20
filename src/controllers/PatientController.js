@@ -1,7 +1,5 @@
 const uuid = require('uuid');
-const models = require('../models');
-
-const UserPatient = models.Patient;
+const UserPatient = require('../models/UserPatient');
 
 module.exports = {
 
@@ -60,33 +58,49 @@ module.exports = {
     },
 
     async update(req, res) {
+        try{
         const {
             name, lastName, email, phone, unbRegistration, gender, bond, civilStatus, religion
         } = req.body;
-
-        await UserPatient.update({
-            name,
-            lastName,
-            email,
-            phone,
-            gender,
-            unbRegistration,
-            bond,
-            civilStatus,
-            religion
-        }, {
-            where: {
-                id: req.params.id,
-            },
-        });
+        console.log("requisição do login:"+req.params.email)
 
         const user = await UserPatient.findOne({
-            where: {
-                id: req.params.id,
-            },
-        });
+           email: req.params.email
+        }).exec();
+        console.log(user)
 
+        if(name){
+           user.name = name; 
+        }
+        if(lastName){
+            user.lastName = lastName; 
+         }
+         if(email){
+            user.email = email; 
+         }
+         if(phone){
+            user.phone = phone; 
+         }
+         if(unbRegistration){
+            user.unbRegistration = unbRegistration; 
+         }
+         if(gender){
+            user.gender = gender; 
+         }
+         if(bond){
+            user.bond = bond; 
+         }
+         if(civilStatus){
+            user.civilStatus = civilStatus; 
+         }
+         if(religion){
+            user.religion = religion; 
+         }
+         await user.save();
         return res.status(200).json(user);
+        }catch(err){
+            return res.status(500).json({message: "falha ao dar o update"})
+        }
     },
 
     async updatePassword(req,res) {
