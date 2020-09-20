@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => sequelize.define('Admin', {
     id: {
         type: DataTypes.STRING,
-        primaryKey: true
+        primaryKey: true,
     },
     name: {
         type: DataTypes.STRING,
@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => sequelize.define('Admin', {
     },
     email: {
         type: DataTypes.STRING,
-        allowNull: false
-    }
+        allowNull: false,
+    },
 
 });

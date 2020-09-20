@@ -1,15 +1,17 @@
 const uuid = require('uuid');
-const models = require('../models');
 const generatePassword = require('password-generator');
+const models = require('../models');
 
-const Psychologist = models.Psychologist;
+const { Psychologist } = models;
 
 module.exports = {
-    async store(req, res){
+    async store(req, res) {
         await Psychologist.sync();
         const id = uuid.v4();
         const password = generatePassword(8, false);
-        const {name, lastName, email, specialization, bibliography, gender, bond} = req.body;
+        const {
+            name, lastName, email, specialization, bibliography, gender, bond,
+        } = req.body;
 
         await Psychologist.create({
             id,
@@ -20,20 +22,19 @@ module.exports = {
             bond,
             password,
             specialization,
-            bibliography
+            bibliography,
         });
 
         return res.status(201).json(req.body);
-        
     },
 
-    async index(req, res){
+    async index(req, res) {
         const users = await Psychologist.findAll();
-        
+
         return res.status(200).json(users);
     },
 
-    async destroy(req, res){
+    async destroy(req, res) {
         await Psychologist.destroy({
             where: {
                 id: req.params.id,
@@ -42,4 +43,4 @@ module.exports = {
 
         return res.status(200).json();
     },
-}
+};

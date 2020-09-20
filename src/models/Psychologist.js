@@ -1,9 +1,7 @@
-const sequelize = require("sequelize");
-
 module.exports = (sequelize, DataTypes) => sequelize.define('Psychologist', {
     id: {
         type: DataTypes.STRING,
-        primaryKey: true
+        primaryKey: true,
     },
     name: {
         type: DataTypes.STRING,
@@ -11,7 +9,7 @@ module.exports = (sequelize, DataTypes) => sequelize.define('Psychologist', {
     },
     lastName: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
     },
     password: {
         type: DataTypes.STRING,
@@ -19,21 +17,21 @@ module.exports = (sequelize, DataTypes) => sequelize.define('Psychologist', {
     },
     email: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
     },
     gender: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
     },
     bond: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
     },
-    bibliography : {
+    bibliography: {
         type: DataTypes.TEXT,
     },
-    specialization:{
+    specialization: {
         type: DataTypes.STRING,
     },
-    
+
 });

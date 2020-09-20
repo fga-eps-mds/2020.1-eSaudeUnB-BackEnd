@@ -1,6 +1,6 @@
 const models = require('../models');
 
-const Admin = models.Admin;
+const { Admin } = models;
 
 module.exports = {
 
