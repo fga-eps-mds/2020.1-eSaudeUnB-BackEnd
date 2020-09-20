@@ -1,37 +1,38 @@
-module.exports = (sequelize, DataTypes) => sequelize.define('Psychologist', {
-    id: {
-        type: DataTypes.STRING,
-        primaryKey: true,
-    },
+const mongoose = require('mongoose');
+
+const PsychologistSchema = new mongoose.Schema({
     name: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: String,
+        required: true,
     },
     lastName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    password: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: String,
+        required: true,
     },
     email: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: String,
+        unique: true,
+        required: true,
+    },
+    password: {
+        type: String,
+        required: true,
     },
     gender: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: String,
+        required: true,
     },
     bond: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: String,
+        required: true,
     },
     bibliography: {
-        type: DataTypes.TEXT,
+        type: String,
     },
     specialization: {
-        type: DataTypes.STRING,
+        type: String,
     },
 
 });
+
+module.exports = mongoose.model('Psychologist', PsychologistSchema);

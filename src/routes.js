@@ -8,10 +8,10 @@ const PsychologistController = require('./controllers/PsychologistController');
 const routes = express.Router();
 
 routes.get('/users', PatientController.index);
-routes.get('/users/:id', PatientController.show);
+routes.get('/user', PatientController.show);
 routes.post('/users', PatientController.store);
-routes.delete('/users/:id', PatientController.destroy);
-routes.put('/users/:id', PatientController.update);
+routes.delete('/user', PatientController.destroy);
+routes.put('/user', PatientController.update);
 routes.post('/login', LoginController.show);
 routes.post('/admin', AdminController.store);
 routes.post('/admin/login', AdminLoginController.show);

@@ -1,19 +1,19 @@
-module.exports = (sequelize, DataTypes) => sequelize.define('Admin', {
-    id: {
-        type: DataTypes.STRING,
-        primaryKey: true,
-    },
+const mongoose = require('mongoose');
+
+const AdminSchema = new mongoose.Schema({
     name: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: String,
+        required: true,
     },
     password: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: String,
+        required: true,
     },
     email: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: String,
+        required: true,
     },
 
 });
+
+module.exports = mongoose.model('Admin', AdminSchema);

@@ -1,22 +1,25 @@
-const uuid = require('uuid');
-const models = require('../models');
-
-const { Admin } = models;
+const Admin = require('../models/Admin');
 
 module.exports = {
     async store(req, res) {
-        await Admin.sync();
-        const id = uuid.v4();
+        try {
+            const { name, email, password } = req.body;
 
-        const { name, email, password } = req.body;
+            const user = await Admin.findOne({ email });
 
-        await Admin.create({
-            id,
-            name,
-            email,
-            password,
-        });
+            if (user) {
+                return res.status(200).json('Usuário já cadastrado');
+            }
 
-        return res.status(201).json(req.body);
+            const adminUser = await Admin.create({
+                name,
+                email,
+                password,
+            });
+
+            return res.status(201).json(adminUser);
+        } catch (err) {
+            return res.status(400).json({ message: err.message });
+        }
     },
 };

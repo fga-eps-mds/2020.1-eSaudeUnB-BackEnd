@@ -1,46 +1,54 @@
-const uuid = require('uuid');
 const generatePassword = require('password-generator');
-const models = require('../models');
-
-const { Psychologist } = models;
+const Psychologist = require('../models/Psychologist');
 
 module.exports = {
     async store(req, res) {
-        await Psychologist.sync();
-        const id = uuid.v4();
-        const password = generatePassword(8, false);
-        const {
-            name, lastName, email, specialization, bibliography, gender, bond,
-        } = req.body;
+        try {
+            const password = generatePassword(8, false);
+            const {
+                name, lastName, email, specialization, bibliography, gender, bond,
+            } = req.body;
 
-        await Psychologist.create({
-            id,
-            name,
-            lastName,
-            email,
-            gender,
-            bond,
-            password,
-            specialization,
-            bibliography,
-        });
+            const psyUser = await Psychologist.findOne({ email });
 
-        return res.status(201).json(req.body);
+            if (psyUser) {
+                return res.status(200).json(psyUser);
+            }
+
+            const psychologist = await Psychologist.create({
+                name,
+                lastName,
+                email,
+                gender,
+                bond,
+                password,
+                specialization,
+                bibliography,
+            });
+
+            return res.status(201).json(psychologist);
+        } catch (err) {
+            return res.status(400).json({ message: err.message });
+        }
     },
 
     async index(req, res) {
-        const users = await Psychologist.findAll();
+        try {
+            const users = await Psychologist.find();
 
-        return res.status(200).json(users);
+            return res.status(200).json(users);
+        } catch (err) {
+            return res.status(400).json({ message: err.message });
+        }
     },
 
     async destroy(req, res) {
-        await Psychologist.destroy({
-            where: {
-                id: req.params.id,
-            },
-        });
+        try {
+            await Psychologist.deleteOne({ id: req.body.id });
 
-        return res.status(200).json();
+            return res.status(200).json();
+        } catch (err) {
+            return res.status(400).json({ message: err.message });
+        }
     },
 };

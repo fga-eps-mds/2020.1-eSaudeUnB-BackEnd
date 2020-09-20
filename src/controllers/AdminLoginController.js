@@ -1,22 +1,18 @@
-const models = require('../models');
-
-const { Admin } = models;
+const Admin = require('../models/Admin');
 
 module.exports = {
 
     async show(req, res) {
         try {
-            const user = await Admin.findOne({
-                where: {
-                    email: req.body.email,
-                },
-            });
+            const { email, password } = req.body;
+
+            const user = await Admin.findOne({ email });
 
             if (user != null) {
-                if (user.password === req.body.password) {
+                if (user.password === password) {
                     return res.status(201).json(user);
                 }
-                if (user.password !== req.body.password) {
+                if (user.password !== password) {
                     return res.status(400).json('Senha Incorreta');
                 }
             }
