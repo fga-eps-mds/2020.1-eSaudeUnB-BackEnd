@@ -62,12 +62,10 @@ module.exports = {
         const {
             name, lastName, email, phone, unbRegistration, gender, bond, civilStatus, religion
         } = req.body;
-        console.log("requisição do login:"+req.params.email)
 
         const user = await UserPatient.findOne({
            email: req.params.email
         }).exec();
-        console.log(user)
 
         if(name){
            user.name = name; 
@@ -104,19 +102,22 @@ module.exports = {
     },
 
     async updatePassword(req,res) {
+        try{
         const{
             password
         } = req.body
 
-        await UserPatient.updateOne({email: req.params.email}, {$set: { password: password}})
-
         const user = await UserPatient.findOne({
-            where: {
-                email: req.params.email,
-            },
-        });
+            email: req.params.email
+         }).exec();
 
+        user.password = password
+
+        await user.save();
         return res.status(200).json(user);
+        }catch(err){
+            return res.status(500).json({message: "falha ao dar o update da senha"})
+        }
     }
 
 };
