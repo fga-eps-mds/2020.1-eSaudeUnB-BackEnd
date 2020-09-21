@@ -47,8 +47,8 @@ const UserPatientSchema = new mongoose.Schema({
         type: String,
         default: null,
         required: false,
-        
-    }
+
+    },
 }, { collection: 'patients' });
 
 module.exports = mongoose.model('UserPatient', UserPatientSchema);
