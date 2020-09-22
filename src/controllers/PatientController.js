@@ -5,54 +5,63 @@ module.exports = {
     async store(req, res) {
         try {
             const {
-                name, lastName, email, password,
+                name, lastName, email, phone, password, gender, unbRegistration, bond,
             } = req.body;
 
-            await UserPatient.create({
+            const user = await UserPatient.findOne({ email });
+
+            if (user) {
+                return res.status(200).json(user);
+            }
+
+            const patient = await UserPatient.create({
                 name,
                 lastName,
                 email,
+                phone,
                 password,
-
+                gender,
+                unbRegistration,
+                bond,
             });
 
-            return res.status(201).json(req.body);
+            return res.status(201).json(patient);
         } catch (err) {
-            return res.status(401).json({ error: err.message });
+            return res.status(400).json({ error: err.message });
         }
     },
 
     async show(req, res) {
         try {
-            const user = await UserPatient.findOne({
-                where: {
-                    id: req.params.id,
-                },
-            });
+            const { email } = req.body;
+            const user = await UserPatient.findOne({ email });
 
             return res.status(200).json(user);
         } catch (err) {
-            return res.status(500).json({ error: err.message });
+            return res.status(400).json({ error: err.message });
         }
     },
 
     async index(req, res) {
         try {
-            const users = await UserPatient.findAll();
+            const users = await UserPatient.find();
+
             return res.status(200).json(users);
         } catch (err) {
-            return res.status(204).json({ message: 'nenhum usuario encontrado' });
+            return res.status(400).json({ message: err.message });
         }
     },
 
     async destroy(req, res) {
-        await UserPatient.destroy({
-            where: {
-                id: req.params.id,
-            },
-        });
+        try {
+            const { email } = req.body;
 
-        return res.status(200).json();
+            await UserPatient.deleteOne({ email });
+
+            return res.status(200).json({ message: 'Usuário deletado com sucesso!' });
+        } catch (err) {
+            return res.status(400).json({ message: err.message });
+        }
     },
 
     async update(req, res) {

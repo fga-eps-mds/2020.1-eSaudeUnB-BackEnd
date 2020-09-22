@@ -7,9 +7,9 @@ const PsychologistController = require('./controllers/PsychologistController');
 const routes = express.Router();
 
 routes.get('/users', PatientController.index);
-routes.get('/users/:id', PatientController.show);
+routes.get('/user', PatientController.show);
 routes.post('/users', PatientController.store);
-routes.delete('/users/:id', PatientController.destroy);
+routes.delete('/user', PatientController.destroy);
 routes.put('/userUpdate/:email', PatientController.update);
 routes.put('/user/:email', PatientController.updatePassword);
 routes.post('/login', LoginController.show);
