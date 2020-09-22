@@ -53,6 +53,7 @@ const user4 = {
     religion: "Evangelico"
 };
 
+
 describe('Patient API', () => {
     beforeAll(async () => {
         mongoose.connect(process.env.MONGO_URL, {
@@ -121,7 +122,10 @@ describe('Patient API', () => {
     it('should be able to update a user password', async () => {
         await request.post('/users').send(user3);
 
-        const response = await request.put(`/user/${user3.email}`).send({password: "teste"});
+        const response = await request.put(`/user/${user3.email}`).send({ password: "teste" });
+
+
+        const response = await request.put(`/user/${user3.email}`).send(user4);
 
         expect(response.status).toBe(200);
     });

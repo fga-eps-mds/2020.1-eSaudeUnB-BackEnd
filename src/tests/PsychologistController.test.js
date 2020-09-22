@@ -9,8 +9,6 @@ const user1 = {
     name: 'Vinicius',
     lastName: 'Lima',
     email: 'viniciusfa.delima@gmail.com',
-    password: 'password',
-    unbunbRegistration: '180000000',
     gender: 'M',
     bond: 'graduando',
     specialization: '',
@@ -21,11 +19,10 @@ const user2 = {
     name: 'Rafael',
     lastName: 'Leão',
     email: 'rafaelltm10@hotmail.com',
-    phone: '061988888888',
-    password: 'password',
-    unbRegistration: '180000001',
     gender: 'M',
     bond: 'graduando',
+    specialization: '',
+    bibliography: '',
 };
 
 describe('Psychologist API', () => {
@@ -62,6 +59,22 @@ describe('Psychologist API', () => {
         await request.post('/admin/psy/create').send(user1);
 
         const responseDelete = await request.delete(`/admin/psy/${user1.email}`);
+
+        expect(responseDelete.status).toBe(200);
+    });
+
+    it('should be able to update a psychologist', async () => {
+        await request.post('/admin/psy/create').send(user1);
+
+        const responseDelete = await request.put(`/psyUpdate/${user1.email}`).send({ "email": "teste@hotmail.com" });
+
+        expect(responseDelete.status).toBe(200);
+    });
+
+    it('should be able to update a psychologist password', async () => {
+        await request.post('/admin/psy/create').send(user1);
+
+        const responseDelete = await request.put(`/psyUpdatePassword/${user1.email}`).send({ password: 123 });
 
         expect(responseDelete.status).toBe(200);
     });
