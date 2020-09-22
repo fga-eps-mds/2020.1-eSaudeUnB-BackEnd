@@ -71,7 +71,7 @@ describe('Patient API', () => {
     it('should be able to return a user', async () => {
         await request.post('/users').send(user1);
 
-        const response = await request.get('/users');
+        const response = await request.get(`/user/${user1.email}`);
 
         expect(response.status).toBe(200);
     });
