@@ -57,7 +57,7 @@ module.exports = {
     async update(req, res) {
         try {
             const {
-                name, lastName, email, gender, bond, specialization, bibliography
+                name, lastName, email, gender, bond, specialization, bibliography,
             } = req.body;
 
             const user = await Psychologist.findOne({

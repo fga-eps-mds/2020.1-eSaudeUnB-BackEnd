@@ -42,13 +42,13 @@ describe('Admin API', () => {
 
         expect(response.status).toBe(200);
 
-        const email2 = 'testemail@test.com'
-        const password2 = 'password'
+        const email2 = 'testemail@test.com';
+        const password2 = 'password';
 
-        const response2 = await request.post('/admin/login').send({email2, password2});
-        expect(response2.status).toBe(404)
+        const response2 = await request.post('/admin/login').send({ email2, password2 });
+        expect(response2.status).toBe(404);
 
-        const response3 = await request.post('/admin/login').send({email, password2});
+        const response3 = await request.post('/admin/login').send({ email, password2 });
         expect(response3.status).toBe(400);
     });
 });
