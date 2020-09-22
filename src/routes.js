@@ -6,22 +6,22 @@ const PsychologistController = require('./controllers/PsychologistController');
 
 const routes = express.Router();
 
-//Patient routes
+// Patient routes
 routes.get('/users', PatientController.index);
 routes.get('/user/:email', PatientController.show);
 routes.post('/users', PatientController.store);
 routes.delete('/user', PatientController.destroy);
 routes.put('/user/:email', PatientController.update);
 
-//Login routes
+// Login routes
 routes.post('/loginUser', LoginController.showUser);
 routes.post('/loginPsy', LoginController.showPsy);
 
-//Admin routes
+// Admin routes
 routes.post('/admin', AdminController.store);
 routes.post('/admin/login', AdminController.show);
 
-//Psy routes
+// Psy routes
 routes.post('/admin/psy/create', PsychologistController.store);
 routes.get('/admin/psy/list', PsychologistController.index);
 routes.delete('/admin/psy/:email', PsychologistController.destroy);

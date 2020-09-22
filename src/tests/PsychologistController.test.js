@@ -66,7 +66,7 @@ describe('Psychologist API', () => {
     it('should be able to update a psychologist', async () => {
         await request.post('/admin/psy/create').send(user1);
 
-        const responseDelete = await request.put(`/psyUpdate/${user1.email}`).send({ "email": "teste@hotmail.com" });
+        const responseDelete = await request.put(`/psyUpdate/${user1.email}`).send({ email: 'teste@hotmail.com' });
 
         expect(responseDelete.status).toBe(200);
     });

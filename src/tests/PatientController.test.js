@@ -36,8 +36,8 @@ const user3 = {
     unbRegistration: '1098739',
     gender: 'M',
     bond: 'graduando',
-    civilStatus: "Solteiro",
-    religion: "Catolico"
+    civilStatus: 'Solteiro',
+    religion: 'Catolico',
 };
 
 const user4 = {
@@ -49,10 +49,9 @@ const user4 = {
     unbRegistration: '1900267842',
     gender: 'M',
     bond: 'graduando',
-    civilStatus: "Casado",
-    religion: "Evangelico"
+    civilStatus: 'Casado',
+    religion: 'Evangelico',
 };
-
 
 describe('Patient API', () => {
     beforeAll(async () => {
