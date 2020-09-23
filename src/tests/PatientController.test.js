@@ -27,6 +27,32 @@ const user2 = {
     bond: 'graduando',
 };
 
+const user3 = {
+    name: 'Lucas',
+    lastName: 'Henrique',
+    email: 'lucasHenrique@hotmail.com',
+    phone: '0619856482',
+    password: 'teste',
+    unbRegistration: '1098739',
+    gender: 'M',
+    bond: 'graduando',
+    civilStatus: "Solteiro",
+    religion: "Catolico"
+};
+
+const user4 = {
+    name: 'Abner',
+    lastName: 'Filipe',
+    email: 'abner@hotmail.com',
+    phone: '06187832902',
+    password: 'abner',
+    unbRegistration: '1900267842',
+    gender: 'M',
+    bond: 'graduando',
+    civilStatus: "Casado",
+    religion: "Evangelico"
+};
+
 describe('Patient API', () => {
     beforeAll(async () => {
         mongoose.connect(process.env.MONGO_URL, {
@@ -85,14 +111,19 @@ describe('Patient API', () => {
     });
 
     it('should be able to update a user', async () => {
-        await request.post('/users').send(user1);
+        await request.post('/users').send(user3);
 
-        const response2 = await request.put('/user/').send(user2);
+        const response = await request.put(`/userUpdate/${user3.email}`).send(user4);
 
-        const res = await request.get('/user').send({ email: user2.email });
-        const { name } = res.body;
-
-        expect(name).toBe('Rafael');
-        expect(response2.status).toBe(200);
+        expect(response.status).toBe(200);
     });
+
+    it('should be able to update a user password', async () => {
+        await request.post('/users').send(user3);
+
+        const response = await request.put(`/user/${user3.email}`).send({password: "teste"});
+
+        expect(response.status).toBe(200);
+    });
+
 });

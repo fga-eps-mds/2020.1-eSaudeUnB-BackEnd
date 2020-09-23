@@ -16,7 +16,8 @@ const UserPatientSchema = new mongoose.Schema({
     },
     phone: {
         type: String,
-        required: true,
+        default: null,
+        required: false,
     },
     password: {
         type: String,
@@ -24,15 +25,29 @@ const UserPatientSchema = new mongoose.Schema({
     },
     gender: {
         type: String,
-        required: true,
+        default: null,
+        required: false,
     },
     unbRegistration: {
         type: String,
-        default: false,
+        default: null,
+        required: false,
     },
     bond: {
         type: String,
-        required: true,
+        default: null,
+        required: false,
+    },
+    civilStatus: {
+        type: String,
+        default: null,
+        required: false,
+    },
+    religion: {
+        type: String,
+        default: null,
+        required: false,
+
     },
 }, { collection: 'patients' });
 
