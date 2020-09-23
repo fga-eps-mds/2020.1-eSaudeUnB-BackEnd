@@ -123,9 +123,6 @@ describe('Patient API', () => {
 
         const response = await request.put(`/user/${user3.email}`).send({ password: "teste" });
 
-
-        const response = await request.put(`/user/${user3.email}`).send(user4);
-
         expect(response.status).toBe(200);
     });
 
