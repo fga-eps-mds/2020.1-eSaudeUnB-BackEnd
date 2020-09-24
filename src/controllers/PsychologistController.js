@@ -118,7 +118,7 @@ module.exports = {
             await user.save();
             return res.status(200).json(user);
         } catch (err) {
-            return res.status(500).json({ message: 'falha ao dar o update da senha' });
+            return res.status(500).json({ message: 'falha ao atualizar senha' });
         }
     },
 
