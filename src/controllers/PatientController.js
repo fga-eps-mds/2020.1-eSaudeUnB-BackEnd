@@ -33,7 +33,7 @@ module.exports = {
 
     async show(req, res) {
         try {
-            const { email } = req.body;
+            const { email } = req.params;
             const user = await UserPatient.findOne({ email });
 
             return res.status(200).json(user);

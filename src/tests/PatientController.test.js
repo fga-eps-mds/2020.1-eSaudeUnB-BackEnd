@@ -36,8 +36,8 @@ const user3 = {
     unbRegistration: '1098739',
     gender: 'M',
     bond: 'graduando',
-    civilStatus: "Solteiro",
-    religion: "Catolico"
+    civilStatus: 'Solteiro',
+    religion: 'Catolico',
 };
 
 const user4 = {
@@ -49,8 +49,8 @@ const user4 = {
     unbRegistration: '1900267842',
     gender: 'M',
     bond: 'graduando',
-    civilStatus: "Casado",
-    religion: "Evangelico"
+    civilStatus: 'Casado',
+    religion: 'Evangelico',
 };
 
 describe('Patient API', () => {
@@ -71,7 +71,7 @@ describe('Patient API', () => {
     it('should be able to return a user', async () => {
         await request.post('/users').send(user1);
 
-        const response = await request.get('/users');
+        const response = await request.get(`/user/${user1.email}`);
 
         expect(response.status).toBe(200);
     });
@@ -121,7 +121,7 @@ describe('Patient API', () => {
     it('should be able to update a user password', async () => {
         await request.post('/users').send(user3);
 
-        const response = await request.put(`/user/${user3.email}`).send({password: "teste"});
+        const response = await request.put(`/user/${user3.email}`).send({ password: "teste" });
 
         expect(response.status).toBe(200);
     });
