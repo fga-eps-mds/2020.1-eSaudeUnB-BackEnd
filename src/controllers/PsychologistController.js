@@ -32,6 +32,17 @@ module.exports = {
         }
     },
 
+    async show(req, res) {
+        try {
+            const { email } = req.params;
+            const user = await Psychologist.findOne({ email });
+
+            return res.status(200).json(user);
+        } catch (err) {
+            return res.status(400).json({ error: err.message });
+        }
+    },
+
     async index(req, res) {
         try {
             const users = await Psychologist.find();

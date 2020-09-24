@@ -25,6 +25,7 @@ routes.post('/admin/login', AdminController.show);
 // Psy routes
 routes.post('/admin/psy/create', PsychologistController.store);
 routes.get('/admin/psy/list', PsychologistController.index);
+routes.get('/psy/:email', PsychologistController.show);
 routes.delete('/admin/psy/:email', PsychologistController.destroy);
 routes.put('/psyUpdate/:email', PsychologistController.update);
 routes.put('/psyUpdatePassword/:email', PsychologistController.updatePassword);

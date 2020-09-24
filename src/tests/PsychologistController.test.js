@@ -71,6 +71,14 @@ describe('Psychologist API', () => {
         expect(response.status).toBe(200);
     });
 
+    it('should be able to return a single psychologist', async () => {
+        await request.post('/users').send(user1);
+
+        const response = await request.get(`/psy/${user1.email}`);
+
+        expect(response.status).toBe(200);
+    });
+
     it('should be able to delete a psychologist', async () => {
         await request.post('/admin/psy/create').send(user1);
 
