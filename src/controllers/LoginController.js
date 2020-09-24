@@ -13,9 +13,7 @@ module.exports = {
                 if (user.password === password) {
                     return res.status(200).json(user);
                 }
-                if (user.password !== req.body.password) {
-                    return res.status(400).json('Senha Incorreta');
-                }
+                return res.status(400).json('Senha Incorreta');
             }
             return res.status(404).json('Usuário não encontrado');
         } catch (err) {
