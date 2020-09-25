@@ -17,9 +17,9 @@ const SessionSchema = new mongoose.Schema({
 
     professional: {
         type: String,
-        required: true
-    }
-    
+        required: true,
+    },
+
 });
 
 module.exports = mongoose.model('Session', SessionSchema);

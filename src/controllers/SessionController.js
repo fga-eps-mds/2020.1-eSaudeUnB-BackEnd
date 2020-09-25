@@ -1,22 +1,34 @@
 const Session = require('../models/Session');
+const UserPatient = require('../models/UserPatient');
 
 module.exports = {
 
     async store(req, res) {
         try {
+            const { email } = req.body;
+
             const {
-                mainComplaint, secondaryComplaint, complaintEvolution, professional
+                mainComplaint, secondaryComplaint, complaintEvolution, professional,
             } = req.body;
 
             const session = await Session.create({
                 mainComplaint,
                 secondaryComplaint,
                 complaintEvolution,
-                professional
+                professional,
             });
 
-            return res.status(201).json(session);
+            const user = await UserPatient.findOne({ email });
 
+            if (user) {
+                console.log(user);
+                const updatedSessions = user.sessions;
+                updatedSessions.push(session.id);
+                await UserPatient.updateOne({ email }, { $set: { sessions: updatedSessions } });
+                return res.status(201).json(user);
+            }
+
+            return res.status(404).json('Usuário não encontrado');
         } catch (err) {
             return res.status(400).json({ error: err.message });
         }
@@ -24,9 +36,14 @@ module.exports = {
 
     async index(req, res) {
         try {
-            const sessions = await Session.find();
+            const { email } = req.params;
 
-            return res.status(200).json(sessions);
+            const user = await UserPatient.findOne({ email });
+            if (user) {
+                const { sessions } = user;
+                return res.status(200).json(sessions);
+            }
+            return res.status(404).json({ message: 'Usuário não encontrado' });
         } catch (err) {
             return res.status(400).json({ error: err.message });
         }
@@ -34,11 +51,16 @@ module.exports = {
 
     async show(req, res) {
         try {
+            const { email } = req.params;
 
-            const sessions = await Session.find().sort({$natural:-1}).limit(4);
+            const user = await UserPatient.findOne({ email });
 
-            return res.status(200).json(sessions);
+            if (user) {
+                const sessions = await user.sessions.slice(-4);
+                return res.status(200).json(sessions);
+            }
 
+            return res.status(404).json('Usuário não encontrado');
         } catch (err) {
             return res.status(400).json({ error: err.message });
         }
@@ -46,19 +68,20 @@ module.exports = {
 
     async update(req, res) {
         try {
-            const { id, mainComplaint, secondaryComplaint, complaintEvolution, professional } = req.body;
+            const {
+                id, mainComplaint, secondaryComplaint, complaintEvolution, professional,
+            } = req.body;
 
-            await Session.findByIdAndUpdate( id , {
+            await Session.findByidAndUpdate(id, {
                 mainComplaint,
                 secondaryComplaint,
                 professional,
-                complaintEvolution
+                complaintEvolution,
             });
 
-            const session = await Session.findById({ id });
+            const session = await Session.findByid({ id });
 
             return res.status(200).json(session);
-
         } catch (err) {
             return res.status(400).json({ error: err.message });
         }
@@ -66,16 +89,26 @@ module.exports = {
 
     async destroy(req, res) {
         try {
-            const id = req.body.id;
+            const { email } = req.params;
 
-            const session = await Session.findByIdAndDelete(id);
+            const user = await UserPatient.findOne({ email });
 
-            await Session.deleteOne({ id });
+            const { id } = req.body;
 
-            return res.status(200).json(session);
+            if (user) {
+                const session = await Session.findByid(id);
+                await Session.findByidAndRemove({ id });
+
+                const index = user.sessions.indexOf(id);
+                user.sessions.splice(index, 1);
+                user.save();
+
+                return res.status(200).json(session);
+            }
+            return res.status(404).json({ message: 'Usuário não encontrado' });
         } catch (err) {
             return res.status(400).json({ message: err.message });
         }
     },
-    
+
 };

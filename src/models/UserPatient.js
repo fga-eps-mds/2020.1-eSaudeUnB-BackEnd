@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+<<<<<<< HEAD
 const UserPatientSchema = new mongoose.Schema(
     {
         name: {
@@ -50,6 +51,44 @@ const UserPatientSchema = new mongoose.Schema(
             required: false,
         },
         sessions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Session' }]
+=======
+const UserPatientSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    lastName: {
+        type: String,
+        required: true,
+    },
+    email: {
+        type: String,
+        unique: true,
+        required: true,
+    },
+    phone: {
+        type: String,
+        required: true,
+    },
+    password: {
+        type: String,
+        required: true,
+    },
+    gender: {
+        type: String,
+        required: true,
+    },
+    unbRegistration: {
+        type: String,
+        default: false,
+    },
+    bond: {
+        type: String,
+        required: true,
+    },
+
+    sessions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Session' }], // referenciando o schema session para puxar os dados
+>>>>>>> 4416b03... refactor: update SessionController
 
     },
     { collection: 'patients' }
