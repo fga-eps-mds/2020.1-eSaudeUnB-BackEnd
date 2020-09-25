@@ -49,6 +49,8 @@ const UserPatientSchema = new mongoose.Schema(
             default: null,
             required: false,
         },
+        sessions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Session' }]
+
     },
     { collection: 'patients' }
 );

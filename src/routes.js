@@ -35,9 +35,9 @@ routes.post('/calendary/restrict/', PsychologyCalendary.show);
 routes.put('/psyUpdate/:email', PsychologistController.update);
 routes.put('/psyUpdatePassword/:email', PsychologistController.updatePassword);
 routes.post('/session', SessionController.store);
-routes.get('/session', SessionController.show);
-routes.get('/session/all', SessionController.index);
+routes.get('/session/:email', SessionController.show);
+routes.get('/session/all/:email', SessionController.index);
 routes.put('/session', SessionController.update);
-routes.delete('/session/', SessionController.destroy);
+routes.delete('/session/:email', SessionController.destroy);
 
 module.exports = routes;
