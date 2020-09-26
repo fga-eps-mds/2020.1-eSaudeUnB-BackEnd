@@ -9,11 +9,8 @@ services:
         image: e-saude-backend
         ports:
             - 8000:8000
-        volumes:
-            - '.:/app'
-            - '/app/node_modules'
         environment:
-            NODE_ENV: development
+            MONGO_URI: mongodb://root:esaude@mongo:27017
         depends_on:
             - mongo
 
