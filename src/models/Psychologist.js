@@ -32,9 +32,9 @@ const PsychologistSchema = new mongoose.Schema({
     specialization: {
         type: String,
     },
-    week_day: [
+    weekDay: [
         {
-            weekDay: String,
+            weekDay: Number,
             from: String,
             to: String,
             id: Number,

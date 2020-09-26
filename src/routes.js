@@ -3,6 +3,7 @@ const LoginController = require('./controllers/LoginController');
 const PatientController = require('./controllers/PatientController');
 const AdminController = require('./controllers/AdminController');
 const PsychologistController = require('./controllers/PsychologistController');
+const PsychologyCalendary = require('./controllers/PsychologyCalendary');
 
 const routes = express.Router();
 
@@ -17,5 +18,7 @@ routes.post('/admin/login', AdminController.show);
 routes.post('/admin/psy/create', PsychologistController.store);
 routes.get('/admin/psy/list', PsychologistController.index);
 routes.delete('/admin/psy/:email', PsychologistController.destroy);
-routes.put('/calendary/update/', PsychologistController.update);
+routes.put('/calendary/update/', PsychologyCalendary.update);
+routes.post('/calendary/update/', PsychologyCalendary.index);
+routes.post('/calendary/restrict/', PsychologyCalendary.show);
 module.exports = routes;
