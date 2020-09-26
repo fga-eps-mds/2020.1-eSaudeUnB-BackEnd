@@ -1,5 +1,6 @@
 const Session = require('../models/Session');
 const UserPatient = require('../models/UserPatient');
+const mongoose = require('mongoose');
 
 module.exports = {
 
@@ -56,7 +57,15 @@ module.exports = {
             const user = await UserPatient.findOne({ email });
 
             if (user) {
-                const sessions = await user.sessions.slice(-4);
+                const sessionsIds = await user.sessions.slice(-4);
+                const sessions = await Session.find({
+                        '_id': { $in: [
+                            mongoose.Types.ObjectId(sessionsIds[0]),
+                            mongoose.Types.ObjectId(sessionsIds[1]), 
+                            mongoose.Types.ObjectId(sessionsIds[2]),
+                            mongoose.Types.ObjectId(sessionsIds[3])
+                        ]}
+                })
                 return res.status(200).json(sessions);
             }
 
@@ -79,7 +88,7 @@ module.exports = {
                 complaintEvolution,
             });
 
-            const session = await Session.findByid({ id });
+            const session = await Session.findById(id);
 
             return res.status(200).json(session);
         } catch (err) {
@@ -96,8 +105,8 @@ module.exports = {
             const { id } = req.body;
 
             if (user) {
-                const session = await Session.findByid(id);
-                await Session.findByidAndRemove({ id });
+                const session = await Session.findById(id);
+                await Session.findByIdAndRemove(id);
 
                 const index = user.sessions.indexOf(id);
                 user.sessions.splice(index, 1);
