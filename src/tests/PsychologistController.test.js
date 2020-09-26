@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const supertest = require('supertest');
-const { response } = require('../server');
 
 const app = require('../server');
 
@@ -31,8 +30,14 @@ const user2 = {
 
 const update1 = {
     email: 'viniciusfa.delima@gmail.com',
-    week_day:[{week_day: "2", from: "12:12", to: "12:12"},{week_day: 0, from: "15:15", to: "03:15"}, {week_day: 0, from: "01:12", to: "00:12"}],
-    restrict:[[{year: "2021", day: "20",month: "11"}]],
+    weekDay: [{
+        weekDay: '2', from: '12:12', to: '12:12', id: '0',
+    }, {
+        weekDay: 0, from: '15:15', to: '03:15', id: 1,
+    }, {
+        weekDay: 0, from: '01:12', to: '00:12', id: 2,
+    }],
+    restrict: [[{ year: '2021', day: '20', month: '11' }]],
 };
 
 describe('Psychologist API', () => {
@@ -72,10 +77,9 @@ describe('Psychologist API', () => {
 
         expect(responseDelete.status).toBe(200);
     });
-    it('should be able to update a psychologist week_day' , async() => {
-        
-        const Week_update = await request.put('/calendary/update').send(update1);
+    it('should be able to update a psychologist week_day', async () => {
+        const WeekUpdate = await request.put('/calendary/update').send(update1);
 
-        expect(Week_update.status).toBe(200);
+        expect(WeekUpdate.status).toBe(200);
     });
 });
