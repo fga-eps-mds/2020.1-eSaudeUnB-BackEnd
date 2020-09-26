@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { stringify } = require('uuid');
 
 const PsychologistSchema = new mongoose.Schema({
     name: {
@@ -32,7 +33,13 @@ const PsychologistSchema = new mongoose.Schema({
     specialization: {
         type: String,
     },
-
+    week_day: [
+        {
+            week_day: String,
+            from: String,
+            to: String,
+        },
+    ],
 });
 
 module.exports = mongoose.model('Psychologist', PsychologistSchema);
