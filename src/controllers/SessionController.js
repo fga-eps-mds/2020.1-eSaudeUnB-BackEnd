@@ -1,6 +1,5 @@
 const Session = require('../models/Session');
 const UserPatient = require('../models/UserPatient');
-const mongoose = require('mongoose');
 
 module.exports = {
 
@@ -41,7 +40,12 @@ module.exports = {
 
             const user = await UserPatient.findOne({ email });
             if (user) {
-                const { sessions } = user;
+                const sessionsIds = user.sessions;
+                const sessions = await Session.find({
+                    _id: {
+                        $in: sessionsIds,
+                    },
+                });
                 return res.status(200).json(sessions);
             }
             return res.status(404).json({ message: 'Usuário não encontrado' });
@@ -59,13 +63,10 @@ module.exports = {
             if (user) {
                 const sessionsIds = await user.sessions.slice(-4);
                 const sessions = await Session.find({
-                        '_id': { $in: [
-                            mongoose.Types.ObjectId(sessionsIds[0]),
-                            mongoose.Types.ObjectId(sessionsIds[1]), 
-                            mongoose.Types.ObjectId(sessionsIds[2]),
-                            mongoose.Types.ObjectId(sessionsIds[3])
-                        ]}
-                })
+                    _id: {
+                        $in: sessionsIds,
+                    },
+                });
                 return res.status(200).json(sessions);
             }
 
