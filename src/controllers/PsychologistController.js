@@ -1,4 +1,5 @@
 const generatePassword = require('password-generator');
+const { update } = require('../models/Psychologist');
 const Psychologist = require('../models/Psychologist');
 
 module.exports = {
@@ -6,8 +7,15 @@ module.exports = {
         try {
             const password = generatePassword(8, false);
             const {
-                name, lastName, email, specialization, bibliography, gender, bond,
+                name,
+                lastName,
+                email,
+                specialization,
+                bibliography,
+                gender,
+                bond,
             } = req.body;
+            console.log(req.body);
 
             const psyUser = await Psychologist.findOne({ email });
 
@@ -25,13 +33,11 @@ module.exports = {
                 specialization,
                 bibliography,
             });
-
             return res.status(201).json(psychologist);
         } catch (err) {
             return res.status(400).json({ message: err.message });
         }
     },
-
     async index(req, res) {
         try {
             const users = await Psychologist.find();
@@ -52,5 +58,19 @@ module.exports = {
         } catch (err) {
             return res.status(400).json({ message: err.message });
         }
+    },
+    async update(req, res) {
+        const { email, week_day ,restrict} = req.body;  
+        const psicology = await Psychologist.updateOne(
+            { email },
+            {
+                $set: {
+                    week_day,
+                },
+                $push: {
+                    restrict,
+                },
+            },
+        ); return res.status(200).json(psicology)
     },
 };
