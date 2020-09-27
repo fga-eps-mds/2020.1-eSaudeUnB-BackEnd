@@ -1,11 +1,17 @@
 const UserPatient = require('../models/UserPatient');
 
 module.exports = {
-
     async store(req, res) {
         try {
             const {
-                name, lastName, email, phone, password, gender, unbRegistration, bond,
+                name,
+                lastName,
+                email,
+                phone,
+                password,
+                gender,
+                unbRegistration,
+                bond,
             } = req.body;
 
             const user = await UserPatient.findOne({ email });
@@ -58,7 +64,9 @@ module.exports = {
 
             await UserPatient.deleteOne({ email });
 
-            return res.status(200).json({ message: 'Usuário deletado com sucesso!' });
+            return res
+                .status(200)
+                .json({ message: 'Usuário deletado com sucesso!' });
         } catch (err) {
             return res.status(400).json({ message: err.message });
         }
@@ -67,18 +75,28 @@ module.exports = {
     async update(req, res) {
         try {
             const {
-                name, lastName, email, phone, password, unbRegistration, gender, bond,
-            } = req.body;
-
-            await UserPatient.updateOne({ email }, {
                 name,
                 lastName,
+                email,
                 phone,
                 password,
-                gender,
                 unbRegistration,
+                gender,
                 bond,
-            });
+            } = req.body;
+
+            await UserPatient.updateOne(
+                { email },
+                {
+                    name,
+                    lastName,
+                    phone,
+                    password,
+                    gender,
+                    unbRegistration,
+                    bond,
+                }
+            );
 
             const user = await UserPatient.findOne({ email });
 
@@ -87,5 +105,4 @@ module.exports = {
             return res.status(400).json({ message: err.message });
         }
     },
-
 };

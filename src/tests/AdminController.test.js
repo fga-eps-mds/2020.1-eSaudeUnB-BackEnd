@@ -32,10 +32,12 @@ describe('Admin API', () => {
         expect(response.status).toBe(201);
     });
 
-    it('should be able to login an admin', async() => {
+    it('should be able to login an admin', async () => {
         await request.post('/admin').send(user);
-        const {email, password} = user;
-        const response = await request.post('/admin/login').send({email, password});
+        const { email, password } = user;
+        const response = await request
+            .post('/admin/login')
+            .send({ email, password });
 
         expect(response.status).toBe(200);
     });
