@@ -8,7 +8,7 @@ const request = supertest(app);
 const user1 = {
     name: 'Vinicius',
     lastName: 'Lima',
-    email: 'viniciusfa.delima@gmail.com',
+    email: 'email@email.com',
     phone: '061999999999',
     password: 'password',
     unbunbRegistration: '180000000',
@@ -19,7 +19,7 @@ const user1 = {
 const user2 = {
     name: 'Rafael',
     lastName: 'Leão',
-    email: 'rafaelltm10@hotmail.com',
+    email: 'email2@email.com',
     phone: '061988888888',
     password: 'password',
     unbRegistration: '180000001',

@@ -21,7 +21,6 @@ module.exports = {
             const user = await UserPatient.findOne({ email });
 
             if (user) {
-                console.log(user);
                 const updatedSessions = user.sessions;
                 updatedSessions.push(session.id);
                 await UserPatient.updateOne({ email }, { $set: { sessions: updatedSessions } });
