@@ -42,9 +42,9 @@ const PsychologistSchema = new mongoose.Schema({
     ],
     restrict: [
         {
-            year: String,
-            day: String,
-            month: String,
+            year: Number,
+            day: Number,
+            month: Number,
         },
     ],
 });
