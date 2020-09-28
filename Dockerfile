@@ -11,4 +11,3 @@ COPY . /app
 
 EXPOSE 8000
 CMD [ "npm", "run", "dev" ]
-# CMD [ "node", "index.js" ]

@@ -30,6 +30,9 @@ describe('Admin API', () => {
         const response = await request.post('/admin').send(user);
 
         expect(response.status).toBe(201);
+
+        const respose2 = await request.post('/admin').send(user);
+        expect(respose2.status).toBe(200);
     });
 
     it('should be able to login an admin', async () => {
@@ -40,5 +43,18 @@ describe('Admin API', () => {
             .send({ email, password });
 
         expect(response.status).toBe(200);
+
+        const email2 = 'testemail@test.com';
+        const password2 = 'password';
+
+        const response2 = await request
+            .post('/admin/login')
+            .send({ email2, password2 });
+        expect(response2.status).toBe(404);
+
+        const response3 = await request
+            .post('/admin/login')
+            .send({ email, password2 });
+        expect(response3.status).toBe(400);
     });
 });
