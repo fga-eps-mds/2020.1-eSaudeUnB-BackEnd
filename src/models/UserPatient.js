@@ -36,7 +36,7 @@ const UserPatientSchema = new mongoose.Schema(
             required: true,
         },
     },
-    { collection: 'patients' }
+    { collection: 'patients' },
 );
 
 module.exports = mongoose.model('UserPatient', UserPatientSchema);

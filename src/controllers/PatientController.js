@@ -95,7 +95,7 @@ module.exports = {
                     gender,
                     unbRegistration,
                     bond,
-                }
+                },
             );
 
             const user = await UserPatient.findOne({ email });

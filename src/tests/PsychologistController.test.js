@@ -62,7 +62,7 @@ describe('Psychologist API', () => {
         await request.post('/admin/psy/create').send(user1);
 
         const responseDelete = await request.delete(
-            `/admin/psy/${user1.email}`
+            `/admin/psy/${user1.email}`,
         );
 
         expect(responseDelete.status).toBe(200);
