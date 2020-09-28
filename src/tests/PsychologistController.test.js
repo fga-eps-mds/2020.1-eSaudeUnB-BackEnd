@@ -82,7 +82,9 @@ describe('Psychologist API', () => {
     it('should be able to delete a psychologist', async () => {
         await request.post('/admin/psy/create').send(user1);
 
-        const responseDelete = await request.delete(`/admin/psy/${user1.email}`);
+        const responseDelete = await request.delete(
+            `/admin/psy/${user1.email}`
+        );
 
         expect(responseDelete.status).toBe(200);
     });
@@ -90,15 +92,17 @@ describe('Psychologist API', () => {
     it('should be able to update a psychologist', async () => {
         await request.post('/admin/psy/create').send(user1);
 
-        const responseDelete = await request.put(`/psyUpdate/${user1.email}`).send({
-            name: 'teste',
-            lastName: 'abner',
-            email: 'abcdefghij@hotmail.com',
-            gender: 'M',
-            bond: 'graduando',
-            specialization: 'Formado na UnB',
-            bibliography: '2020200',
-        });
+        const responseDelete = await request
+            .put(`/psyUpdate/${user1.email}`)
+            .send({
+                name: 'teste',
+                lastName: 'abner',
+                email: 'abcdefghij@hotmail.com',
+                gender: 'M',
+                bond: 'graduando',
+                specialization: 'Formado na UnB',
+                bibliography: '2020200',
+            });
 
         expect(responseDelete.status).toBe(200);
     });
@@ -122,7 +126,9 @@ describe('Psychologist API', () => {
     it('should be able to update a psychologist password', async () => {
         await request.post('/admin/psy/create').send(user1);
 
-        const responseDelete = await request.put(`/psyUpdatePassword/${user1.email}`).send({ password: 123 });
+        const responseDelete = await request
+            .put(`/psyUpdatePassword/${user1.email}`)
+            .send({ password: 123 });
 
         expect(responseDelete.status).toBe(200);
     });
@@ -130,7 +136,9 @@ describe('Psychologist API', () => {
     it('should not be able to update a psychologist password', async () => {
         await request.post('/admin/psy/create').send(user1);
 
-        const responseDelete = await request.put(`/psyUpdatePassword/${user1.email}`).send({ password: null });
+        const responseDelete = await request
+            .put(`/psyUpdatePassword/${user1.email}`)
+            .send({ password: null });
 
         expect(responseDelete.status).toBe(500);
     });

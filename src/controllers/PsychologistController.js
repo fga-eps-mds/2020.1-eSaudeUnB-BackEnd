@@ -6,7 +6,13 @@ module.exports = {
         try {
             const password = generatePassword(8, false);
             const {
-                name, lastName, email, specialization, bibliography, gender, bond,
+                name,
+                lastName,
+                email,
+                specialization,
+                bibliography,
+                gender,
+                bond,
             } = req.body;
 
             const psyUser = await Psychologist.findOne({ email });
@@ -25,7 +31,6 @@ module.exports = {
                 specialization,
                 bibliography,
             });
-
             return res.status(201).json(psychologist);
         } catch (err) {
             return res.status(400).json({ message: err.message });
@@ -46,7 +51,6 @@ module.exports = {
     async index(req, res) {
         try {
             const users = await Psychologist.find();
-
             return res.status(200).json(users);
         } catch (err) {
             return res.status(400).json({ message: err.message });
@@ -68,7 +72,13 @@ module.exports = {
     async update(req, res) {
         try {
             const {
-                name, lastName, email, gender, bond, specialization, bibliography,
+                name,
+                lastName,
+                email,
+                gender,
+                bond,
+                specialization,
+                bibliography,
             } = req.body;
 
             const user = await Psychologist.findOne({
@@ -105,9 +115,7 @@ module.exports = {
 
     async updatePassword(req, res) {
         try {
-            const {
-                password,
-            } = req.body;
+            const { password } = req.body;
 
             const user = await Psychologist.findOne({
                 email: req.params.email,
@@ -118,8 +126,9 @@ module.exports = {
             await user.save();
             return res.status(200).json(user);
         } catch (err) {
-            return res.status(500).json({ message: 'falha ao atualizar senha' });
+            return res
+                .status(500)
+                .json({ message: 'falha ao atualizar senha' });
         }
     },
-
 };

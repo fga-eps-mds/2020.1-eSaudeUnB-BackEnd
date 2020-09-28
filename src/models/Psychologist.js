@@ -32,7 +32,21 @@ const PsychologistSchema = new mongoose.Schema({
     specialization: {
         type: String,
     },
-
+    weekDay: [
+        {
+            weekDay: Number,
+            from: String,
+            to: String,
+            id: Number,
+        },
+    ],
+    restrict: [
+        {
+            year: Number,
+            day: Number,
+            month: Number,
+        },
+    ],
 });
 
 module.exports = mongoose.model('Psychologist', PsychologistSchema);

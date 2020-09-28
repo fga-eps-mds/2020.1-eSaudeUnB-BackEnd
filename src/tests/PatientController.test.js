@@ -113,7 +113,9 @@ describe('Patient API', () => {
     it('should be able to update a user', async () => {
         await request.post('/users').send(user3);
 
-        const response = await request.put(`/userUpdate/${user3.email}`).send(user4);
+        const response = await request
+            .put(`/userUpdate/${user3.email}`)
+            .send(user4);
 
         expect(response.status).toBe(200);
     });
@@ -121,7 +123,9 @@ describe('Patient API', () => {
     it('should be able to update a user password', async () => {
         await request.post('/users').send(user3);
 
-        const response = await request.put(`/user/${user3.email}`).send({ password: 'teste' });
+        const response = await request
+            .put(`/user/${user3.email}`)
+            .send({ password: 'teste' });
 
         expect(response.status).toBe(200);
     });
