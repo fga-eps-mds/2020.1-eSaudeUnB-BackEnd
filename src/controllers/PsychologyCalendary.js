@@ -1,4 +1,3 @@
-const generatePassword = require('password-generator');
 const Psychologist = require('../models/Psychologist');
 
 module.exports = {
@@ -9,9 +8,7 @@ module.exports = {
                 const psicology = await Psychologist.updateOne(
                     { email },
                     {
-                        $set: {
-                            weekDay,
-                        },
+                        $set: { weekDay },
                     }
                 );
                 return res.status(200).json(psicology);
@@ -20,13 +17,12 @@ module.exports = {
                 const psicology = await Psychologist.updateOne(
                     { email },
                     {
-                        $set: {
-                            restrict,
-                        },
+                        $set: { restrict },
                     }
                 );
                 return res.status(200).json(psicology);
             }
+            return res.status(404).json('Usuário não encontrado');
         } catch (err) {
             return res.status(400).json({ message: err.message });
         }

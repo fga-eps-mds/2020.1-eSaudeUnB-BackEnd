@@ -5,7 +5,6 @@ module.exports = {
     async show(req, res) {
         try {
             const { email, password } = req.body;
-
             const user = await UserPatient.findOne({ email });
             const psychologist = await UserPsychology.findOne({ email });
 
