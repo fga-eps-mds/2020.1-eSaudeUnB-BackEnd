@@ -6,13 +6,8 @@ module.exports = {
         try {
             const password = generatePassword(8, false);
             const {
-                name,
-                lastName,
-                email,
-                specialization,
-                bibliography,
-                gender,
-                bond,
+                name, lastName, email, specialization,
+                bibliography, gender, bond,
             } = req.body;
 
             const psyUser = await Psychologist.findOne({ email });
@@ -71,40 +66,30 @@ module.exports = {
 
     async update(req, res) {
         try {
-            const {
-                name,
-                lastName,
-                email,
-                gender,
-                bond,
-                specialization,
-                bibliography,
-            } = req.body;
-
             const user = await Psychologist.findOne({
                 email: req.params.email,
             }).exec();
 
-            if (name) {
-                user.name = name;
+            if (req.body.name) {
+                user.name = req.body.name;
             }
-            if (lastName) {
-                user.lastName = lastName;
+            if (req.body.lastName) {
+                user.lastName = req.body.lastName;
             }
-            if (email) {
-                user.email = email;
+            if (req.body.email) {
+                user.email = req.body.email;
             }
-            if (gender) {
-                user.gender = gender;
+            if (req.body.gender) {
+                user.gender = req.body.gender;
             }
-            if (bond) {
-                user.bond = bond;
+            if (req.body.bond) {
+                user.bond = req.body.bond;
             }
-            if (specialization) {
-                user.specialization = specialization;
+            if (req.body.specialization) {
+                user.specialization = req.body.specialization;
             }
-            if (bibliography) {
-                user.bibliography = bibliography;
+            if (req.body.bibliography) {
+                user.bibliography = req.body.bibliography;
             }
             await user.save();
             return res.status(200).json(user);

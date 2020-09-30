@@ -4,14 +4,8 @@ module.exports = {
     async store(req, res) {
         try {
             const {
-                name,
-                lastName,
-                email,
-                phone,
-                password,
-                gender,
-                unbRegistration,
-                bond,
+                name, lastName, email, phone,
+                password, gender, unbRegistration, bond,
             } = req.body;
 
             const user = await UserPatient.findOne({ email });
@@ -74,40 +68,36 @@ module.exports = {
 
     async update(req, res) {
         try {
-            const {
-                name, lastName, email, phone, unbRegistration, gender, bond, civilStatus, religion,
-            } = req.body;
-
             const user = await UserPatient.findOne({
                 email: req.params.email,
             }).exec();
 
-            if (name) {
-                user.name = name;
+            if (req.body.name) {
+                user.name = req.body.name;
             }
-            if (lastName) {
-                user.lastName = lastName;
+            if (req.body.lastName) {
+                user.lastName = req.body.lastName;
             }
-            if (email) {
-                user.email = email;
+            if (req.body.email) {
+                user.email = req.body.email;
             }
-            if (phone) {
-                user.phone = phone;
+            if (req.body.phone) {
+                user.phone = req.body.phone;
             }
-            if (unbRegistration) {
-                user.unbRegistration = unbRegistration;
+            if (req.body.unbRegistration) {
+                user.unbRegistration = req.body.unbRegistration;
             }
-            if (gender) {
-                user.gender = gender;
+            if (req.body.gender) {
+                user.gender = req.body.gender;
             }
-            if (bond) {
-                user.bond = bond;
+            if (req.body.bond) {
+                user.bond = req.body.bond;
             }
-            if (civilStatus) {
-                user.civilStatus = civilStatus;
+            if (req.body.civilStatus) {
+                user.civilStatus = req.body.civilStatus;
             }
-            if (religion) {
-                user.religion = religion;
+            if (req.body.religion) {
+                user.religion = req.body.religion;
             }
             await user.save();
             return res.status(200).json(user);

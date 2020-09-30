@@ -26,10 +26,9 @@ module.exports = {
     async show(req, res) {
         try {
             const { email, password } = req.body;
-
             const user = await Admin.findOne({ email });
 
-            if (user != null) {
+            if (user) {
                 if (user.password === password) {
                     return res.status(200).json(user);
                 }
