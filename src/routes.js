@@ -4,6 +4,7 @@ const PatientController = require('./controllers/PatientController');
 const AdminController = require('./controllers/AdminController');
 const PsychologistController = require('./controllers/PsychologistController');
 const PsychologyCalendary = require('./controllers/PsychologyCalendary');
+const SessionController = require('./controllers/SessionController');
 
 const routes = express.Router();
 
@@ -33,5 +34,10 @@ routes.post('/calendary/update/', PsychologyCalendary.index);
 routes.post('/calendary/restrict/', PsychologyCalendary.show);
 routes.put('/psyUpdate/:email', PsychologistController.update);
 routes.put('/psyUpdatePassword/:email', PsychologistController.updatePassword);
+routes.post('/session', SessionController.store);
+routes.get('/session/:email', SessionController.show);
+routes.get('/session/all/:email', SessionController.index);
+routes.put('/session', SessionController.update);
+routes.delete('/session/:email', SessionController.destroy);
 
 module.exports = routes;

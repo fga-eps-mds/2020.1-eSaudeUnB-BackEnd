@@ -8,7 +8,9 @@ const request = supertest(app);
 const user1 = {
     name: 'Vinicius',
     lastName: 'Lima',
-    email: 'viniciusfa.delima@gmail.com',
+    email: 'email@email.com',
+    password: 'password',
+    unbunbRegistration: '180000000',
     gender: 'M',
     bond: 'graduando',
     specialization: '',
@@ -18,7 +20,10 @@ const user1 = {
 const user2 = {
     name: 'Rafael',
     lastName: 'Leão',
-    email: 'rafaelltm10@hotmail.com',
+    email: 'email2@email.com',
+    phone: '061988888888',
+    password: 'password',
+    unbRegistration: '180000001',
     gender: 'M',
     bond: 'graduando',
     specialization: '',
@@ -83,7 +88,7 @@ describe('Psychologist API', () => {
         await request.post('/admin/psy/create').send(user1);
 
         const responseDelete = await request.delete(
-            `/admin/psy/${user1.email}`
+            `/admin/psy/${user1.email}`,
         );
 
         expect(responseDelete.status).toBe(200);
