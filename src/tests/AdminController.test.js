@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const supertest = require('supertest');
+const Admin = require('../models/Admin');
 
 const app = require('../server');
 
@@ -26,7 +27,20 @@ describe('Admin API', () => {
         done();
     });
 
+    beforeEach(async () => {
+        await Admin.collection.deleteMany({});
+    })
+
     it('should be able to register an admin', async () => {
+        
+        const errResponse = await request.post('/admin')
+        .send({
+            name: 'Vinicius',
+            email: 'email@email'
+        });
+
+        expect(errResponse.status).toBe(400);
+
         const response = await request.post('/admin').send(user);
 
         expect(response.status).toBe(201);
@@ -45,7 +59,7 @@ describe('Admin API', () => {
         expect(response.status).toBe(200);
 
         const email2 = 'testemail@test.com';
-        const password2 = 'password';
+        const password2 = 'nopassword';
 
         const response2 = await request
             .post('/admin/login')

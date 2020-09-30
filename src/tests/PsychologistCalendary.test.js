@@ -1,26 +1,27 @@
 const mongoose = require('mongoose');
 const supertest = require('supertest');
+const Psychologist = require('../models/Psychologist');
 const app = require('../server');
 
 const request = supertest(app);
 
 const email = {
-    email: 'viniciusfa.delima@gmail.com',
+    email: 'email@email.com',
 };
 
 const user = {
     name: 'Vinicius',
     lastName: 'Lima',
-    email: 'viniciusfa.delima@gmail.com',
+    email: 'email@email.com',
     password: 'password',
-    unbunbRegistration: '180000000',
+    unbRegistration: '180000000',
     gender: 'M',
     bond: 'graduando',
     specialization: '',
     bibliography: '',
 };
 const userUpdateweekDay = {
-    email: 'viniciusfa.delima@gmail.com',
+    email: 'email@email.com',
     weekDay: [
         {
             weekDay: '2',
@@ -43,7 +44,7 @@ const userUpdateweekDay = {
     ],
 };
 const UserUpdateRestrict = {
-    email: 'viniciusfa.delima@gmail.com',
+    email: 'email@email.com',
     restrict: [[{ year: '2021', day: '20', month: '11' }]],
 };
 
@@ -57,11 +58,21 @@ describe('Psychologist API', () => {
         });
     });
 
+    beforeEach(async () => {
+        await Psychologist.collection.deleteMany({});
+    })
+
+
     afterAll(async (done) => {
         await mongoose.connection.close();
         done();
     });
     it('should be able to update a psychologist week_day', async () => {
+        const errResponse = await request.put('/calendary/update').send({
+            email: '',
+        });
+        expect (errResponse.status).toBe(404);
+        
         await request.post('/admin/psy/create').send(user);
         const WeekUpdate = await request
             .put('/calendary/update')
@@ -81,6 +92,11 @@ describe('Psychologist API', () => {
         expect(psychologo.status).toBe(200);
     });
     it('should be able to show a psychologist restrict', async () => {
+        const errResponse = await request
+            .post('/calendary/restrict')
+            .send({email: 'test@email.com'});
+        expect(errResponse.status).toBe(400);
+        
         await request.post('/admin/psy/create').send(user);
         const psychologo = await request
             .post('/calendary/restrict')

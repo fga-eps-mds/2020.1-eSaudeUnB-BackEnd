@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const supertest = require('supertest');
+const Psychologist = require('../models/Psychologist');
 
 const app = require('../server');
 
@@ -49,6 +50,10 @@ describe('Psychologist API', () => {
             useFindAndModify: false,
         });
     });
+
+    beforeEach(async () => {
+        await Psychologist.collection.deleteMany({});
+    })
 
     afterAll(async (done) => {
         await mongoose.connection.close();
