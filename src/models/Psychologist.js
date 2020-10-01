@@ -18,6 +18,9 @@ const PsychologistSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    phone: {
+        type: String,
+    },
     gender: {
         type: String,
         required: true,
