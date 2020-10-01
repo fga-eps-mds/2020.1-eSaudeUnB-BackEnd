@@ -21,7 +21,7 @@ const user = {
     email: 'email@email.com',
     phone: '061999999999',
     password: 'password',
-    unbunbRegistration: '180000000',
+    unbRegistration: '180000000',
     gender: 'M',
     bond: 'graduando',
 };

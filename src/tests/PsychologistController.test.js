@@ -11,7 +11,7 @@ const user1 = {
     lastName: 'Lima',
     email: 'email@email.com',
     password: 'password',
-    unbunbRegistration: '180000000',
+    unbRegistration: '180000000',
     gender: 'M',
     bond: 'graduando',
     specialization: '',
