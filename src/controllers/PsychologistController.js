@@ -7,7 +7,7 @@ module.exports = {
             const password = generatePassword(8, false);
             const {
                 name, lastName, email, specialization,
-                bibliography, gender, bond,
+                biography, gender, bond,
             } = req.body;
 
             const psyUser = await Psychologist.findOne({ email });
@@ -24,7 +24,7 @@ module.exports = {
                 bond,
                 password,
                 specialization,
-                bibliography,
+                biography,
             });
             return res.status(201).json(psychologist);
         } catch (err) {
@@ -88,8 +88,8 @@ module.exports = {
             if (req.body.specialization) {
                 user.specialization = req.body.specialization;
             }
-            if (req.body.bibliography) {
-                user.bibliography = req.body.bibliography;
+            if (req.body.biography) {
+                user.biography = req.body.biography;
             }
             await user.save();
             return res.status(200).json(user);

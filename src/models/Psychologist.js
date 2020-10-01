@@ -26,7 +26,7 @@ const PsychologistSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    bibliography: {
+    biography: {
         type: String,
     },
     specialization: {
