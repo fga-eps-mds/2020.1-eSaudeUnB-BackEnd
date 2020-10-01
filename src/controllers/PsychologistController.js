@@ -10,7 +10,7 @@ module.exports = {
                 lastName,
                 email,
                 specialization,
-                bibliography,
+                biography,
                 gender,
                 bond,
             } = req.body;
@@ -29,7 +29,7 @@ module.exports = {
                 bond,
                 password,
                 specialization,
-                bibliography,
+                biography,
             });
             return res.status(201).json(psychologist);
         } catch (err) {
@@ -78,7 +78,7 @@ module.exports = {
                 gender,
                 bond,
                 specialization,
-                bibliography,
+                biography,
             } = req.body;
 
             const user = await Psychologist.findOne({
@@ -104,7 +104,7 @@ module.exports = {
                 user.specialization = specialization;
             }
             if (bibliography) {
-                user.bibliography = bibliography;
+                user.biography = biography;
             }
             await user.save();
             return res.status(200).json(user);
