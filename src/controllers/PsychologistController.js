@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 const generatePassword = require('password-generator');
 const Psychologist = require('../models/Psychologist');
 
@@ -6,8 +7,13 @@ module.exports = {
         try {
             const password = generatePassword(8, false);
             const {
-                name, lastName, email, specialization,
-                biography, gender, bond,
+                name,
+                lastName,
+                email,
+                specialization,
+                biography,
+                gender,
+                bond,
             } = req.body;
 
             const psyUser = await Psychologist.findOne({ email });
@@ -67,8 +73,14 @@ module.exports = {
     async update(req, res) {
         try {
             const {
-                name, lastName, gender, bond, specialization, biography,
+                name,
+                lastName,
+                gender,
+                bond,
+                specialization,
+                biography,
             } = req.body;
+
             const { email } = req.params;
 
             const user = await Psychologist.findOne({
