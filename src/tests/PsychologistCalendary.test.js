@@ -60,8 +60,7 @@ describe('Psychologist API', () => {
 
     beforeEach(async () => {
         await Psychologist.collection.deleteMany({});
-    })
-
+    });
 
     afterAll(async (done) => {
         await mongoose.connection.close();
@@ -71,8 +70,8 @@ describe('Psychologist API', () => {
         const errResponse = await request.put('/calendary/update').send({
             email: '',
         });
-        expect (errResponse.status).toBe(404);
-        
+        expect(errResponse.status).toBe(404);
+
         await request.post('/admin/psy/create').send(user);
         const WeekUpdate = await request
             .put('/calendary/update')
@@ -94,9 +93,9 @@ describe('Psychologist API', () => {
     it('should be able to show a psychologist restrict', async () => {
         const errResponse = await request
             .post('/calendary/restrict')
-            .send({email: 'test@email.com'});
+            .send({ email: 'test@email.com' });
         expect(errResponse.status).toBe(400);
-        
+
         await request.post('/admin/psy/create').send(user);
         const psychologo = await request
             .post('/calendary/restrict')

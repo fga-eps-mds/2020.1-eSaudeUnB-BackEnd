@@ -13,7 +13,7 @@ module.exports = {
             const psyUser = await Psychologist.findOne({ email });
 
             if (psyUser) {
-                 return res.status(200).json(psyUser);
+                return res.status(200).json(psyUser);
             }
 
             const psychologist = await Psychologist.create({

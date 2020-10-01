@@ -53,7 +53,7 @@ describe('Psychologist API', () => {
 
     beforeEach(async () => {
         await Psychologist.collection.deleteMany({});
-    })
+    });
 
     afterAll(async (done) => {
         await mongoose.connection.close();

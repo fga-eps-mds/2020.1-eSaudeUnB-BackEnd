@@ -39,7 +39,7 @@ describe('Session API', () => {
     beforeEach(async () => {
         await UserPatient.collection.deleteMany({});
         await Session.collection.deleteMany({});
-    })
+    });
 
     afterAll(async (done) => {
         await mongoose.connection.close();
@@ -47,13 +47,12 @@ describe('Session API', () => {
     });
 
     it('should be able to register a new session', async () => {
-
         const errResponse = await request.post('/session')
-        .send({
-            email: "asaaa@email.com",
-            secondaryComplaint: "teste 4",
-            professional: "Pedro Henrique"
-        });
+            .send({
+                email: 'asaaa@email.com',
+                secondaryComplaint: 'teste 4',
+                professional: 'Pedro Henrique',
+            });
         expect(errResponse.status).toBe(400);
 
         const response = await request.post('/session').send(session);

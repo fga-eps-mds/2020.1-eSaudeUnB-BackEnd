@@ -9,7 +9,7 @@ module.exports = {
                     { email },
                     {
                         $set: { weekDay },
-                        
+
                     },
                 );
                 return res.status(200).json(psicology);

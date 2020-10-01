@@ -29,15 +29,14 @@ describe('Admin API', () => {
 
     beforeEach(async () => {
         await Admin.collection.deleteMany({});
-    })
+    });
 
     it('should be able to register an admin', async () => {
-        
         const errResponse = await request.post('/admin')
-        .send({
-            name: 'Vinicius',
-            email: 'email@email'
-        });
+            .send({
+                name: 'Vinicius',
+                email: 'email@email',
+            });
 
         expect(errResponse.status).toBe(400);
 

@@ -66,7 +66,7 @@ describe('Patient API', () => {
 
     beforeEach(async () => {
         await UserPatient.collection.deleteMany({});
-    })
+    });
 
     afterAll(async (done) => {
         await mongoose.connection.close();
@@ -90,7 +90,7 @@ describe('Patient API', () => {
         expect(response.status).toBe(200);
     });
 
-    it('should be able to create a new user', async() => {
+    it('should be able to create a new user', async () => {
         const response = await request.post('/users').send(user1);
 
         expect(response.status).toBe(201);
@@ -107,7 +107,7 @@ describe('Patient API', () => {
         });
 
         expect(response2.status).toBe(400);
-    })
+    });
 
     it('should be able to delete a user', async () => {
         await request.post('/users').send(user1);

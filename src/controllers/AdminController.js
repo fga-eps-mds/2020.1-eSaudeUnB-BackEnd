@@ -35,8 +35,8 @@ module.exports = {
                 if (user.password !== password) {
                     return res.status(400).json('Senha Incorreta');
                 }
-            }   
-            throw new Error({'err' : 'Usuário não encontrado'});
+            }
+            throw new Error({ err: 'Usuário não encontrado' });
         } catch (err) {
             return res.status(404).json(err);
         }
