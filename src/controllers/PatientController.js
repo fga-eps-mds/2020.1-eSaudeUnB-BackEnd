@@ -1,6 +1,6 @@
+const Joi = require('joi');
 const UserPatient = require('../models/UserPatient');
 const Psychologist = require('../models/Psychologist');
-const Joi = require('joi');
 
 const schema = Joi.object({
     name: Joi.string()
@@ -22,21 +22,21 @@ const schema = Joi.object({
         .required(),
 
     phone: Joi.number()
-        .allow(""),
+        .allow(''),
 
     gender: Joi.string()
         .max(1)
-        .allow(""),
+        .allow(''),
 
     unbRegistration: Joi.string()
         .pattern(new RegExp('^[0-9]+$'))
         .min(8)
         .max(10)
-        .allow(""),
+        .allow(''),
 
     bond: Joi.string()
-        .allow(""),
-})
+        .allow(''),
+});
 
 module.exports = {
     async store(req, res) {
