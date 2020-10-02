@@ -11,7 +11,7 @@ const user1 = {
     email: 'email@email.com',
     phone: '061999999999',
     password: 'password',
-    unbunbRegistration: '180000000',
+    unbRegistration: '180000000',
     gender: 'M',
     bond: 'graduando',
 };
@@ -85,7 +85,7 @@ describe('Patient API', () => {
         expect(response.status).toBe(200);
     });
 
-    it('should be able to create a new user', async () => {
+    it('should not be able to create a new user', async () => {
         const response = await request.post('/users').send({
             name: 'Rafael',
             lastName: null,
@@ -97,7 +97,7 @@ describe('Patient API', () => {
             bond: 'graduando',
         });
 
-        expect(response.status).toBe(400);
+        expect(response.status).toBe(203);
     });
 
     it('should be able to delete a user', async () => {

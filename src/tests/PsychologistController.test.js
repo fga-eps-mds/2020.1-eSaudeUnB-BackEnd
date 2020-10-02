@@ -9,11 +9,12 @@ const user1 = {
     name: 'Vinicius',
     lastName: 'Lima',
     email: 'email@email.com',
-    password: 'password',
-    unbunbRegistration: '180000000',
+    phone: '061988888888',
+    // password: 'password',
+    // unbunbRegistration: '180000000',
     gender: 'M',
-    bond: 'graduando',
-    specialization: '',
+    bond: 'Psychologist',
+    specialization: 'Psicólogo',
     biography: '',
 };
 
@@ -22,11 +23,11 @@ const user2 = {
     lastName: 'Leão',
     email: 'email2@email.com',
     phone: '061988888888',
-    password: 'password',
-    unbRegistration: '180000001',
+    // password: 'password',
+    // unbRegistration: '180000001',
     gender: 'M',
-    bond: 'graduando',
-    specialization: '',
+    bond: 'Psychologist',
+    specialization: 'Psicólogo',
     biography: '',
 };
 
@@ -35,8 +36,9 @@ const user3 = {
     lastName: 'abner',
     email: null,
     gender: 'M',
-    bond: 'graduando',
-    specialization: '',
+    phone: '',
+    bond: 'Psychologist',
+    specialization: 'Psicólogo',
     biography: '',
 };
 
@@ -64,7 +66,7 @@ describe('Psychologist API', () => {
     it('should not be able to create a new psychologist', async () => {
         const response = await request.post('/admin/psy/create').send(user3);
 
-        expect(response.status).toBe(400);
+        expect(response.status).toBe(203);
     });
 
     it('should be able to list all the psychologists', async () => {
