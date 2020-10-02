@@ -22,15 +22,20 @@ const schema = Joi.object({
         .required(),
 
     biography: Joi.string()
+        .allow("")
+        .min(0)
         .max(300),
 
     gender: Joi.string()
+        .allow("")
         .max(1)
         .required(),
 
-    bond: Joi.string(),
+    bond: Joi.string()
+        .allow(""),
 
-    phone: Joi.number(),
+    phone: Joi.number()
+        .allow(""),
 })
 
 module.exports = {
@@ -60,7 +65,7 @@ module.exports = {
             });
 
             if (error) {
-                return res.status(203).json({ value });
+                return res.status(203).json({ value, error });
             }
 
             const psyUser = await Psychologist.findOne({ email });
