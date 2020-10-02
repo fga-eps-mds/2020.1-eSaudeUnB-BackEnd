@@ -18,7 +18,7 @@ const user = {
     gender: 'M',
     bond: 'graduando',
     specialization: '',
-    bibliography: '',
+    biography: '',
 };
 const userUpdateweekDay = {
     email: 'email@email.com',

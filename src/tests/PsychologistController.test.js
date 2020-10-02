@@ -15,7 +15,7 @@ const user1 = {
     gender: 'M',
     bond: 'graduando',
     specialization: '',
-    bibliography: '',
+    biography: '',
 };
 
 const user2 = {
@@ -28,7 +28,7 @@ const user2 = {
     gender: 'M',
     bond: 'graduando',
     specialization: '',
-    bibliography: '',
+    biography: '',
 };
 
 const user3 = {
@@ -38,7 +38,7 @@ const user3 = {
     gender: 'M',
     bond: 'graduando',
     specialization: '',
-    bibliography: '',
+    biography: '',
 };
 
 describe('Psychologist API', () => {
@@ -111,7 +111,7 @@ describe('Psychologist API', () => {
                 gender: 'M',
                 bond: 'graduando',
                 specialization: 'Formado na UnB',
-                bibliography: '2020200',
+                biography: '2020200',
             });
 
         expect(responseDelete.status).toBe(200);
@@ -127,7 +127,7 @@ describe('Psychologist API', () => {
             gender: 'M',
             bond: 'graduando',
             specialization: 'Formado na UnB',
-            bibliography: '2020200',
+            biography: '2020200',
         });
 
         expect(responseDelete.status).toBe(500);
