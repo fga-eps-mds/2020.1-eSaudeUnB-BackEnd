@@ -1,5 +1,6 @@
 const generatePassword = require('password-generator');
 const Psychologist = require('../models/Psychologist');
+const UserPatient = require('../models/UserPatient');
 
 module.exports = {
     async store(req, res) {
@@ -16,8 +17,9 @@ module.exports = {
             } = req.body;
 
             const psyUser = await Psychologist.findOne({ email });
+            const user = await UserPatient.findOne({ email });
 
-            if (psyUser) {
+            if (psyUser || user) {
                 return res.status(200).json(psyUser);
             }
 

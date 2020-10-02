@@ -1,4 +1,5 @@
 const UserPatient = require('../models/UserPatient');
+const Psychologist = require('../models/Psychologist');
 
 module.exports = {
     async store(req, res) {
@@ -15,8 +16,9 @@ module.exports = {
             } = req.body;
 
             const user = await UserPatient.findOne({ email });
+            const psyUser = await Psychologist.findOne({ email });
 
-            if (user) {
+            if (user || psyUser) {
                 return res.status(200).json(user);
             }
 
