@@ -1,6 +1,37 @@
 const generatePassword = require('password-generator');
 const Psychologist = require('../models/Psychologist');
 const UserPatient = require('../models/UserPatient');
+const Joi = require('joi');
+
+const schema = Joi.object({
+    name: Joi.string()
+        .min(3)
+        .max(30)
+        .required(),
+
+    lastName: Joi.string()
+        .min(3)
+        .max(30)
+        .required(),
+
+    email: Joi.string()
+        .required()
+        .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
+
+    specialization: Joi.string()
+        .required(),
+
+    biography: Joi.string()
+        .max(300),
+
+    gender: Joi.string()
+        .max(1)
+        .required(),
+
+    bond: Joi.string(),
+
+    phone: Joi.number(),
+})
 
 module.exports = {
     async store(req, res) {
@@ -12,9 +43,25 @@ module.exports = {
                 email,
                 specialization,
                 biography,
+                phone,
                 gender,
                 bond,
             } = req.body;
+
+            const { error, value } = schema.validate({
+                name,
+                lastName,
+                email,
+                specialization,
+                biography,
+                phone,
+                gender,
+                bond,
+            });
+
+            if (error) {
+                return res.status(203).json({ value });
+            }
 
             const psyUser = await Psychologist.findOne({ email });
             const user = await UserPatient.findOne({ email });
@@ -30,6 +77,7 @@ module.exports = {
                 gender,
                 bond,
                 password,
+                phone,
                 specialization,
                 biography,
             });
@@ -79,6 +127,7 @@ module.exports = {
                 email,
                 gender,
                 bond,
+                phone,
                 specialization,
                 biography,
             } = req.body;
@@ -102,10 +151,13 @@ module.exports = {
             if (bond) {
                 user.bond = bond;
             }
+            if (phone) {
+                user.phone = phone;
+            }
             if (specialization) {
                 user.specialization = specialization;
             }
-            if (bibliography) {
+            if (biography) {
                 user.biography = biography;
             }
             await user.save();
