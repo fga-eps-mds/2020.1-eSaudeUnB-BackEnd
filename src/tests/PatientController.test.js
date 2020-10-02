@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 const mongoose = require('mongoose');
 const supertest = require('supertest');
 const UserPatient = require('../models/UserPatient');
@@ -106,7 +107,7 @@ describe('Patient API', () => {
             bond: 'graduando',
         });
 
-        expect(response2.status).toBe(400);
+        expect(response2.status).toBe(203);
     });
 
     it('should be able to delete a user', async () => {
