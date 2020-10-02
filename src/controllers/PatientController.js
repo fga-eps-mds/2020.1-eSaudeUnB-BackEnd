@@ -22,18 +22,21 @@ const schema = Joi.object({
         .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
         .required(),
 
-    phone: Joi.number(),
+    phone: Joi.number()
+        .allow(""),
 
     gender: Joi.string()
         .max(1)
-        .required(),
+        .allow(""),
 
     unbRegistration: Joi.string()
         .pattern(new RegExp('^[0-9]+$'))
         .min(8)
-        .max(10),
+        .max(10)
+        .allow(""),
 
-    bond: Joi.string(),
+    bond: Joi.string()
+        .allow(""),
 })
 
 module.exports = {
@@ -56,7 +59,7 @@ module.exports = {
             });
 
             if (error) {
-                return res.status(203).json({ value });
+                return res.status(203).json({ value, error });
             }
 
             const user = await UserPatient.findOne({ email });
