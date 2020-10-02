@@ -1,8 +1,8 @@
 /* eslint-disable linebreak-style */
 const generatePassword = require('password-generator');
+const Joi = require('joi');
 const Psychologist = require('../models/Psychologist');
 const UserPatient = require('../models/UserPatient');
-const Joi = require('joi');
 
 const schema = Joi.object({
     name: Joi.string()
@@ -23,21 +23,21 @@ const schema = Joi.object({
         .required(),
 
     biography: Joi.string()
-        .allow("")
+        .allow('')
         .min(0)
         .max(300),
 
     gender: Joi.string()
-        .allow("")
+        .allow('')
         .max(1)
         .required(),
 
     bond: Joi.string()
-        .allow(""),
+        .allow(''),
 
     phone: Joi.number()
-        .allow(""),
-})
+        .allow(''),
+});
 
 module.exports = {
     async store(req, res) {
