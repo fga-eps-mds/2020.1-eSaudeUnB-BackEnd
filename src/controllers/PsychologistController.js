@@ -167,10 +167,26 @@ module.exports = {
             if (biography) {
                 user.biography = biography;
             }
+
+            const { error, value } = schema.validate({
+                name,
+                lastName,
+                email,
+                gender,
+                bond,
+                phone,
+                specialization,
+                biography,
+            });
+
+            if (error) {
+                return res.status(203).json({ value, error });
+            }
+
             await user.save();
             return res.status(200).json(user);
         } catch (err) {
-            return res.status(500).json({ message: 'falha ao dar o update' });
+            return res.status(500).json({ message: 'falha ao dar o update', err });
         }
     },
 
