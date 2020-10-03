@@ -66,12 +66,13 @@ module.exports = {
 
     async update(req, res) {
         try {
-
-            const {name, lastName, gender, bond, specialization, biography} = req.body;
-            const {email} = req.params
+            const {
+                name, lastName, gender, bond, specialization, biography,
+            } = req.body;
+            const { email } = req.params;
 
             const user = await Psychologist.findOne({
-                email
+                email,
             }).exec();
 
             if (name) {

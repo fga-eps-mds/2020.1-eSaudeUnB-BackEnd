@@ -68,14 +68,15 @@ module.exports = {
 
     async update(req, res) {
         try {
+            const {
+                name, lastName, phone, unbRegistration, gender, bond,
+                civilStatus, religion,
+            } = req.body;
 
-            const {name, lastName, phone, unbRegistration, gender, bond,
-            civilStatus, religion} = req.body;
-
-            const {email} = req.params;
+            const { email } = req.params;
 
             const user = await UserPatient.findOne({
-                email
+                email,
             }).exec();
 
             if (name) {
