@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const supertest = require('supertest');
+const UserPatient = require('../models/UserPatient');
 
 const app = require('../server');
 
@@ -11,7 +12,7 @@ const user1 = {
     email: 'email@email.com',
     phone: '061999999999',
     password: 'password',
-    unbunbRegistration: '180000000',
+    unbRegistration: '180000000',
     gender: 'M',
     bond: 'graduando',
 };
@@ -63,6 +64,10 @@ describe('Patient API', () => {
         });
     });
 
+    beforeEach(async () => {
+        await UserPatient.collection.deleteMany({});
+    });
+
     afterAll(async (done) => {
         await mongoose.connection.close();
         done();
@@ -86,7 +91,11 @@ describe('Patient API', () => {
     });
 
     it('should be able to create a new user', async () => {
-        const response = await request.post('/users').send({
+        const response = await request.post('/users').send(user1);
+
+        expect(response.status).toBe(201);
+
+        const response2 = await request.post('/users').send({
             name: 'Rafael',
             lastName: null,
             email: 'teste@hotmail.com',
@@ -97,7 +106,7 @@ describe('Patient API', () => {
             bond: 'graduando',
         });
 
-        expect(response.status).toBe(400);
+        expect(response2.status).toBe(400);
     });
 
     it('should be able to delete a user', async () => {

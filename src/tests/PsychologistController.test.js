@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const supertest = require('supertest');
+const Psychologist = require('../models/Psychologist');
 
 const app = require('../server');
 
@@ -10,7 +11,7 @@ const user1 = {
     lastName: 'Lima',
     email: 'email@email.com',
     password: 'password',
-    unbunbRegistration: '180000000',
+    unbRegistration: '180000000',
     gender: 'M',
     bond: 'graduando',
     specialization: '',
@@ -48,6 +49,10 @@ describe('Psychologist API', () => {
             useCreateIndex: true,
             useFindAndModify: false,
         });
+    });
+
+    beforeEach(async () => {
+        await Psychologist.collection.deleteMany({});
     });
 
     afterAll(async (done) => {

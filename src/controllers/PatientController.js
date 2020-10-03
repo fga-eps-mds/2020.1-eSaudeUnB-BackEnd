@@ -4,14 +4,8 @@ module.exports = {
     async store(req, res) {
         try {
             const {
-                name,
-                lastName,
-                email,
-                phone,
-                password,
-                gender,
-                unbRegistration,
-                bond,
+                name, lastName, email, phone,
+                password, gender, unbRegistration, bond,
             } = req.body;
 
             const user = await UserPatient.findOne({ email });
@@ -75,11 +69,14 @@ module.exports = {
     async update(req, res) {
         try {
             const {
-                name, lastName, email, phone, unbRegistration, gender, bond, civilStatus, religion,
+                name, lastName, phone, unbRegistration, gender, bond,
+                civilStatus, religion,
             } = req.body;
 
+            const { email } = req.params;
+
             const user = await UserPatient.findOne({
-                email: req.params.email,
+                email,
             }).exec();
 
             if (name) {

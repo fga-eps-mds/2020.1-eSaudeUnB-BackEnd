@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const supertest = require('supertest');
+const Session = require('../models/Session');
+const UserPatient = require('../models/UserPatient');
 
 const app = require('../server');
 
@@ -19,7 +21,7 @@ const user = {
     email: 'email@email.com',
     phone: '061999999999',
     password: 'password',
-    unbunbRegistration: '180000000',
+    unbRegistration: '180000000',
     gender: 'M',
     bond: 'graduando',
 };
@@ -34,19 +36,30 @@ describe('Session API', () => {
         });
     });
 
+    beforeEach(async () => {
+        await UserPatient.collection.deleteMany({});
+        await Session.collection.deleteMany({});
+    });
+
     afterAll(async (done) => {
         await mongoose.connection.close();
         done();
     });
 
     it('should be able to register a new session', async () => {
-        const response = await request.post('/session').send(session);
+        const errResponse = await request.post('/session')
+            .send({
+                email: 'asaaa@email.com',
+                secondaryComplaint: 'teste 4',
+                professional: 'Pedro Henrique',
+            });
+        expect(errResponse.status).toBe(400);
 
-        expect(response.status).toBe(201);
+        const response = await request.post('/session').send(session);
+        expect(response.status).toBe(404);
 
         await request.post('/users').send(user);
         const response2 = await request.post('/session').send(session);
-
         expect(response2.status).toBe(201);
     });
 

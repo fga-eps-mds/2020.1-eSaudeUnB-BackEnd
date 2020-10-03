@@ -26,10 +26,9 @@ module.exports = {
     async show(req, res) {
         try {
             const { email, password } = req.body;
-
             const user = await Admin.findOne({ email });
 
-            if (user != null) {
+            if (user) {
                 if (user.password === password) {
                     return res.status(200).json(user);
                 }
@@ -37,10 +36,9 @@ module.exports = {
                     return res.status(400).json('Senha Incorreta');
                 }
             }
-
-            return res.status(404).json('Usuário não encontrado');
+            throw new Error({ err: 'Usuário não encontrado' });
         } catch (err) {
-            return res.status(500).json({ error: err.message });
+            return res.status(404).json(err);
         }
     },
 };

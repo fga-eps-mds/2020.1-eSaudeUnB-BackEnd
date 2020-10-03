@@ -4,16 +4,17 @@ module.exports = {
     async update(req, res) {
         try {
             const { email, weekDay, restrict } = req.body;
-            if (weekDay != null) {
+            if (weekDay) {
                 const psicology = await Psychologist.updateOne(
                     { email },
                     {
                         $set: { weekDay },
+
                     },
                 );
                 return res.status(200).json(psicology);
             }
-            if (restrict != null) {
+            if (restrict) {
                 const psicology = await Psychologist.updateOne(
                     { email },
                     {

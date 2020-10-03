@@ -6,13 +6,8 @@ module.exports = {
         try {
             const password = generatePassword(8, false);
             const {
-                name,
-                lastName,
-                email,
-                specialization,
-                bibliography,
-                gender,
-                bond,
+                name, lastName, email, specialization,
+                biography, gender, bond,
             } = req.body;
 
             const psyUser = await Psychologist.findOne({ email });
@@ -29,7 +24,7 @@ module.exports = {
                 bond,
                 password,
                 specialization,
-                bibliography,
+                biography,
             });
             return res.status(201).json(psychologist);
         } catch (err) {
@@ -72,17 +67,12 @@ module.exports = {
     async update(req, res) {
         try {
             const {
-                name,
-                lastName,
-                email,
-                gender,
-                bond,
-                specialization,
-                bibliography,
+                name, lastName, gender, bond, specialization, biography,
             } = req.body;
+            const { email } = req.params;
 
             const user = await Psychologist.findOne({
-                email: req.params.email,
+                email,
             }).exec();
 
             if (name) {
@@ -103,8 +93,8 @@ module.exports = {
             if (specialization) {
                 user.specialization = specialization;
             }
-            if (bibliography) {
-                user.bibliography = bibliography;
+            if (biography) {
+                user.biography = biography;
             }
             await user.save();
             return res.status(200).json(user);
