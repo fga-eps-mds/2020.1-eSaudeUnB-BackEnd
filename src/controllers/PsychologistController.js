@@ -16,7 +16,7 @@ const schema = Joi.object({
 
     email: Joi.string()
         .required()
-        .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
+        .email({ minDomainSegments: 2, tlds: false }),
 
     specialization: Joi.string()
         .required(),
@@ -53,6 +53,13 @@ module.exports = {
                 bond,
             } = req.body;
 
+            const psyUser = await Psychologist.findOne({ email });
+            const user = await UserPatient.findOne({ email });
+
+            if (psyUser || user) {
+                return res.status(200).json(psyUser);
+            }
+
             const { error, value } = schema.validate({
                 name,
                 lastName,
@@ -66,13 +73,6 @@ module.exports = {
 
             if (error) {
                 return res.status(203).json({ value, error });
-            }
-
-            const psyUser = await Psychologist.findOne({ email });
-            const user = await UserPatient.findOne({ email });
-
-            if (psyUser || user) {
-                return res.status(200).json(psyUser);
             }
 
             const psychologist = await Psychologist.create({

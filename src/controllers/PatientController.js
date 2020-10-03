@@ -14,10 +14,11 @@ const schema = Joi.object({
         .required(),
 
     email: Joi.string()
-        .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
+        .email({ minDomainSegments: 2, tlds: false })
         .required(),
 
     password: Joi.string()
+        .min(8)
         .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
         .required(),
 
@@ -52,6 +53,13 @@ module.exports = {
                 bond,
             } = req.body;
 
+            const user = await UserPatient.findOne({ email });
+            const psyUser = await Psychologist.findOne({ email });
+
+            if (user || psyUser) {
+                return res.status(200).json(user);
+            }
+
             const { error, value } = schema.validate({
                 name,
                 lastName,
@@ -65,13 +73,6 @@ module.exports = {
 
             if (error) {
                 return res.status(203).json({ value, error });
-            }
-
-            const user = await UserPatient.findOne({ email });
-            const psyUser = await Psychologist.findOne({ email });
-
-            if (user || psyUser) {
-                return res.status(200).json(user);
             }
 
             const patient = await UserPatient.create({
