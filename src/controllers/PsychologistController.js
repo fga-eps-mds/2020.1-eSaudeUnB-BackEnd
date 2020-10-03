@@ -66,30 +66,34 @@ module.exports = {
 
     async update(req, res) {
         try {
+
+            const {name, lastName, gender, bond, specialization, biography} = req.body;
+            const {email} = req.params
+
             const user = await Psychologist.findOne({
-                email: req.params.email,
+                email
             }).exec();
 
-            if (req.body.name) {
-                user.name = req.body.name;
+            if (name) {
+                user.name = name;
             }
-            if (req.body.lastName) {
-                user.lastName = req.body.lastName;
+            if (lastName) {
+                user.lastName = lastName;
             }
-            if (req.body.email) {
-                user.email = req.body.email;
+            if (email) {
+                user.email = email;
             }
-            if (req.body.gender) {
-                user.gender = req.body.gender;
+            if (gender) {
+                user.gender = gender;
             }
-            if (req.body.bond) {
-                user.bond = req.body.bond;
+            if (bond) {
+                user.bond = bond;
             }
-            if (req.body.specialization) {
-                user.specialization = req.body.specialization;
+            if (specialization) {
+                user.specialization = specialization;
             }
-            if (req.body.biography) {
-                user.biography = req.body.biography;
+            if (biography) {
+                user.biography = biography;
             }
             await user.save();
             return res.status(200).json(user);

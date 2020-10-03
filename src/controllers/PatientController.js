@@ -68,36 +68,42 @@ module.exports = {
 
     async update(req, res) {
         try {
+
+            const {name, lastName, phone, unbRegistration, gender, bond,
+            civilStatus, religion} = req.body;
+
+            const {email} = req.params;
+
             const user = await UserPatient.findOne({
-                email: req.params.email,
+                email
             }).exec();
 
-            if (req.body.name) {
-                user.name = req.body.name;
+            if (name) {
+                user.name = name;
             }
-            if (req.body.lastName) {
-                user.lastName = req.body.lastName;
+            if (lastName) {
+                user.lastName = lastName;
             }
-            if (req.body.email) {
-                user.email = req.body.email;
+            if (email) {
+                user.email = email;
             }
-            if (req.body.phone) {
-                user.phone = req.body.phone;
+            if (phone) {
+                user.phone = phone;
             }
-            if (req.body.unbRegistration) {
-                user.unbRegistration = req.body.unbRegistration;
+            if (unbRegistration) {
+                user.unbRegistration = unbRegistration;
             }
-            if (req.body.gender) {
-                user.gender = req.body.gender;
+            if (gender) {
+                user.gender = gender;
             }
-            if (req.body.bond) {
-                user.bond = req.body.bond;
+            if (bond) {
+                user.bond = bond;
             }
-            if (req.body.civilStatus) {
-                user.civilStatus = req.body.civilStatus;
+            if (civilStatus) {
+                user.civilStatus = civilStatus;
             }
-            if (req.body.religion) {
-                user.religion = req.body.religion;
+            if (religion) {
+                user.religion = religion;
             }
             await user.save();
             return res.status(200).json(user);
