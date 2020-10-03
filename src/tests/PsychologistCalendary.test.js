@@ -87,8 +87,8 @@ describe('Psychologist API', () => {
     });
     it('should be able to show a psychologist schedule', async () => {
         await request.post('/admin/psy/create').send(user);
-        const psychologo = await request.post('/calendary/update').send(email);
-        expect(psychologo.status).toBe(200);
+        const psychologist = await request.post('/calendary/update').send(email);
+        expect(psychologist.status).toBe(200);
     });
     it('should be able to show a psychologist restrict', async () => {
         const errResponse = await request
@@ -97,9 +97,9 @@ describe('Psychologist API', () => {
         expect(errResponse.status).toBe(400);
 
         await request.post('/admin/psy/create').send(user);
-        const psychologo = await request
+        const psychologist = await request
             .post('/calendary/restrict')
             .send(email);
-        expect(psychologo.status).toBe(200);
+        expect(psychologist.status).toBe(200);
     });
 });
