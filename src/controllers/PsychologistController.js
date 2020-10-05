@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 const generatePassword = require('password-generator');
 const Joi = require('joi');
 const Psychologist = require('../models/Psychologist');
