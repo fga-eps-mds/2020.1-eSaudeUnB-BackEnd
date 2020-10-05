@@ -173,8 +173,14 @@ module.exports = {
     async update(req, res) {
         try {
             const {
-                name, lastName, phone, unbRegistration, gender, bond,
-                civilStatus, religion,
+                name,
+                lastName,
+                phone,
+                unbRegistration,
+                gender,
+                bond,
+                civilStatus,
+                religion,
             } = req.body;
 
             const { email } = req.params;
