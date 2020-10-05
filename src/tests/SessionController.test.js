@@ -11,7 +11,7 @@ const session = {
     email: 'email@email.com',
     mainComplaint: 'testing api',
     secondaryComplaint: 'testing api',
-    complaintEvolution: 'Fallaste ia es mettidas eu da conheces effeitos. ',
+    complaintEvolution: 'Fallaste ia es mettidas eu da conheces effeitos.',
     professional: 'Pedro Henrique',
 };
 

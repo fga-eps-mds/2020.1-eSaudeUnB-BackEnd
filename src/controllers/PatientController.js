@@ -92,8 +92,14 @@ module.exports = {
     async store(req, res) {
         try {
             const {
-                name, lastName, email, phone,
-                password, gender, unbRegistration, bond,
+                name,
+                lastName,
+                email,
+                phone,
+                password,
+                gender,
+                unbRegistration,
+                bond,
             } = req.body;
 
             const user = await UserPatient.findOne({ email });
