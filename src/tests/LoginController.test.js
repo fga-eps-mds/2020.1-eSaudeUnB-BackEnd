@@ -10,24 +10,25 @@ const request = supertest(app);
 const psyUser = {
     name: 'Vinicius',
     lastName: 'Lima',
-    email: 'email@email.com',
-    password: 'password',
-    unbRegistration: '180000000',
+    email: 'emailPsy@email.com',
+    phone: '061999999999',
     gender: 'M',
-    bond: 'graduando',
-    specialization: '',
+    bond: 'psychologist',
+    specialization: 'psicologo',
     biography: '',
 };
 
 const user = {
     name: 'Vinicius',
     lastName: 'Lima',
-    email: 'email@email.com',
-    phone: '061999999999',
+    email: 'emailUser@email.com',
     password: 'password',
     unbRegistration: '180000000',
+    phone: '061999999999',
     gender: 'M',
     bond: 'graduando',
+    religion: '',
+    civilStatus: '',
 };
 
 describe('Login API', () => {
@@ -68,11 +69,9 @@ describe('Login API', () => {
     });
 
     it('should be able to succssessfully login an psychologist', async () => {
-        await request.post('/admin/psy/create').send(psyUser);
+        const psyResponse = await request.post('/admin/psy/create').send(psyUser);
 
-        const { email, password } = psyUser;
-
-        await request.put(`/psyUpdatePassword/${email}`).send({ password });
+        const { email, password } = psyResponse.body;
 
         const response = await request.post('/loginPsy').send({ email, password });
         expect(response.status).toBe(200);

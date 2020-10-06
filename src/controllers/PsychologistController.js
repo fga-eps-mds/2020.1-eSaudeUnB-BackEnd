@@ -16,8 +16,8 @@ const schema = Joi.object({
         .required(),
 
     email: Joi.string()
-        .required()
-        .email({ minDomainSegments: 2, tlds: false }),
+        .email({ minDomainSegments: 2, tlds: false })
+        .required(),
 
     specialization: Joi.string()
         .required(),

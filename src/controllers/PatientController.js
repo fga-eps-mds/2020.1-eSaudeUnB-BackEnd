@@ -31,12 +31,12 @@ const schemaCreate = Joi.object({
         .allow(''),
 
     religion: Joi.string()
-        .max(1)
-        .allow(''),
+        .allow('')
+        .allow(null),
 
     civilStatus: Joi.string()
-        .max(1)
-        .allow(''),
+        .allow('')
+        .allow(null),
 
     unbRegistration: Joi.string()
         .pattern(new RegExp('^[0-9]+$'))

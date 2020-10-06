@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const supertest = require('supertest');
 const Session = require('../models/Session');
 const UserPatient = require('../models/UserPatient');
+const Psychologist = require('../models/Psychologist');
 
 const app = require('../server');
 
@@ -19,9 +20,20 @@ const user = {
     name: 'Vinicius',
     lastName: 'Lima',
     email: 'email@email.com',
-    phone: '061999999999',
-    password: 'password',
-    unbRegistration: '180000000',
+    phone: '061981353485',
+    password: '123456789',
+    unbRegistration: '190019158',
+    gender: 'M',
+    bond: 'graduando',
+};
+
+const user2 = {
+    name: 'Vinicius',
+    lastName: 'Lima',
+    email: 'email2@email2.com',
+    phone: '061981353485',
+    password: '123456789',
+    unbRegistration: '190019158',
     gender: 'M',
     bond: 'graduando',
 };
@@ -39,6 +51,7 @@ describe('Session API', () => {
     beforeEach(async () => {
         await UserPatient.collection.deleteMany({});
         await Session.collection.deleteMany({});
+        await Psychologist.collection.deleteMany({});
     });
 
     afterAll(async (done) => {
@@ -47,9 +60,10 @@ describe('Session API', () => {
     });
 
     it('should be able to register a new session', async () => {
+        await request.post('/users').send(user2);
         const errResponse = await request.post('/session')
             .send({
-                email: 'asaaa@email.com',
+                email: 'email2@email2.com',
                 secondaryComplaint: 'teste 4',
                 professional: 'Pedro Henrique',
             });
