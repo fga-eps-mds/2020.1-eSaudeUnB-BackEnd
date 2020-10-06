@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const supertest = require('supertest');
 const Psychologist = require('../models/Psychologist');
+const UserPatient = require('../models/UserPatient');
 const app = require('../server');
 
 const request = supertest(app);
@@ -13,12 +14,11 @@ const user = {
     name: 'Vinicius',
     lastName: 'Lima',
     email: 'email@email.com',
-    password: 'password',
-    unbRegistration: '180000000',
     gender: 'M',
     bond: 'graduando',
-    specialization: '',
-    bibliography: '',
+    phone: '061981353485',
+    specialization: 'psicólogo',
+    biography: '',
 };
 const userUpdateweekDay = {
     email: 'email@email.com',
@@ -60,6 +60,7 @@ describe('Psychologist API', () => {
 
     beforeEach(async () => {
         await Psychologist.collection.deleteMany({});
+        await UserPatient.collection.deleteMany({});
     });
 
     afterAll(async (done) => {

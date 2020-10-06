@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 const mongoose = require('mongoose');
 
 const PsychologistSchema = new mongoose.Schema({
@@ -18,6 +19,9 @@ const PsychologistSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    phone: {
+        type: String,
+    },
     gender: {
         type: String,
         required: true,
@@ -37,7 +41,6 @@ const PsychologistSchema = new mongoose.Schema({
             weekDay: Number,
             from: String,
             to: String,
-            id: Number,
         },
     ],
     restrict: [

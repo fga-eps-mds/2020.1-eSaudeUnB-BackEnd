@@ -1,6 +1,8 @@
+/* eslint-disable linebreak-style */
 const mongoose = require('mongoose');
 const supertest = require('supertest');
 const UserPatient = require('../models/UserPatient');
+const Psychologist = require('../models/Psychologist');
 
 const app = require('../server');
 
@@ -33,12 +35,10 @@ const user3 = {
     lastName: 'Henrique',
     email: 'lucasHenrique@hotmail.com',
     phone: '0619856482',
-    password: 'teste',
-    unbRegistration: '1098739',
+    password: 'password',
+    unbRegistration: '190019158',
     gender: 'M',
     bond: 'graduando',
-    civilStatus: 'Solteiro',
-    religion: 'Catolico',
 };
 
 const user4 = {
@@ -46,7 +46,7 @@ const user4 = {
     lastName: 'Filipe',
     email: 'abner@hotmail.com',
     phone: '06187832902',
-    password: 'abner',
+    password: 'password',
     unbRegistration: '1900267842',
     gender: 'M',
     bond: 'graduando',
@@ -66,6 +66,7 @@ describe('Patient API', () => {
 
     beforeEach(async () => {
         await UserPatient.collection.deleteMany({});
+        await Psychologist.collection.deleteMany({});
     });
 
     afterAll(async (done) => {
@@ -94,7 +95,9 @@ describe('Patient API', () => {
         const response = await request.post('/users').send(user1);
 
         expect(response.status).toBe(201);
+    });
 
+    it('should not be able to create a new user', async () => {
         const response2 = await request.post('/users').send({
             name: 'Rafael',
             lastName: null,
@@ -106,7 +109,7 @@ describe('Patient API', () => {
             bond: 'graduando',
         });
 
-        expect(response2.status).toBe(400);
+        expect(response2.status).toBe(203);
     });
 
     it('should be able to delete a user', async () => {
@@ -134,7 +137,7 @@ describe('Patient API', () => {
 
         const response = await request
             .put(`/user/${user3.email}`)
-            .send({ password: 'teste' });
+            .send({ password: '12345678' });
 
         expect(response.status).toBe(200);
     });

@@ -8,19 +8,21 @@ module.exports = {
             const { email } = req.body;
 
             const {
-                mainComplaint, secondaryComplaint, complaintEvolution, professional,
-            } = req.body;
-
-            const session = await Session.create({
                 mainComplaint,
                 secondaryComplaint,
                 complaintEvolution,
                 professional,
-            });
+            } = req.body;
 
             const user = await UserPatient.findOne({ email });
 
             if (user) {
+                const session = await Session.create({
+                    mainComplaint,
+                    secondaryComplaint,
+                    complaintEvolution,
+                    professional,
+                });
                 const updatedSessions = user.sessions;
                 updatedSessions.push(session.id);
                 await UserPatient.updateOne({ email }, { $set: { sessions: updatedSessions } });

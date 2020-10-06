@@ -1,19 +1,79 @@
+/* eslint-disable linebreak-style */
 const generatePassword = require('password-generator');
+const Joi = require('joi');
 const Psychologist = require('../models/Psychologist');
+const UserPatient = require('../models/UserPatient');
+
+const schema = Joi.object({
+    name: Joi.string()
+        .min(3)
+        .max(30)
+        .required(),
+
+    lastName: Joi.string()
+        .min(3)
+        .max(30)
+        .required(),
+
+    email: Joi.string()
+        .email({ minDomainSegments: 2, tlds: false })
+        .required(),
+
+    specialization: Joi.string()
+        .required(),
+
+    biography: Joi.string()
+        .allow('')
+        .min(0)
+        .max(300),
+
+    gender: Joi.string()
+        .allow('')
+        .max(1)
+        .required(),
+
+    bond: Joi.string()
+        .allow(''),
+
+    phone: Joi.number()
+        .allow(''),
+});
 
 module.exports = {
     async store(req, res) {
         try {
             const password = generatePassword(8, false);
             const {
-                name, lastName, email, specialization,
-                biography, gender, bond,
+                name,
+                lastName,
+                email,
+                specialization,
+                biography,
+                phone,
+                gender,
+                bond,
             } = req.body;
 
             const psyUser = await Psychologist.findOne({ email });
+            const user = await UserPatient.findOne({ email });
 
-            if (psyUser) {
+            if (psyUser || user) {
                 return res.status(200).json(psyUser);
+            }
+
+            const { error, value } = schema.validate({
+                name,
+                lastName,
+                email,
+                specialization,
+                biography,
+                phone,
+                gender,
+                bond,
+            });
+
+            if (error) {
+                return res.status(203).json({ value, error });
             }
 
             const psychologist = await Psychologist.create({
@@ -23,6 +83,7 @@ module.exports = {
                 gender,
                 bond,
                 password,
+                phone,
                 specialization,
                 biography,
             });
@@ -67,8 +128,15 @@ module.exports = {
     async update(req, res) {
         try {
             const {
-                name, lastName, gender, bond, specialization, biography,
+                name,
+                lastName,
+                gender,
+                bond,
+                phone,
+                specialization,
+                biography,
             } = req.body;
+
             const { email } = req.params;
 
             const user = await Psychologist.findOne({
@@ -90,16 +158,35 @@ module.exports = {
             if (bond) {
                 user.bond = bond;
             }
+            if (phone) {
+                user.phone = phone;
+            }
             if (specialization) {
                 user.specialization = specialization;
             }
             if (biography) {
                 user.biography = biography;
             }
+
+            const { error, value } = schema.validate({
+                name,
+                lastName,
+                email,
+                gender,
+                bond,
+                phone,
+                specialization,
+                biography,
+            });
+
+            if (error) {
+                return res.status(203).json({ value, error });
+            }
+
             await user.save();
             return res.status(200).json(user);
         } catch (err) {
-            return res.status(500).json({ message: 'falha ao dar o update' });
+            return res.status(500).json({ message: 'falha ao dar o update', err });
         }
     },
 
