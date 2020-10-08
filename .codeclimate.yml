@@ -16,15 +16,14 @@ checks:
         enabled: true
     return-statements:
         enabled: true
-    similar-code:
-        enabled: true
     identical-code:
         enabled: true
 plugins:
     eslint:
         enabled: true
         config:
-            config: ./.eslintrc.json
+            config: ./.eslintrc
+        channel: "eslint-7"
 exclude_patterns:
 - "config/"
 - "db/"
