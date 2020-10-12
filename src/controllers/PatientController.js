@@ -46,7 +46,7 @@ const schemaCreate = Joi.object({
 
     bond: Joi.string()
         .allow(''),
-});
+}).options({ abortEarly: false });
 
 const schemaUpdate = Joi.object({
     name: Joi.string()
