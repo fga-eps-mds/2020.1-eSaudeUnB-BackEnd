@@ -106,7 +106,7 @@ module.exports = {
             const psyUser = await Psychologist.findOne({ email });
 
             if (user || psyUser) {
-                return res.status(200).json(user);
+                return res.status(409).json({message: 'Usuário já cadastrado'});
             }
 
             const { error, value } = schemaCreate.validate({
