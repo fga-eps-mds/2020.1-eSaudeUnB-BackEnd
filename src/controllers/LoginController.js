@@ -11,7 +11,7 @@ module.exports = {
                 if (user.password === password) {
                     return res.status(200).json(user);
                 }
-                return res.status(400).json('Senha Incorreta');
+                return res.status(400).json({message: 'Senha Incorreta'});
             }
             throw new Error({ err: 'Usuário não encontrado' });
         } catch (err) {
@@ -29,7 +29,7 @@ module.exports = {
                 if (user.password === password) {
                     return res.status(200).json(user);
                 }
-                return res.status(400).json('Senha Incorreta');
+                return res.status(400).json({message: 'Senha Incorreta'});
             }
             throw new Error({ err: 'Usuário não encontrado' });
         } catch (err) {

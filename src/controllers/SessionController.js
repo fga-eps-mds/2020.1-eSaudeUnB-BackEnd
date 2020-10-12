@@ -29,7 +29,7 @@ module.exports = {
                 return res.status(201).json(user);
             }
 
-            return res.status(404).json('Usuário não encontrado');
+            return res.status(404).json({message: 'Usuário não encontrado'});
         } catch (err) {
             return res.status(400).json({ error: err.message });
         }
@@ -71,7 +71,7 @@ module.exports = {
                 return res.status(200).json(sessions);
             }
 
-            return res.status(404).json('Usuário não encontrado');
+            return res.status(404).json({message: 'Usuário não encontrado'});
         } catch (err) {
             return res.status(400).json({ error: err.message });
         }
