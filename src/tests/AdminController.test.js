@@ -45,7 +45,7 @@ describe('Admin API', () => {
         expect(response.status).toBe(201);
 
         const respose2 = await request.post('/admin').send(user);
-        expect(respose2.status).toBe(200);
+        expect(respose2.status).toBe(409);
     });
 
     it('should be able to login an admin', async () => {

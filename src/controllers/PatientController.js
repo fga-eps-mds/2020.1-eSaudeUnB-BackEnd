@@ -3,6 +3,49 @@ const Joi = require('joi');
 const UserPatient = require('../models/UserPatient');
 const Psychologist = require('../models/Psychologist');
 
+const schemaCreate = Joi.object({
+    name: Joi.string()
+        .min(3)
+        .max(30)
+        .required(),
+
+    lastName: Joi.string()
+        .min(3)
+        .max(30)
+        .required(),
+
+    email: Joi.string()
+        .email({ minDomainSegments: 2, tlds: false })
+        .required(),
+    password: Joi.string()
+        .min(8)
+        .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
+        .required(),
+        phone: Joi.number()
+        .allow(''),
+
+    gender: Joi.string()
+        .max(1)
+        .allow(''),
+
+    religion: Joi.string()
+        .allow('')
+        .allow(null),
+
+    civilStatus: Joi.string()
+        .allow('')
+        .allow(null),
+
+    unbRegistration: Joi.string()
+        .pattern(new RegExp('^[0-9]+$'))
+        .min(8)
+        .max(10)
+        .allow(''),
+
+    bond: Joi.string()
+        .allow(''),
+});
+
 const schemaUpdate = Joi.object({
     name: Joi.string()
         .min(3)
@@ -43,14 +86,6 @@ const schemaUpdate = Joi.object({
         .allow(''),
 });
 
-const schemaCreate = Joi.object({
-    schemaUpdate,
-    password: Joi.string()
-        .min(8)
-        .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
-        .required(),
-});
-
 module.exports = {
     async store(req, res) {
         try {
@@ -69,7 +104,7 @@ module.exports = {
             const psyUser = await Psychologist.findOne({ email });
 
             if (user || psyUser) {
-                return res.status(200).json(user);
+                return res.status(409).json({message: 'Usuário já cadastrado'});
             }
 
             const { error, value } = schemaCreate.validate({
