@@ -4,37 +4,22 @@ const UserPatient = require('../models/UserPatient');
 const Psychologist = require('../models/Psychologist');
 
 const schemaCreate = Joi.object({
-    name: Joi.string()
-        .min(3)
-        .max(30)
-        .required(),
+    name: Joi.string().min(3).max(30).required(),
 
-    lastName: Joi.string()
-        .min(3)
-        .max(30)
-        .required(),
+    lastName: Joi.string().min(3).max(30).required(),
 
-    email: Joi.string()
-        .email({ minDomainSegments: 2, tlds: false })
-        .required(),
+    email: Joi.string().email({ minDomainSegments: 2, tlds: false }).required(),
     password: Joi.string()
         .min(8)
         .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
         .required(),
-        phone: Joi.number()
-        .allow(''),
+    phone: Joi.number().allow(''),
 
-    gender: Joi.string()
-        .max(1)
-        .allow(''),
+    gender: Joi.string().max(1).allow(''),
 
-    religion: Joi.string()
-        .allow('')
-        .allow(null),
+    religion: Joi.string().allow('').allow(null),
 
-    civilStatus: Joi.string()
-        .allow('')
-        .allow(null),
+    civilStatus: Joi.string().allow('').allow(null),
 
     unbRegistration: Joi.string()
         .pattern(new RegExp('^[0-9]+$'))
@@ -42,39 +27,23 @@ const schemaCreate = Joi.object({
         .max(10)
         .allow(''),
 
-    bond: Joi.string()
-        .allow(''),
+    bond: Joi.string().allow(''),
 });
 
 const schemaUpdate = Joi.object({
-    name: Joi.string()
-        .min(3)
-        .max(30)
-        .required(),
+    name: Joi.string().min(3).max(30).required(),
 
-    lastName: Joi.string()
-        .min(3)
-        .max(30)
-        .required(),
+    lastName: Joi.string().min(3).max(30).required(),
 
-    email: Joi.string()
-        .email({ minDomainSegments: 2, tlds: false })
-        .required(),
+    email: Joi.string().email({ minDomainSegments: 2, tlds: false }).required(),
 
-    phone: Joi.number()
-        .allow(''),
+    phone: Joi.number().allow(''),
 
-    gender: Joi.string()
-        .max(1)
-        .allow(''),
+    gender: Joi.string().max(1).allow(''),
 
-    religion: Joi.string()
-        .allow('')
-        .allow(null),
+    religion: Joi.string().allow('').allow(null),
 
-    civilStatus: Joi.string()
-        .allow('')
-        .allow(null),
+    civilStatus: Joi.string().allow('').allow(null),
 
     unbRegistration: Joi.string()
         .pattern(new RegExp('^[0-9]+$'))
@@ -82,8 +51,7 @@ const schemaUpdate = Joi.object({
         .max(10)
         .allow(''),
 
-    bond: Joi.string()
-        .allow(''),
+    bond: Joi.string().allow(''),
 });
 
 module.exports = {
@@ -104,7 +72,9 @@ module.exports = {
             const psyUser = await Psychologist.findOne({ email });
 
             if (user || psyUser) {
-                return res.status(409).json({message: 'Usuário já cadastrado'});
+                return res
+                    .status(409)
+                    .json({ message: 'Usuário já cadastrado' });
             }
 
             const { error, value } = schemaCreate.validate({
@@ -245,9 +215,7 @@ module.exports = {
 
     async updatePassword(req, res) {
         try {
-            const {
-                password,
-            } = req.body;
+            const { password } = req.body;
 
             const user = await UserPatient.findOne({
                 email: req.params.email,
@@ -258,7 +226,9 @@ module.exports = {
             await user.save();
             return res.status(200).json(user);
         } catch (err) {
-            return res.status(500).json({ message: 'falha ao dar o update da senha' });
+            return res
+                .status(500)
+                .json({ message: 'falha ao dar o update da senha' });
         }
     },
 };

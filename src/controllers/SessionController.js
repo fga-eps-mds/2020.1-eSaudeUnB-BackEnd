@@ -2,7 +2,6 @@ const Session = require('../models/Session');
 const UserPatient = require('../models/UserPatient');
 
 module.exports = {
-
     async store(req, res) {
         try {
             const { email } = req.body;
@@ -25,11 +24,14 @@ module.exports = {
                 });
                 const updatedSessions = user.sessions;
                 updatedSessions.push(session.id);
-                await UserPatient.updateOne({ email }, { $set: { sessions: updatedSessions } });
+                await UserPatient.updateOne(
+                    { email },
+                    { $set: { sessions: updatedSessions } },
+                );
                 return res.status(201).json(user);
             }
 
-            return res.status(404).json({message: 'Usuário não encontrado'});
+            return res.status(404).json({ message: 'Usuário não encontrado' });
         } catch (err) {
             return res.status(400).json({ error: err.message });
         }
@@ -71,7 +73,7 @@ module.exports = {
                 return res.status(200).json(sessions);
             }
 
-            return res.status(404).json({message: 'Usuário não encontrado'});
+            return res.status(404).json({ message: 'Usuário não encontrado' });
         } catch (err) {
             return res.status(400).json({ error: err.message });
         }
@@ -80,7 +82,11 @@ module.exports = {
     async update(req, res) {
         try {
             const {
-                id, mainComplaint, secondaryComplaint, complaintEvolution, professional,
+                id,
+                mainComplaint,
+                secondaryComplaint,
+                complaintEvolution,
+                professional,
             } = req.body;
 
             await Session.findByidAndUpdate(id, {
@@ -121,5 +127,4 @@ module.exports = {
             return res.status(400).json({ message: err.message });
         }
     },
-
 };
