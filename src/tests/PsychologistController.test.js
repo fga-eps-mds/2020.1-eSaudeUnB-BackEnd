@@ -60,22 +60,22 @@ describe('Psychologist API', () => {
     });
 
     it('should be able to create a new psychologist', async () => {
-        const response = await request.post('/admin/psy/create').send(user1);
+        const response = await request.post('/psychologist').send(user1);
 
         expect(response.status).toBe(201);
     });
 
     it('should not be able to create a new psychologist', async () => {
-        const response = await request.post('/admin/psy/create').send(user3);
+        const response = await request.post('/psychologist').send(user3);
 
         expect(response.status).toBe(203);
     });
 
     it('should be able to list all the psychologists', async () => {
-        await request.post('/admin/psy/create').send(user1);
-        await request.post('/admin/psy/create').send(user2);
+        await request.post('/psychologist').send(user1);
+        await request.post('/psychologist').send(user2);
 
-        const response = await request.get('/admin/psy/list');
+        const response = await request.get('/psychologists');
 
         expect(response.status).toBe(200);
     });
@@ -83,23 +83,23 @@ describe('Psychologist API', () => {
     it('should be able to return a single psychologist', async () => {
         await request.post('/users').send(user1);
 
-        const response = await request.get(`/psy/${user1.email}`);
+        const response = await request.get(`/psychologist/${user1.email}`);
 
         expect(response.status).toBe(200);
     });
 
     it('should be able to delete a psychologist', async () => {
-        await request.post('/admin/psy/create').send(user1);
+        await request.post('/psychologist').send(user1);
 
         const responseDelete = await request.delete(
-            `/admin/psy/${user1.email}`,
+            `/psychologist/${user1.email}`,
         );
 
         expect(responseDelete.status).toBe(200);
     });
 
     it('should be able to update a psychologist', async () => {
-        await request.post('/admin/psy/create').send(user1);
+        await request.post('/psychologist').send(user1);
 
         const responseDelete = await request
             .put(`/psyUpdate/${user1.email}`)
@@ -117,7 +117,7 @@ describe('Psychologist API', () => {
     });
 
     it('should not be able to update a psychologist', async () => {
-        await request.post('/admin/psy/create').send(user1);
+        await request.post('/psychologist').send(user1);
 
         const responseDelete = await request.put(`/psyUpdate/${null}`).send({
             name: 'teste',
@@ -133,7 +133,7 @@ describe('Psychologist API', () => {
     });
 
     it('should be able to update a psychologist password', async () => {
-        await request.post('/admin/psy/create').send(user1);
+        await request.post('/psychologist').send(user1);
 
         const responseDelete = await request
             .put(`/psyUpdatePassword/${user1.email}`)
@@ -143,7 +143,7 @@ describe('Psychologist API', () => {
     });
 
     it('should not be able to update a psychologist password', async () => {
-        await request.post('/admin/psy/create').send(user1);
+        await request.post('/psychologist').send(user1);
 
         const responseDelete = await request
             .put(`/psyUpdatePassword/${user1.email}`)

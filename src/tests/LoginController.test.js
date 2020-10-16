@@ -56,32 +56,32 @@ describe('Login API', () => {
 
         const { email, password } = user;
 
-        const response = await request.post('/loginUser').send({ email, password });
+        const response = await request.post('/login/patient').send({ email, password });
         expect(response.status).toBe(200);
     });
 
     it('should fail to login an user', async () => {
-        const response2 = await request.post('/loginUser').send({});
+        const response2 = await request.post('/login/patient').send({});
         expect(response2.status).toBe(404);
 
-        const errResponse = await request.post('/loginUser').send(null);
+        const errResponse = await request.post('/login/patient').send(null);
         expect(errResponse.status).toBe(404);
     });
 
     it('should be able to succssessfully login an psychologist', async () => {
-        const psyResponse = await request.post('/admin/psy/create').send(psyUser);
+        const psyResponse = await request.post('/psychologist').send(psyUser);
 
         const { email, password } = psyResponse.body;
 
-        const response = await request.post('/loginPsy').send({ email, password });
+        const response = await request.post('/login/psychologist').send({ email, password });
         expect(response.status).toBe(200);
     });
 
     it('should fail to login an psychologist', async () => {
-        const response2 = await request.post('/loginPsy').send({});
+        const response2 = await request.post('/login/psychologist').send({});
         expect(response2.status).toBe(404);
 
-        const errResponse = await request.post('/loginPsy').send(null);
+        const errResponse = await request.post('/login/psychologist').send(null);
         expect(errResponse.status).toBe(404);
     });
 });
