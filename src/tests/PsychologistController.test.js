@@ -2,6 +2,7 @@
 const mongoose = require('mongoose');
 const supertest = require('supertest');
 const Psychologist = require('../models/Psychologist');
+const UserPatient = require('../models/UserPatient');
 
 const app = require('../server');
 
@@ -52,6 +53,7 @@ describe('Psychologist API', () => {
 
     beforeEach(async () => {
         await Psychologist.collection.deleteMany({});
+        await UserPatient.collection.deleteMany({});
     });
 
     afterAll(async (done) => {
