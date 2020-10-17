@@ -37,7 +37,7 @@ const schema = Joi.object({
 
     phone: Joi.number()
         .allow(''),
-});
+}).options({ abortEarly: false });
 
 module.exports = {
     async store(req, res) {
