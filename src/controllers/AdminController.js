@@ -8,7 +8,7 @@ module.exports = {
             const user = await Admin.findOne({ email });
 
             if (user) {
-                return res.status(200).json('Usuário já cadastrado');
+                return res.status(409).json('Usuário já cadastrado');
             }
 
             const adminUser = await Admin.create({

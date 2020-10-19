@@ -126,7 +126,7 @@ describe('Patient API', () => {
         await request.post('/users').send(user3);
 
         const response = await request
-            .put(`/userUpdate/${user3.email}`)
+            .put(`/user/${user3.email}`)
             .send(user4);
 
         expect(response.status).toBe(200);
@@ -136,7 +136,7 @@ describe('Patient API', () => {
         await request.post('/users').send(user3);
 
         const response = await request
-            .put(`/user/${user3.email}`)
+            .put(`/user/password/${user3.email}`)
             .send({ password: '12345678' });
 
         expect(response.status).toBe(200);

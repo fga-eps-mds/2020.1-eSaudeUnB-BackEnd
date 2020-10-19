@@ -78,14 +78,14 @@ describe('Session API', () => {
     });
 
     it('should be able to list all sessions', async () => {
-        const responseError = await request.get('/session/all/test@email.com');
+        const responseError = await request.get('/sessions/test@email.com');
 
         expect(responseError.status).toBe(404);
 
         await request.post('/users').send(user);
         await request.post('/session').send(session);
 
-        const response = await request.get('/session/all/email@email.com');
+        const response = await request.get('/sessions/email@email.com');
 
         expect(response.status).toBe(200);
     });
