@@ -86,7 +86,7 @@ const schemaUpdate = Joi.object({
 
     bond: Joi.string()
         .allow(''),
-});
+}).options({ abortEarly: false });
 
 module.exports = {
     async store(req, res) {
