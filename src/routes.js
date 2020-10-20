@@ -13,22 +13,22 @@ routes.get('/users', PatientController.index);
 routes.get('/user/:email', PatientController.show);
 routes.post('/users', PatientController.store);
 routes.delete('/user', PatientController.destroy);
-routes.put('/userUpdate/:email', PatientController.update);
-routes.put('/user/:email', PatientController.updatePassword);
+routes.put('/user/:email', PatientController.update);
+routes.put('/user/password/:email', PatientController.updatePassword);
 
 // Login routes
-routes.post('/loginUser', LoginController.showUser);
-routes.post('/loginPsy', LoginController.showPsy);
+routes.post('/login/patient', LoginController.showUser);
+routes.post('/login/psychologist', LoginController.showPsy);
 
 // Admin routes
 routes.post('/admin', AdminController.store);
 routes.post('/admin/login', AdminController.show);
 
 // Psy routes
-routes.post('/admin/psy/create', PsychologistController.store);
-routes.get('/admin/psy/list', PsychologistController.index);
-routes.get('/psy/:email', PsychologistController.show);
-routes.delete('/admin/psy/:email', PsychologistController.destroy);
+routes.post('/psychologist', PsychologistController.store);
+routes.get('/psychologists', PsychologistController.index);
+routes.get('/psychologist/:email', PsychologistController.show);
+routes.delete('/psychologist/:email', PsychologistController.destroy);
 routes.put('/calendary/update/', PsychologyCalendary.update);
 routes.post('/calendary/update/', PsychologyCalendary.index);
 routes.post('/calendary/restrict/', PsychologyCalendary.show);
@@ -36,7 +36,7 @@ routes.put('/psyUpdate/:email', PsychologistController.update);
 routes.put('/psyUpdatePassword/:email', PsychologistController.updatePassword);
 routes.post('/session', SessionController.store);
 routes.get('/session/:email', SessionController.show);
-routes.get('/session/all/:email', SessionController.index);
+routes.get('/sessions/:email', SessionController.index);
 routes.put('/session', SessionController.update);
 routes.delete('/session/:email', SessionController.destroy);
 
