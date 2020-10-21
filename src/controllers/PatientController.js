@@ -28,7 +28,7 @@ const schemaCreate = Joi.object({
         .allow(''),
 
     bond: Joi.string().allow(''),
-  
+
 }).options({ abortEarly: false });
 
 const schemaUpdate = Joi.object({
@@ -51,9 +51,9 @@ const schemaUpdate = Joi.object({
         .min(8)
         .max(10)
         .allow(''),
-  
+
     bond: Joi.string().allow(''),
-  
+
 }).options({ abortEarly: false });
 
 module.exports = {
