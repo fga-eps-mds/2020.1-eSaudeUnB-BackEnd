@@ -28,7 +28,8 @@ const schemaCreate = Joi.object({
         .allow(''),
 
     bond: Joi.string().allow(''),
-});
+
+}).options({ abortEarly: false });
 
 const schemaUpdate = Joi.object({
     name: Joi.string().min(3).max(30).required(),
@@ -52,7 +53,8 @@ const schemaUpdate = Joi.object({
         .allow(''),
 
     bond: Joi.string().allow(''),
-});
+
+}).options({ abortEarly: false });
 
 module.exports = {
     async store(req, res) {
