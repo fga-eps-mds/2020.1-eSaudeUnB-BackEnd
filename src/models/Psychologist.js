@@ -41,6 +41,7 @@ const PsychologistSchema = new mongoose.Schema({
             weekDay: Number,
             from: String,
             to: String,
+            duration: Number
         },
     ],
     restrict: [
