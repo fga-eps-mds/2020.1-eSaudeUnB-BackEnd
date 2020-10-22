@@ -217,6 +217,7 @@ module.exports = {
                 user.religion = religion;
             }
             if (userImage) {
+                user.userImage =""
                 user.userImage = userImage;
             }
             
