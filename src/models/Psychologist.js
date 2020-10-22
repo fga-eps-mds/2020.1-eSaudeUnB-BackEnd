@@ -41,7 +41,11 @@ const PsychologistSchema = new mongoose.Schema({
             weekDay: Number,
             from: String,
             to: String,
-            duration: Number
+            duration: Number,
+            appointment: [{
+                time: String,
+                scheduled: Boolean,
+            }]
         },
     ],
     restrict: [
