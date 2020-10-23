@@ -217,10 +217,9 @@ module.exports = {
                 user.religion = religion;
             }
             if (userImage) {
-                user.userImage =""
                 user.userImage = userImage;
             }
-            
+
             await user.save();
             return res.status(200).json(user);
         } catch (err) {
