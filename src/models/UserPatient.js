@@ -49,6 +49,14 @@ const UserPatientSchema = new mongoose.Schema(
             default: null,
             required: false,
         },
+        restrict: [
+            {
+                year: Number,
+                day: Number,
+                month: Number,
+                hour: String
+            },
+        ],
         sessions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Session' }],
 
     },
