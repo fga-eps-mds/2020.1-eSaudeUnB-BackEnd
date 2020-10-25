@@ -36,6 +36,11 @@ const PsychologistSchema = new mongoose.Schema({
     specialization: {
         type: String,
     },
+    userImage: {
+        type: Buffer,
+        contentType: String,
+        required: false,
+    },
     weekDay: [
         {
             weekDay: Number,

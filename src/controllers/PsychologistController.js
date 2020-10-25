@@ -37,6 +37,7 @@ const schema = Joi.object({
 
     phone: Joi.number()
         .allow(''),
+    userImage: Joi.string().allow(''),
 }).options({ abortEarly: false });
 
 module.exports = {
@@ -52,6 +53,7 @@ module.exports = {
                 phone,
                 gender,
                 bond,
+                userImage,
             } = req.body;
 
             const psyUser = await Psychologist.findOne({ email });
@@ -70,6 +72,7 @@ module.exports = {
                 phone,
                 gender,
                 bond,
+                userImage,
             });
 
             if (error) {
@@ -86,6 +89,7 @@ module.exports = {
                 phone,
                 specialization,
                 biography,
+                userImage,
             });
             return res.status(201).json(psychologist);
         } catch (err) {
@@ -135,6 +139,7 @@ module.exports = {
                 phone,
                 specialization,
                 biography,
+                userImage,
             } = req.body;
 
             const { email } = req.params;
@@ -167,6 +172,9 @@ module.exports = {
             if (biography) {
                 user.biography = biography;
             }
+            if (userImage) {
+                user.userImage = userImage;
+            }
 
             const { error, value } = schema.validate({
                 name,
@@ -177,6 +185,7 @@ module.exports = {
                 phone,
                 specialization,
                 biography,
+                userImage,
             });
 
             if (error) {
