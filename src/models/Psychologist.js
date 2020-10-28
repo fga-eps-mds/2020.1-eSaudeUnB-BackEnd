@@ -45,6 +45,7 @@ const PsychologistSchema = new mongoose.Schema({
             appointment: [{
                 time: String,
                 scheduled: Boolean,
+                user: { type: mongoose.Schema.Types.ObjectId, ref: 'UserPatient' },
             }]
         },
     ],
