@@ -1,5 +1,8 @@
 const Admin = require('../models/Admin');
 
+const authConfig = require('../config/auth.config');
+const jwt = require('jsonwebtoken');
+
 module.exports = {
     async store(req, res) {
         try {
@@ -30,7 +33,14 @@ module.exports = {
 
             if (user) {
                 if (user.password === password) {
-                    return res.status(200).json(user);
+                    const token = jwt.sign({email: user.email}, authConfig.secret, {
+                        expiresIn: 86400
+                    });
+
+                    return res.status(200).json({
+                        user,
+                        accessToken: token,
+                    });
                 }
                 if (user.password !== password) {
                     return res.status(400).json('Senha Incorreta');
