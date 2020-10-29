@@ -6,11 +6,13 @@ const PsychologistController = require('./controllers/PsychologistController');
 const PsychologyCalendary = require('./controllers/PsychologyCalendary');
 const SessionController = require('./controllers/SessionController');
 
+const authMiddleware = require('./middlewares/auth');
+
 const routes = express.Router();
 
 // Patient routes
 routes.get('/users', PatientController.index);
-routes.get('/user/:email', PatientController.show);
+routes.get('/user/:email',[authMiddleware], PatientController.show);
 routes.post('/users', PatientController.store);
 routes.delete('/user', PatientController.destroy);
 routes.put('/user/:email', PatientController.update);
@@ -26,8 +28,8 @@ routes.post('/admin/login', AdminController.show);
 
 // Psy routes
 routes.post('/psychologist', PsychologistController.store);
-routes.get('/psychologists', PsychologistController.index);
-routes.get('/psychologist/:email', PsychologistController.show);
+routes.get('/psychologists',[authMiddleware], PsychologistController.index);
+routes.get('/psychologist/:email',[authMiddleware], PsychologistController.show);
 routes.delete('/psychologist/:email', PsychologistController.destroy);
 routes.put('/calendary/update/', PsychologyCalendary.update);
 routes.post('/calendary/update/', PsychologyCalendary.index);
