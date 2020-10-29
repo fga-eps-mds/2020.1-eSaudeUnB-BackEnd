@@ -1,6 +1,9 @@
 const UserPatient = require('../models/UserPatient');
 const Psychologist = require('../models/Psychologist');
 
+const authConfig = require('../config/auth.config');
+const jwt = require('jsonwebtoken');
+
 module.exports = {
     async showUser(req, res) {
         try {
@@ -9,7 +12,14 @@ module.exports = {
 
             if (user) {
                 if (user.password === password) {
-                    return res.status(200).json(user);
+                    const token = jwt.sign({email: user.email}, authConfig.secret, {
+                        expiresIn: 86400
+                    });
+
+                    return res.status(200).json({
+                        user,
+                        accessToken: token,
+                    });
                 }
                 return res.status(400).json({ message: 'Senha Incorreta' });
             }
@@ -27,7 +37,14 @@ module.exports = {
 
             if (user) {
                 if (user.password === password) {
-                    return res.status(200).json(user);
+                    const token = jwt.sign({email: user.email}, authConfig.secret, {
+                        expiresIn: 86400
+                    });
+
+                    return res.status(200).json({
+                        user,
+                        accessToken: token,
+                    });
                 }
                 return res.status(400).json({ message: 'Senha Incorreta' });
             }
