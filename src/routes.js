@@ -6,20 +6,20 @@ const PsychologistController = require('./controllers/PsychologistController');
 const PsychologyCalendary = require('./controllers/PsychologyCalendary');
 const SessionController = require('./controllers/SessionController');
 
-const authMiddleware = require('./middlewares/auth');
-const patientMiddleware = require('./middlewares/patientAuth');
-const psychologistMiddleware = require('./middlewares/psychologistAuth');
-const adminMiddleware = require('./middlewares/AdminAuth');
+const verifyToken = require('./middlewares/verifyToken');
+const isPatient = require('./middlewares/isPatient');
+const isPsychologist = require('./middlewares/isPsychologist');
+const isAdmin = require('./middlewares/isAdmin');
 
 const routes = express.Router();
 
 // Patient routes
 routes.get('/users', PatientController.index);
-routes.get('/user/:email', [patientMiddleware], PatientController.show);
+routes.get('/user/:email', [verifyToken, isPatient], PatientController.show);
 routes.post('/users', PatientController.store);
 routes.delete('/user', PatientController.destroy);
-routes.put('/user/:email', [patientMiddleware], PatientController.update);
-routes.put('/user/password/:email', [patientMiddleware], PatientController.updatePassword);
+routes.put('/user/:email', [verifyToken, isPatient], PatientController.update);
+routes.put('/user/password/:email', [verifyToken, isPatient], PatientController.updatePassword);
 
 // Login routes
 routes.post('/login/patient', LoginController.showUser);
@@ -36,11 +36,6 @@ routes.get('/sessions/:email', SessionController.index);
 routes.put('/session', SessionController.update);
 routes.delete('/session/:email', SessionController.destroy);
 
-// Auth routes
-routes.get('/auth/admin', adminMiddleware);
-routes.get('/auth/patient', patientMiddleware);
-routes.get('/auth/psychologist', psychologistMiddleware);
-
 // Psy routes
 routes.post('/psychologist', PsychologistController.store);
 routes.delete('/psychologist/:email', PsychologistController.destroy);
@@ -52,7 +47,7 @@ routes.put('/psyUpdatePassword/:email', PsychologistController.updatePassword);
 routes.get('/psychologists', PsychologistController.index);
 routes.get(
     '/psychologist/:email',
-    [patientMiddleware],
+    [verifyToken, isPatient],
     PsychologistController.show,
 );
 

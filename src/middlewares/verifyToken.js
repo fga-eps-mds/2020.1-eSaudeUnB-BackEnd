@@ -14,10 +14,7 @@ module.exports = async (req, res, next) => {
         if (err) return res.status(401).json({ error: 'Invalid Token' });
 
         req.userEmail = decoded.email;
-
-        if (decoded.bond === 'Psychologist' || !decoded.bond) {
-            return res.status(401).json({ errror: 'This is a patient route, unauthorized' });
-        }
+        
         return next();
     });
 };
