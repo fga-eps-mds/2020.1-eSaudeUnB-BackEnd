@@ -1,9 +1,7 @@
-/* eslint-disable consistent-return */
-// eslint-disable-next-line import/no-unresolved
 const jwt = require('jsonwebtoken');
 const authConfig = require('../config/auth.config');
 
-module.exports = async (req, res, next) => {
+module.exports = async (req, res) => {
     const authHeader = req.headers.authorization;
 
     if (!authHeader) {
@@ -15,9 +13,9 @@ module.exports = async (req, res, next) => {
 
         req.userEmail = decoded.email;
 
-        if (decoded.bond === 'Psychologist' || !decoded.bond) {
-            return res.status(401).json({ errror: 'This is a patient route, unauthorized' });
+        if (!decoded.bond) {
+            return res.status(401).json({ errror: 'This is a admin route, unauthorized' });
         }
-        return next();
+        return res.status(200).json({ ok: true });
     });
 };

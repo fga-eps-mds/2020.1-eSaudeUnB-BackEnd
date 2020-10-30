@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 const Joi = require('joi');
 const UserPatient = require('../models/UserPatient');
 const Psychologist = require('../models/Psychologist');
@@ -28,7 +27,6 @@ const schemaCreate = Joi.object({
         .allow(''),
 
     bond: Joi.string().allow(''),
-
 }).options({ abortEarly: false });
 
 const schemaUpdate = Joi.object({
@@ -53,7 +51,6 @@ const schemaUpdate = Joi.object({
         .allow(''),
 
     bond: Joi.string().allow(''),
-
 }).options({ abortEarly: false });
 
 module.exports = {
@@ -115,7 +112,6 @@ module.exports = {
         try {
             const { email } = req.params;
             const user = await UserPatient.findOne({ email });
-
             return res.status(200).json(user);
         } catch (err) {
             return res.status(400).json({ error: err.message });

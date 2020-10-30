@@ -1,8 +1,8 @@
+const jwt = require('jsonwebtoken');
 const UserPatient = require('../models/UserPatient');
 const Psychologist = require('../models/Psychologist');
 
 const authConfig = require('../config/auth.config');
-const jwt = require('jsonwebtoken');
 
 module.exports = {
     async showUser(req, res) {
@@ -12,9 +12,13 @@ module.exports = {
 
             if (user) {
                 if (user.password === password) {
-                    const token = jwt.sign({email: user.email}, authConfig.secret, {
-                        expiresIn: 86400
-                    });
+                    const token = jwt.sign(
+                        { email: user.email },
+                        authConfig.secret,
+                        {
+                            expiresIn: 86400,
+                        },
+                    );
 
                     return res.status(200).json({
                         user,
@@ -37,9 +41,13 @@ module.exports = {
 
             if (user) {
                 if (user.password === password) {
-                    const token = jwt.sign({email: user.email}, authConfig.secret, {
-                        expiresIn: 86400
-                    });
+                    const token = jwt.sign(
+                        { email: user.email },
+                        authConfig.secret,
+                        {
+                            expiresIn: 86400,
+                        },
+                    );
 
                     return res.status(200).json({
                         user,

@@ -1,9 +1,9 @@
-/* eslint-disable consistent-return */
-// eslint-disable-next-line import/no-unresolved
+const { assert } = require('joi');
 const jwt = require('jsonwebtoken');
 const authConfig = require('../config/auth.config');
+const UserPatient = require('../models/UserPatient');
 
-module.exports = async (req, res, next) => {
+module.exports = (req, res) => {
     const authHeader = req.headers.authorization;
 
     if (!authHeader) {
@@ -14,10 +14,13 @@ module.exports = async (req, res, next) => {
         if (err) return res.status(401).json({ error: 'Invalid Token' });
 
         req.userEmail = decoded.email;
-
-        if (decoded.bond === 'Psychologist' || !decoded.bond) {
+        const { email } = decoded.email;
+        const users = UserPatient.findOne('www@email.com');
+        if (users.bond === 'Psychologist' || users.bond !== 'patient') {
+            console.log('testou e saiu 401');
+            console.log(users.paths);
             return res.status(401).json({ errror: 'This is a patient route, unauthorized' });
         }
-        return next();
+        return res.status(200).json({ ok: true });
     });
 };

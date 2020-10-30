@@ -1,7 +1,7 @@
+const jwt = require('jsonwebtoken');
 const Admin = require('../models/Admin');
 
 const authConfig = require('../config/auth.config');
-const jwt = require('jsonwebtoken');
 
 module.exports = {
     async store(req, res) {
@@ -33,8 +33,8 @@ module.exports = {
 
             if (user) {
                 if (user.password === password) {
-                    const token = jwt.sign({email: user.email}, authConfig.secret, {
-                        expiresIn: 86400
+                    const token = jwt.sign({ email: user.email }, authConfig.secret, {
+                        expiresIn: 86400,
                     });
 
                     return res.status(200).json({
