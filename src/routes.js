@@ -14,7 +14,7 @@ const isAdmin = require('./middlewares/isAdmin');
 const routes = express.Router();
 
 // Patient routes
-routes.get('/users', PatientController.index);
+routes.get('/users', [verifyToken, isPsychologist], PatientController.index);
 routes.get('/user/:email', [verifyToken, isPatient], PatientController.show);
 routes.post('/users', PatientController.store);
 routes.delete('/user', PatientController.destroy);
@@ -37,17 +37,17 @@ routes.put('/session', SessionController.update);
 routes.delete('/session/:email', SessionController.destroy);
 
 // Psy routes
-routes.post('/psychologist', PsychologistController.store);
-routes.delete('/psychologist/:email', PsychologistController.destroy);
-routes.put('/calendary/update/', PsychologyCalendary.update);
-routes.post('/calendary/update/', PsychologyCalendary.index);
-routes.post('/calendary/restrict/', PsychologyCalendary.show);
-routes.put('/psyUpdate/:email', PsychologistController.update);
-routes.put('/psyUpdatePassword/:email', PsychologistController.updatePassword);
-routes.get('/psychologists', PsychologistController.index);
+routes.post('/psychologist', [verifyToken, isAdmin], PsychologistController.store);
+routes.delete('/psychologist/:email', [verifyToken, isAdmin], PsychologistController.destroy);
+routes.put('/calendary/update/', [verifyToken, isPsychologist], PsychologyCalendary.update);
+routes.post('/calendary/update/', [verifyToken, isPsychologist], PsychologyCalendary.index);
+routes.post('/calendary/restrict/', [verifyToken, isPsychologist], PsychologyCalendary.show);
+routes.put('/psyUpdate/:email', [verifyToken, isPsychologist], PsychologistController.update);
+routes.put('/psyUpdatePassword/:email', [verifyToken, isPsychologist], PsychologistController.updatePassword);
+routes.get('/psychologists', [verifyToken], PsychologistController.index);
 routes.get(
     '/psychologist/:email',
-    [verifyToken, isPatient],
+    [verifyToken, isPsychologist],
     PsychologistController.show,
 );
 
