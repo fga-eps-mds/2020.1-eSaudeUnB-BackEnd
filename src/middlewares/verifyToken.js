@@ -12,7 +12,6 @@ module.exports = async (req, res, next) => {
 
         jwt.verify(authHeader, authConfig.secret, (err, decoded) => {
             if (err) return res.status(401).json({ error: 'Invalid Token' });
-
             req.userEmail = decoded.email;
             return next();
         });

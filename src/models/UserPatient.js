@@ -36,7 +36,7 @@ const UserPatientSchema = new mongoose.Schema(
         },
         bond: {
             type: String,
-            default: "teste",
+            default: 'user',
             required: false,
         },
         civilStatus: {
