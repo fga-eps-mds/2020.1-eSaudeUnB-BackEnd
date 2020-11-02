@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const UserPatient = require('../models/UserPatient');
 const Psychologist = require('../models/Psychologist');
 
@@ -8,10 +9,10 @@ module.exports = {
     async showUser(req, res) {
         try {
             const { email, password } = req.body;
-            const user = await UserPatient.findOne({ email });
+            const user = await UserPatient.findOne({ email }).select('+password');
 
             if (user) {
-                if (user.password === password) {
+                if (bcrypt.compare(password, user.password)) {
                     const token = jwt.sign(
                         { email: user.email },
                         authConfig.secret,
@@ -40,7 +41,8 @@ module.exports = {
             const user = await Psychologist.findOne({ email });
 
             if (user) {
-                if (user.password === password) {
+                // Substituir a condição atual do if por (bcrypt.compare(password, user.password))
+                if (password === user.password) {
                     const token = jwt.sign(
                         { email: user.email },
                         authConfig.secret,

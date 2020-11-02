@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const bcrypt = require('bcryptjs');
 const UserPatient = require('../models/UserPatient');
 const Psychologist = require('../models/Psychologist');
 
@@ -91,12 +92,14 @@ module.exports = {
                 return res.status(203).json({ value, error });
             }
 
+            const encriptedPassword = bcrypt.hashSync(password, 8);
+
             const patient = await UserPatient.create({
                 name,
                 lastName,
                 email,
                 phone,
-                password,
+                password: encriptedPassword,
                 gender,
                 unbRegistration,
                 bond,

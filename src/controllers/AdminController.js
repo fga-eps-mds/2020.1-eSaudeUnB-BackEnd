@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const Admin = require('../models/Admin');
 
 const authConfig = require('../config/auth.config');
@@ -14,10 +15,12 @@ module.exports = {
                 return res.status(409).json('Usuário já cadastrado');
             }
 
+            const encriptedPassword = bcrypt.hashSync(password, 8);
+
             const adminUser = await Admin.create({
                 name,
                 email,
-                password,
+                password: encriptedPassword,
             });
 
             return res.status(201).json(adminUser);
@@ -32,7 +35,7 @@ module.exports = {
             const user = await Admin.findOne({ email });
 
             if (user) {
-                if (user.password === password) {
+                if (bcrypt.compare(password, user.password)) {
                     const token = jwt.sign({ email: user.email }, authConfig.secret, {
                         expiresIn: 86400,
                     });
@@ -42,7 +45,7 @@ module.exports = {
                         accessToken: token,
                     });
                 }
-                if (user.password !== password) {
+                if (!bcrypt.compare(password, user.password)) {
                     return res.status(400).json('Senha Incorreta');
                 }
             }

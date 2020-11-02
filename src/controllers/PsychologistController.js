@@ -1,6 +1,7 @@
 /* eslint-disable linebreak-style */
 const generatePassword = require('password-generator');
 const Joi = require('joi');
+const bcrypt = require('bcryptjs');
 const Psychologist = require('../models/Psychologist');
 const UserPatient = require('../models/UserPatient');
 
@@ -75,6 +76,8 @@ module.exports = {
             if (error) {
                 return res.status(203).json({ value, error });
             }
+
+            // const encriptedPassword = bcrypt.hashSync(password, 8);
 
             const psychologist = await Psychologist.create({
                 name,
