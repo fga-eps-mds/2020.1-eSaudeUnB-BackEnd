@@ -1,7 +1,7 @@
 /* eslint-disable linebreak-style */
 const generatePassword = require('password-generator');
 const Joi = require('joi');
-const bcrypt = require('bcryptjs');
+// const bcrypt = require('bcryptjs');
 const Psychologist = require('../models/Psychologist');
 const UserPatient = require('../models/UserPatient');
 
