@@ -143,7 +143,6 @@ module.exports = {
             } = req.body;
 
             const { email } = req.params;
-
             const user = await Psychologist.findOne({
                 email,
             }).exec();
@@ -191,7 +190,6 @@ module.exports = {
             if (error) {
                 return res.status(203).json({ value, error });
             }
-
             await user.save();
             return res.status(200).json(user);
         } catch (err) {
