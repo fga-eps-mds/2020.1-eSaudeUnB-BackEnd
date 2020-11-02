@@ -12,7 +12,7 @@ module.exports = {
             const user = await UserPatient.findOne({ email }).select('+password');
 
             if (user) {
-                if (bcrypt.compare(password, user.password)) {
+                if (await bcrypt.compare(password, user.password)) {
                     const token = jwt.sign(
                         { email: user.email },
                         authConfig.secret,

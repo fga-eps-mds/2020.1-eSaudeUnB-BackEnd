@@ -32,10 +32,10 @@ module.exports = {
     async show(req, res) {
         try {
             const { email, password } = req.body;
-            const user = await Admin.findOne({ email });
+            const user = await Admin.findOne({ email }).select('+password');
 
             if (user) {
-                if (bcrypt.compare(password, user.password)) {
+                if (await bcrypt.compare(password, user.password)) {
                     const token = jwt.sign({ email: user.email }, authConfig.secret, {
                         expiresIn: 86400,
                     });
@@ -45,7 +45,7 @@ module.exports = {
                         accessToken: token,
                     });
                 }
-                if (!bcrypt.compare(password, user.password)) {
+                if (await !bcrypt.compare(password, user.password)) {
                     return res.status(400).json('Senha Incorreta');
                 }
             }
