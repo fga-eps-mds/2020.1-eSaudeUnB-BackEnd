@@ -39,9 +39,9 @@ routes.delete('/session/:email', [verifyToken, isPsychologist], SessionControlle
 // Psy routes
 routes.post('/psychologist', [verifyToken, isAdmin], PsychologistController.store);
 routes.delete('/psychologist/:email', [verifyToken, isAdmin], PsychologistController.destroy);
-routes.put('/calendary/update/', [verifyToken, isPsychologist], PsychologyCalendary.update);
-routes.post('/calendary/update/', [verifyToken, isPsychologist], PsychologyCalendary.index);
-routes.post('/calendary/restrict/', [verifyToken, isPsychologist], PsychologyCalendary.show);
+routes.put('/calendary/update/', [verifyToken], PsychologyCalendary.update);
+routes.post('/calendary/update/', [verifyToken], PsychologyCalendary.index);
+routes.post('/calendary/restrict/', [verifyToken], PsychologyCalendary.show);
 routes.put('/psyUpdate/:email', [verifyToken, isPsychologist], PsychologistController.update);
 routes.put('/psyUpdatePassword/:email', [verifyToken, isPsychologist], PsychologistController.updatePassword);
 routes.get('/psychologists', [verifyToken], PsychologistController.index);
