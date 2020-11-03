@@ -208,10 +208,29 @@ module.exports = {
             if (religion) {
                 user.religion = religion;
             }
+
             await user.save();
             return res.status(200).json(user);
         } catch (err) {
             return res.status(500).json({ message: 'falha ao dar o update' });
+        }
+    },
+
+    async updateSchedule(req, res) {
+        try{
+            const {appointments} = req.body;
+
+            const user = await UserPatient.findOne({ 
+                email: req.params.email,
+            });
+
+            user.appointments = appointments;
+
+            await user.save();
+
+            return res.status(200).json(user);
+        }catch(err){
+            return res.status(500).json({ message: 'falha ao dar o update' })
         }
     },
 

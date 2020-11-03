@@ -49,12 +49,12 @@ const UserPatientSchema = new mongoose.Schema(
             default: null,
             required: false,
         },
-        restrict: [
+        appointments: [
             {
-                year: Number,
-                day: Number,
-                month: Number,
-                hour: String
+                psychologist: String,
+                weekDay: Number,
+                time: String,
+                duration: Number,
             },
         ],
         sessions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Session' }],
