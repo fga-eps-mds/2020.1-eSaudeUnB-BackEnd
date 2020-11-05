@@ -45,9 +45,7 @@ module.exports = {
                         accessToken: token,
                     });
                 }
-                if (await !bcrypt.compare(password, user.password)) {
-                    return res.status(400).json('Senha Incorreta');
-                }
+                return res.status(400).json('Senha Incorreta');
             }
             throw new Error({ err: 'Usuário não encontrado' });
         } catch (err) {

@@ -10,7 +10,7 @@ const email = {
     email: 'email@email.com',
 };
 
-const user = {
+const psy = {
     name: 'Vinicius',
     lastName: 'Lima',
     email: 'email@email.com',
@@ -19,6 +19,11 @@ const user = {
     phone: '061981353485',
     specialization: 'psicólogo',
     biography: '',
+};
+const admin = {
+    name: 'Vinicius',
+    email: 'vinicius@unb.br',
+    password: 'password',
 };
 const userUpdateweekDay = {
     email: 'email@email.com',
@@ -61,6 +66,11 @@ describe('Psychologist API', () => {
     beforeEach(async () => {
         await Psychologist.collection.deleteMany({});
         await UserPatient.collection.deleteMany({});
+        await request.post('/admin').send(admin);
+        const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
+        const TokenAdmin = resposit.body.accessToken;
+        await request.post('/psychologist').send(psy).set('authorization', TokenAdmin);
+        await request.put(`/psyUpdatePassword/${psy.email}`).send({ password: '123456789' }).set('authorization', TokenAdmin);
     });
 
     afterAll(async (done) => {
@@ -68,39 +78,43 @@ describe('Psychologist API', () => {
         done();
     });
     it('should be able to update a psychologist week_day', async () => {
+        const response2 = await request.post('/login/psychologist').send({ email: psy.email, password: '123456789' });
+        const TokenPsy = response2.body.accessToken;
         const errResponse = await request.put('/calendary/update').send({
             email: '',
-        });
+        }).set('authorization', TokenPsy);
         expect(errResponse.status).toBe(404);
 
-        await request.post('/psychologist').send(user);
         const WeekUpdate = await request
             .put('/calendary/update')
-            .send(userUpdateweekDay);
+            .send(userUpdateweekDay).set('authorization', TokenPsy);
         expect(WeekUpdate.status).toBe(200);
     });
     it('should be able to update a psychologist Restrict', async () => {
-        await request.post('/psychologist').send(user);
+        const response2 = await request.post('/login/psychologist').send({ email: psy.email, password: '123456789' });
+        const TokenPsy = response2.body.accessToken;
         const WeekUpdate = await request
             .put('/calendary/update')
-            .send(UserUpdateRestrict);
+            .send(UserUpdateRestrict).set('authorization', TokenPsy);
         expect(WeekUpdate.status).toBe(200);
     });
     it('should be able to show a psychologist schedule', async () => {
-        await request.post('/psychologist').send(user);
-        const psychologist = await request.post('/calendary/update').send(email);
+        const response2 = await request.post('/login/psychologist').send({ email: psy.email, password: '123456789' });
+        const TokenPsy = response2.body.accessToken;
+        const psychologist = await request.post('/calendary/update').send(email).set('authorization', TokenPsy);
         expect(psychologist.status).toBe(200);
     });
     it('should be able to show a psychologist restrict', async () => {
+        const response2 = await request.post('/login/psychologist').send({ email: psy.email, password: '123456789' });
+        const TokenPsy = response2.body.accessToken;
         const errResponse = await request
             .post('/calendary/restrict')
-            .send({ email: 'test@email.com' });
+            .send({ email: 'test@email.com' }).set('authorization', TokenPsy);
         expect(errResponse.status).toBe(400);
 
-        await request.post('/psychologist').send(user);
         const psychologist = await request
             .post('/calendary/restrict')
-            .send(email);
+            .send(email).set('authorization', TokenPsy);
         expect(psychologist.status).toBe(200);
     });
 });

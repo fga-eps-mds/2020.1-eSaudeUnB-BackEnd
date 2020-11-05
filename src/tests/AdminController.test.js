@@ -54,20 +54,24 @@ describe('Admin API', () => {
         const response = await request
             .post('/admin/login')
             .send({ email, password });
-
         expect(response.status).toBe(200);
-
+    });
+    it('should be not fould admin acount', async () => {
         const email2 = 'testemail@test.com';
         const password2 = 'nopassword';
 
         const response2 = await request
             .post('/admin/login')
-            .send({ email2, password2 });
+            .send({ email: email2, password: password2 });
         expect(response2.status).toBe(404);
-
+    });
+    it('should be able, whong password to admin login', async () => {
+        await request.post('/admin').send(user);
+        const { email } = user;
+        const password2 = 'nopassword';
         const response3 = await request
             .post('/admin/login')
-            .send({ email, password2 });
+            .send({ email, password: password2 });
         expect(response3.status).toBe(400);
     });
 });
