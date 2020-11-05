@@ -5,6 +5,7 @@ const UserPatient = require('../models/UserPatient');
 const Psychologist = require('../models/Psychologist');
 
 const app = require('../server');
+const { date } = require('joi');
 
 const request = supertest(app);
 
@@ -54,6 +55,23 @@ const user4 = {
     religion: 'Evangelico',
 };
 
+const psy1 = {
+    name: 'Vinicius',
+    lastName: 'Lima',
+    email: 'email@email.com',
+    phone: '061988888888',
+    gender: 'M',
+    bond: 'Psychologist',
+    specialization: 'Psicólogo',
+    biography: '',
+};
+
+const admin = {
+    name: 'Vinicius',
+    email: 'vinicius@unb.br',
+    password: 'password',
+};
+
 describe('Patient API', () => {
     beforeAll(async () => {
         mongoose.connect(process.env.MONGO_URL, {
@@ -75,9 +93,14 @@ describe('Patient API', () => {
     });
 
     it('should be able to return a user', async () => {
+
         await request.post('/users').send(user1);
 
-        const response = await request.get(`/user/${user1.email}`);
+        const Admin = await request.post('/admin').send(admin);
+        const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
+        const Token_admin = resposit.body.accessToken;
+
+        const response = await request.get(`/user/${user1.email}`).set('authorization', Token_admin);
 
         expect(response.status).toBe(200);
     });
@@ -86,7 +109,11 @@ describe('Patient API', () => {
         await request.post('/users').send(user1);
         await request.post('/users').send(user2);
 
-        const response = await request.get('/users');
+        const Admin = await request.post('/admin').send(admin);
+        const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
+        const Token_admin = resposit.body.accessToken;
+
+        const response = await request.get('/users').set('authorization', Token_admin);
 
         expect(response.status).toBe(200);
     });
@@ -115,9 +142,12 @@ describe('Patient API', () => {
     it('should be able to delete a user', async () => {
         await request.post('/users').send(user1);
 
+        const respose = await request.post('/login/patient').send({ email: user1.email, password: user1.password });
+        const Token = respose.body.accessToken;
+
         const responseDelete = await request.delete('/user').send({
             email: 'teste@hotmail.com',
-        });
+        }).set('authorization', Token);
 
         expect(responseDelete.status).toBe(200);
     });
@@ -125,9 +155,13 @@ describe('Patient API', () => {
     it('should be able to update a user', async () => {
         await request.post('/users').send(user3);
 
+        const respose = await request.post('/login/patient').send({ email: user3.email, password: user3.password });
+        const Token = respose.body.accessToken;
+
         const response = await request
             .put(`/user/${user3.email}`)
-            .send(user4);
+            .send(user4)
+            .set('authorization', Token);
 
         expect(response.status).toBe(200);
     });
@@ -135,9 +169,13 @@ describe('Patient API', () => {
     it('should be able to update a user password', async () => {
         await request.post('/users').send(user3);
 
+        const respose = await request.post('/login/patient').send({ email: user3.email, password: user3.password });
+        const Token = respose.body.accessToken;
+
         const response = await request
             .put(`/user/password/${user3.email}`)
-            .send({ password: '12345678' });
+            .send({ password: '12345678' })
+            .set('authorization', Token);
 
         expect(response.status).toBe(200);
     });
