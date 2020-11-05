@@ -51,7 +51,8 @@ const UserPatientSchema = new mongoose.Schema(
         },
         appointments: [
             {
-                psychologist: String,
+                psychologist_id: String,
+                psychologistName: String,
                 weekDay: Number,
                 time: String,
                 duration: Number,
