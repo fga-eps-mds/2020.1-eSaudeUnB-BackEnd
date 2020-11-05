@@ -58,6 +58,11 @@ const UserPatientSchema = new mongoose.Schema(
                 duration: Number,
             },
         ],
+        userImage: {
+            type: Buffer,
+            contentType: String,
+            required: false,
+        },
         sessions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Session' }],
 
     },
