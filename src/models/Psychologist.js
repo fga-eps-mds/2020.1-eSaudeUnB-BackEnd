@@ -52,7 +52,7 @@ const PsychologistSchema = new mongoose.Schema({
                 scheduled: Boolean,
                 user: { type: mongoose.Schema.Types.ObjectId, ref: 'UserPatient' },
                 name: String,
-            }]
+            }],
         },
     ],
     restrict: [

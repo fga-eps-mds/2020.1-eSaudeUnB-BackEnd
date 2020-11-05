@@ -228,10 +228,10 @@ module.exports = {
     },
 
     async updateSchedule(req, res) {
-        try{
-            const {appointments} = req.body;
+        try {
+            const { appointments } = req.body;
 
-            const user = await UserPatient.findOne({ 
+            const user = await UserPatient.findOne({
                 email: req.params.email,
             });
 
@@ -240,8 +240,8 @@ module.exports = {
             await user.save();
 
             return res.status(200).json(user);
-        }catch(err){
-            return res.status(500).json({ message: 'falha ao dar o update' })
+        } catch (err) {
+            return res.status(500).json({ message: 'falha ao dar o update' });
         }
     },
 
