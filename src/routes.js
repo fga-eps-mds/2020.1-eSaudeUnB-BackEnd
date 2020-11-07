@@ -14,7 +14,7 @@ const isAdmin = require('./middlewares/isAdmin');
 const routes = express.Router();
 
 // Patient routes
-routes.get('/users', [verifyToken, isPsychologist], PatientController.index);
+routes.get('/users', [verifyToken], PatientController.index);
 routes.get('/user/:email', [verifyToken], PatientController.show);
 routes.post('/users', PatientController.store);
 routes.delete('/user', PatientController.destroy);
@@ -43,7 +43,7 @@ routes.put('/calendary/update/', [verifyToken], PsychologyCalendary.update);
 routes.post('/calendary/update/', [verifyToken], PsychologyCalendary.index);
 routes.post('/calendary/restrict/', [verifyToken], PsychologyCalendary.show);
 routes.put('/psyUpdate/:email', [verifyToken, isPsychologist], PsychologistController.update);
-routes.put('/psyUpdatePassword/:email', [verifyToken, isPsychologist], PsychologistController.updatePassword);
+routes.put('/psyUpdatePassword/:email', [verifyToken], PsychologistController.updatePassword);
 routes.get('/psychologists', [verifyToken], PsychologistController.index);
 routes.get(
     '/psychologist/:email',
