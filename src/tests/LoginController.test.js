@@ -7,6 +7,12 @@ const app = require('../server');
 
 const request = supertest(app);
 
+const admin = {
+    name: 'Vinicius',
+    email: 'vinicius@unb.br',
+    password: 'password',
+};
+
 const psyUser = {
     name: 'Vinicius',
     lastName: 'Lima',
@@ -69,11 +75,18 @@ describe('Login API', () => {
     });
 
     it('should be able to succssessfully login an psychologist', async () => {
-        const psyResponse = await request.post('/psychologist').send(psyUser);
+        await request.post('/admin').send(admin);
+        const emailAdmin = admin.email;
+        const passwordAdmin = admin.password;
+        const respose = await request.post('/admin/login').send({ email: emailAdmin, password: passwordAdmin });
+        const TokenAdmin = respose.body.accessToken;
 
-        const { email, password } = psyResponse.body;
+        await request.post('/psychologist').set('authorization', TokenAdmin).send(psyUser);
+        await request
+            .put(`/psyUpdatePassword/${psyUser.email}`)
+            .send({ password: '123456789' }).set('authorization', TokenAdmin);
 
-        const response = await request.post('/login/psychologist').send({ email, password });
+        const response = await request.post('/login/psychologist').send({ email: psyUser.email, password: '123456789' });
         expect(response.status).toBe(200);
     });
 
