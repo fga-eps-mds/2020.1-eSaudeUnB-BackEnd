@@ -15,6 +15,7 @@ routes.post('/users', PatientController.store);
 routes.delete('/user', PatientController.destroy);
 routes.put('/user/:email', PatientController.update);
 routes.put('/user/password/:email', PatientController.updatePassword);
+routes.put('/user/schedule/:email', PatientController.updateSchedule);
 
 // Login routes
 routes.post('/login/patient', LoginController.showUser);

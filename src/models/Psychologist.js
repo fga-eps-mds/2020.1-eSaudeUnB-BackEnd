@@ -46,6 +46,13 @@ const PsychologistSchema = new mongoose.Schema({
             weekDay: Number,
             from: String,
             to: String,
+            duration: Number,
+            appointment: [{
+                time: String,
+                scheduled: Boolean,
+                user: { type: mongoose.Schema.Types.ObjectId, ref: 'UserPatient' },
+                name: String,
+            }],
         },
     ],
     restrict: [
