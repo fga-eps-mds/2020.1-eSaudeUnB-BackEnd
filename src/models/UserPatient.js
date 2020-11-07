@@ -50,6 +50,15 @@ const UserPatientSchema = new mongoose.Schema(
             default: null,
             required: false,
         },
+        appointments: [
+            {
+                psychologist_id: String,
+                psychologistName: String,
+                weekDay: Number,
+                time: String,
+                duration: Number,
+            },
+        ],
         userImage: {
             type: Buffer,
             contentType: String,

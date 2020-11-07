@@ -20,7 +20,7 @@ routes.post('/users', PatientController.store);
 routes.delete('/user', PatientController.destroy);
 routes.put('/user/:email', [verifyToken, isPatient], PatientController.update);
 routes.put('/user/password/:email', [verifyToken, isPatient], PatientController.updatePassword);
-
+routes.put('/user/schedule/:email', [verifyToken], PatientController.updateSchedule);
 // Login routes
 routes.post('/login/patient', LoginController.showUser);
 routes.post('/login/psychologist', LoginController.showPsy);
