@@ -28,6 +28,8 @@ const schemaCreate = Joi.object({
         .allow(''),
 
     bond: Joi.string().allow(''),
+    userImage: Joi.string().allow(''),
+
 }).options({ abortEarly: false });
 
 const schemaUpdate = Joi.object({
@@ -52,6 +54,9 @@ const schemaUpdate = Joi.object({
         .allow(''),
 
     bond: Joi.string().allow(''),
+
+    userImage: Joi.string().allow(''),
+
 }).options({ abortEarly: false });
 
 module.exports = {
@@ -66,6 +71,7 @@ module.exports = {
                 gender,
                 unbRegistration,
                 bond,
+                userImage,
             } = req.body;
 
             const user = await UserPatient.findOne({ email });
@@ -86,6 +92,7 @@ module.exports = {
                 gender,
                 unbRegistration,
                 bond,
+                userImage,
             });
 
             if (error) {
@@ -103,6 +110,7 @@ module.exports = {
                 gender,
                 unbRegistration,
                 bond,
+                userImage,
             });
 
             return res.status(201).json(patient);
@@ -156,6 +164,7 @@ module.exports = {
                 bond,
                 civilStatus,
                 religion,
+                userImage,
             } = req.body;
 
             const { email } = req.params;
@@ -170,6 +179,7 @@ module.exports = {
                 bond,
                 civilStatus,
                 religion,
+                userImage,
             });
 
             if (error) {
@@ -207,6 +217,10 @@ module.exports = {
             if (religion) {
                 user.religion = religion;
             }
+            if (userImage) {
+                user.userImage = userImage;
+            }
+
             await user.save();
             return res.status(200).json(user);
         } catch (err) {
