@@ -10,6 +10,7 @@ const verifyToken = require('./middlewares/verifyToken');
 const isPatient = require('./middlewares/isPatient');
 const isPsychologist = require('./middlewares/isPsychologist');
 const isAdmin = require('./middlewares/isAdmin');
+const WaitingListController = require('./controllers/WaitingListController');
 
 const routes = express.Router();
 
@@ -50,5 +51,9 @@ routes.get(
     [verifyToken],
     PsychologistController.show,
 );
+
+//waiting list routes
+routes.get('/waitingList/:email', WaitingListController.index);
+routes.post('/waitingList', WaitingListController.store);
 
 module.exports = routes;
