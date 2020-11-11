@@ -4,6 +4,7 @@ const Joi = require('joi');
 // const bcrypt = require('bcryptjs');
 const Psychologist = require('../models/Psychologist');
 const UserPatient = require('../models/UserPatient');
+const nodemailer = require('nodemailer');
 
 const schema = Joi.object({
     name: Joi.string()
@@ -94,6 +95,25 @@ module.exports = {
                 biography,
                 userImage,
             });
+
+            const transporter = nodemailer.createTransport({
+                host: "smtp.ethereal.email",
+                port: 587,
+                secure: false, // true for 465, false for other ports
+                auth: {
+                  user: 'wellington.becker44@ethereal.email', // generated ethereal user
+                  pass: 'P2rxJjrZy2PN2Devwc', // generated ethereal password
+                },
+              });
+
+              await transporter.sendMail({
+                from: '"e-saudeunb" <e-saude@unb.br>', // sender address
+                to: email, // list of receivers
+                subject: "Senha", // Subject line
+                text: `A sua senha é ${password}`, // plain text body
+              });
+            
+            
             return res.status(201).json(psychologist);
         } catch (err) {
             return res.status(400).json({ message: err.message });
