@@ -52,7 +52,7 @@ routes.get(
     PsychologistController.show,
 );
 
-//waiting list routes
+// Waiting list routes
 routes.get('/waitingList/:email', WaitingListController.index);
 routes.post('/waitingList', WaitingListController.store);
 
