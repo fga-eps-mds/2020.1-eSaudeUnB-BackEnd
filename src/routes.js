@@ -53,7 +53,8 @@ routes.get(
 );
 
 // Waiting list routes
-routes.get('/waitingList/:email', WaitingListController.index);
-routes.post('/waitingList', WaitingListController.store);
+routes.get('/waitingList/:email', [verifyToken] ,WaitingListController.index);
+routes.post('/waitingList', [verifyToken] ,WaitingListController.store);
+routes.delete('/waitingList/:email', [verifyToken] ,WaitingListController.destroy);
 
 module.exports = routes;
