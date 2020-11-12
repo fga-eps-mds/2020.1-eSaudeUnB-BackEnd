@@ -64,4 +64,4 @@ module.exports = {
             return res.status(500).json({ message: 'falha ao dar o update' });
         }
     },
-};
+}
