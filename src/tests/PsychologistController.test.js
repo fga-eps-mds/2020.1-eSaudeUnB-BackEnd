@@ -183,9 +183,15 @@ describe('Psychologist API', () => {
         const response2 = await request.post('/login/psychologist').send({ email: user1.email, password: psy.body.password });
         const TokenPsy = response2.body.accessToken;
 
-        const responseDelete = await request
+        const responseValidate = await request
             .put(`/psyUpdatePassword/${user1.email}`)
             .send({ oldPassword: psy.body.password, password: null }).set('authorization', TokenPsy);
+
+        expect(responseValidate.status).toBe(203);
+
+        const responseDelete = await request
+            .put(`/psyUpdatePassword/${null}`)
+            .send({ oldPassword: psy.body.password, password: 'teste123' }).set('authorization', TokenPsy);
 
         expect(responseDelete.status).toBe(500);
     });
