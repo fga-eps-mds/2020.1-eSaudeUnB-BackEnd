@@ -42,7 +42,7 @@ const schema = Joi.object({
         .allow(''),
 }).options({ abortEarly: false });
 
-const schemaUpdatePassword = Joi.object({
+const schemaUpdatePasswordPsy = Joi.object({
     password: Joi.string()
         .min(8)
         .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
@@ -214,7 +214,7 @@ module.exports = {
             const user = await Psychologist.findOne({ email: req.params });
             if (user) {
                 if (oldPassword === user.password) {
-                    const { error, value } = schemaUpdatePassword.validate({
+                    const { error, value } = schemaUpdatePasswordPsy.validate({
                         password,
                     });
                     if (error) {
