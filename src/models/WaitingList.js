@@ -12,6 +12,7 @@ const WaitingListSchema = new mongoose.Schema({
         unique:true,
         required: true,
     },
-}, { timestamps: true })
+}, { timestamps: true },
+);
 
 module.exports = mongoose.model('WaitingList', WaitingListSchema);
