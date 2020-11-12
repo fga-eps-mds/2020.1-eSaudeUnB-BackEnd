@@ -253,7 +253,7 @@ module.exports = {
     async updatePassword(req, res) {
         try {
             const { oldPassword, password } = req.body;
-            const user = await Psychologist.findOne({email: req.params});
+            const user = await Psychologist.findOne({ email: req.params });
             if (user) {
                 if (oldPassword === user.password) {
                     // const encriptedPassword = bcrypt.hashSync(password, 8);
@@ -267,7 +267,7 @@ module.exports = {
 
                     user.password = password;
                     await user.save();
-                    return res.status(200).json({user,});
+                    return res.status(200).json({ user });
                 }
                 return res.status(400).json({ message: 'Senha Incorreta' });
             }
