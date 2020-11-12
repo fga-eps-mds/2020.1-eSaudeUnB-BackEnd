@@ -7,22 +7,41 @@ const UserPatient = require('../models/UserPatient');
 const transporter = require('../config/email.config');
 
 const schema = Joi.object({
-    name: Joi.string().min(3).max(30).required(),
+    name: Joi.string()
+        .min(3)
+        .max(30)
+        .required(),
 
-    lastName: Joi.string().min(3).max(30).required(),
+    lastName: Joi.string()
+        .min(3)
+        .max(30)
+        .required(),
 
-    email: Joi.string().email({ minDomainSegments: 2, tlds: false }).required(),
+    email: Joi.string()
+        .email({ minDomainSegments: 2, tlds: false })
+        .required(),
 
-    specialization: Joi.string().required(),
+    specialization: Joi.string()
+        .required(),
 
-    biography: Joi.string().allow('').min(0).max(300),
+    biography: Joi.string()
+        .allow('')
+        .min(0)
+        .max(300),
 
-    gender: Joi.string().allow('').max(1).required(),
+    gender: Joi.string()
+        .allow('')
+        .max(1)
+        .required(),
 
-    bond: Joi.string().allow(''),
+    bond: Joi.string()
+        .allow(''),
 
-    phone: Joi.number().allow(''),
-    userImage: Joi.string().allow(''),
+    phone: Joi.number()
+        .allow(''),
+
+    userImage: Joi.string()
+        .allow(''),
 }).options({ abortEarly: false });
 
 const schemaUpdatePassword = Joi.object({
