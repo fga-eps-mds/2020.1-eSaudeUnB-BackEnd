@@ -38,7 +38,9 @@ const schema = Joi.object({
 
     phone: Joi.number()
         .allow(''),
-    userImage: Joi.string().allow(''),
+
+    userImage: Joi.string()
+        .allow(''),
 }).options({ abortEarly: false });
 
 const schemaUpdatePassword = Joi.object({
