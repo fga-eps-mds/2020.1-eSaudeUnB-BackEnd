@@ -465,32 +465,14 @@ module.exports = {
             }).select('+password');
             if (user) {
                 if (await bcrypt.compare(oldPassword, user.password)) {
-<<<<<<< HEAD
                     const { error, value } = schemaUpdatePassword.validate({ password });
-=======
-                    const { error, value } = schemaUpdatePassword.validate({
-<<<<<<< HEAD
-                        password });
->>>>>>> 94bff03 (fix: solving lint problems)
-=======
-                        password, 
-                    });
->>>>>>> 5c1c9bd (fix: solving lint problems)
                     if (error) {
                         return res.status(203).json({ value, error });
                     }
                     const encriptedPassword = bcrypt.hashSync(password, 8);
                     user.password = encriptedPassword;
                     await user.save();
-<<<<<<< HEAD
-<<<<<<< HEAD
                     return res.status(200).json({ user });
-=======
-                    return res.status(200).json({ user, });
->>>>>>> 7d67d3e (fix: solving lint problems)
-=======
-                    return res.status(200).json({ user });
->>>>>>> 94bff03 (fix: solving lint problems)
                 }
                 return res.status(400).json({ message: 'Senha Incorreta' });
             }
