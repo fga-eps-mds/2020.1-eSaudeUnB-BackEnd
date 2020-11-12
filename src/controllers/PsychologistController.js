@@ -38,8 +38,17 @@ const schema = Joi.object({
 
     phone: Joi.number()
         .allow(''),
-    userImage: Joi.string().allow(''),
+
+    userImage: Joi.string()
+        .allow(''),
 }).options({ abortEarly: false });
+
+const schemaUpdatePassword = Joi.object({
+    password: Joi.string()
+        .min(8)
+        .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+
+});
 
 module.exports = {
     async store(req, res) {
@@ -209,6 +218,13 @@ module.exports = {
             });
             if (user) {
                 if (oldPassword === user.password) {
+                    const { error, value } = schemaUpdatePassword.validate({
+                        password,
+                    });
+                    if (error) {
+                        return res.status(203).json({ value, error });
+                    }
+
                     user.password = password;
                     await user.save();
                     return res.status(200).json({
