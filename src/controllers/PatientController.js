@@ -469,8 +469,13 @@ module.exports = {
                     const { error, value } = schemaUpdatePassword.validate({ password });
 =======
                     const { error, value } = schemaUpdatePassword.validate({
+<<<<<<< HEAD
                         password });
 >>>>>>> 94bff03 (fix: solving lint problems)
+=======
+                        password, 
+                    });
+>>>>>>> 5c1c9bd (fix: solving lint problems)
                     if (error) {
                         return res.status(203).json({ value, error });
                     }
