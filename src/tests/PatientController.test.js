@@ -158,14 +158,14 @@ describe('Patient API', () => {
     it('should be able to update a user password', async () => {
         await request.post('/users').send(user3);
 
-        const respose = await request.post('/login/patient').send({ email: user3.email, password: user3.password });
-        const TokenPatient = respose.body.accessToken;
+        const response = await request.post('/login/patient').send({ email: user3.email, password: user3.password });
+        const TokenPatient = response.body.accessToken;
 
-        const response = await request
+        const responseUpdate = await request
             .put(`/user/password/${user3.email}`)
-            .send({ password: '12345678' })
+            .send({oldPassword:user3.password, password: '12345678' })
             .set('authorization', TokenPatient);
 
-        expect(response.status).toBe(200);
+        expect(responseUpdate.status).toBe(200);
     });
 });
