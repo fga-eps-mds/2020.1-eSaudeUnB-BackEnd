@@ -1,7 +1,7 @@
 /* eslint-disable linebreak-style */
 const generatePassword = require('password-generator');
 const Joi = require('joi');
-// const bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 const Psychologist = require('../models/Psychologist');
 const UserPatient = require('../models/UserPatient');
 
@@ -204,26 +204,22 @@ module.exports = {
         try {
             const { oldPassword, password } = req.body;
 
+            const { email } = req.params;
+
             const user = await Psychologist.findOne({
-                email: req.params.email,
-            }).select('+password');
+                email
+            });
+            // .select('+password');
 
             if (user) {
-                if (await bcrypt.compare(oldPassword, user.password)) {
-                    const token = jwt.sign(
-                        { email: user.email },
-                        authConfig.secret,
-                        {
-                            expiresIn: 86400,
-                        },
-                    );
+                // if (await bcrypt.compare(oldPassword, user.password)) {
+                if (oldPassword === user.password) {
 
                     user.password = password;
                     await user.save();
 
                     return res.status(200).json({
-                        user,
-                        accessToken: token,
+                        user
                     });
                 }
                 return res.status(400).json({ message: 'Senha Incorreta' });
