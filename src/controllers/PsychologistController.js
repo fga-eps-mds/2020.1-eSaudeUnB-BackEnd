@@ -1,12 +1,10 @@
 const generatePassword = require('password-generator');
 const Joi = require('joi');
-/*
-Remove this coment, to user password bcypt to psychologist
-const bcrypt = require('bcryptjs');*/
-const transporter = require('../config/email.config');
+//  remove coment when use bcrypt in psychologist
+// const bcrypt = require('bcryptjs');
 const Psychologist = require('../models/Psychologist');
 const UserPatient = require('../models/UserPatient');
-const nodemailer = require('nodemailer');
+const transporter = require('../config/email.config');
 
 const schema = Joi.object({
     name: Joi.string()
@@ -82,8 +80,8 @@ module.exports = {
             if (error) {
                 return res.status(203).json({ value, error });
             }
-            // Remove this coment, to user password bcypt to psychologist
-            //const encriptedPassword = bcrypt.hashSync(password, 8);
+
+            // const encriptedPassword = bcrypt.hashSync(password, 8);
 
             const psychologist = await Psychologist.create({
                 name,
@@ -91,23 +89,22 @@ module.exports = {
                 email,
                 gender,
                 bond,
-                password/*: encriptedPassword*/,
+                password,
                 phone,
                 specialization,
                 biography,
                 userImage,
             });
 
-              await transporter.sendMail({
-                from: '"e-saude UnB" <esaudtest@gmail.com>',
-                to: email, 
-                subject: "Bem vindo ao E-saudeUNB", 
-                text: `A sua senha é ${password}`,
-              });
-                      
+            await transporter.sendMail({
+                from: '"e-saudeunb" <e-saude@unb.br>', // sender address
+                to: email, // list of receivers
+                subject: 'Senha', // Subject line
+                text: `A sua senha é ${password}`, // plain text body
+            });
+
             return res.status(201).json(psychologist);
         } catch (err) {
-            console.log(err);
             return res.status(400).json({ message: err.message });
         }
     },
