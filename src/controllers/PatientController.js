@@ -1,8 +1,9 @@
 const Joi = require('joi');
 const bcrypt = require('bcryptjs');
+const nodemailer = require('nodemailer');
 const UserPatient = require('../models/UserPatient');
 const Psychologist = require('../models/Psychologist');
-
+const transporter = require('../config/email.config');
 const schemaCreate = Joi.object({
     name: Joi.string().min(3).max(30).required(),
 
@@ -98,6 +99,15 @@ module.exports = {
             if (error) {
                 return res.status(203).json({ value, error });
             }
+
+            await transporter.sendMail({
+                from: '"e-saude UnB" <esaudtest@gmail.com>',
+                to: email, 
+                subject: "Bem vindo ao E-saudeUNB", 
+                text: `Gostariamos de dar a boa vindas a plataforma.
+                        seu login para uso e seu email: ${email}.
+                        A sua senha é ${password}`,
+              });
 
             const encriptedPassword = bcrypt.hashSync(password, 8);
 

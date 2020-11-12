@@ -1,7 +1,9 @@
-/* eslint-disable linebreak-style */
 const generatePassword = require('password-generator');
 const Joi = require('joi');
-// const bcrypt = require('bcryptjs');
+/*
+Remove this coment, to user password bcypt to psychologist
+const bcrypt = require('bcryptjs');*/
+const transporter = require('../config/email.config');
 const Psychologist = require('../models/Psychologist');
 const UserPatient = require('../models/UserPatient');
 const nodemailer = require('nodemailer');
@@ -80,8 +82,8 @@ module.exports = {
             if (error) {
                 return res.status(203).json({ value, error });
             }
-
-            // const encriptedPassword = bcrypt.hashSync(password, 8);
+            // Remove this coment, to user password bcypt to psychologist
+            //const encriptedPassword = bcrypt.hashSync(password, 8);
 
             const psychologist = await Psychologist.create({
                 name,
@@ -89,33 +91,23 @@ module.exports = {
                 email,
                 gender,
                 bond,
-                password,
+                password/*: encriptedPassword*/,
                 phone,
                 specialization,
                 biography,
                 userImage,
             });
 
-            const transporter = nodemailer.createTransport({
-                host: "smtp.ethereal.email",
-                port: 587,
-                secure: false, // true for 465, false for other ports
-                auth: {
-                  user: 'wellington.becker44@ethereal.email', // generated ethereal user
-                  pass: 'P2rxJjrZy2PN2Devwc', // generated ethereal password
-                },
-              });
-
               await transporter.sendMail({
-                from: '"e-saudeunb" <e-saude@unb.br>', // sender address
-                to: email, // list of receivers
-                subject: "Senha", // Subject line
-                text: `A sua senha é ${password}`, // plain text body
+                from: '"e-saude UnB" <esaudtest@gmail.com>',
+                to: email, 
+                subject: "Bem vindo ao E-saudeUNB", 
+                text: `A sua senha é ${password}`,
               });
-            
-            
+                      
             return res.status(201).json(psychologist);
         } catch (err) {
+            console.log(err);
             return res.status(400).json({ message: err.message });
         }
     },
