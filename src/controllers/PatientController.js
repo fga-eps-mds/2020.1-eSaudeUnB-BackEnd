@@ -293,9 +293,7 @@ module.exports = {
             }).select('+password');
             if (user) {
                 if (await bcrypt.compare(oldPassword, user.password)) {
-                    const { error, value } = schemaUpdatePassword.validate({
-                        password, 
-                    });
+                    const { error, value } = schemaUpdatePassword.validate({ password });
                     if (error) {
                         return res.status(203).json({ value, error });
                     }
