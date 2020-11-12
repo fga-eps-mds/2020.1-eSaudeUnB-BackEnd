@@ -90,4 +90,8 @@ describe('Psychologist API', () => {
 
         expect(response.status).toBe(200);
     });
+<<<<<<< HEAD
+=======
+
+>>>>>>> f7cb2e8... fix: implementing waiting list tests
 });
