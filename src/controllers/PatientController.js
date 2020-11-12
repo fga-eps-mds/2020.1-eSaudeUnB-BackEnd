@@ -466,7 +466,8 @@ module.exports = {
             if (user) {
                 if (await bcrypt.compare(oldPassword, user.password)) {
                     const { error, value } = schemaUpdatePassword.validate({
-                        password });
+                        password, 
+                    });
                     if (error) {
                         return res.status(203).json({ value, error });
                     }
