@@ -452,16 +452,33 @@ module.exports = {
 
     async updatePassword(req, res) {
         try {
-            const { password } = req.body;
+            const { oldPassword, password } = req.body;
 
             const user = await UserPatient.findOne({
                 email: req.params.email,
-            }).exec();
+            }).select('+password');
 
-            user.password = password;
+            if (user) {
+                if (await bcrypt.compare(oldPassword, user.password)) {
+                    const token = jwt.sign(
+                        { email: user.email },
+                        authConfig.secret,
+                        {
+                            expiresIn: 86400,
+                        },
+                    );
 
-            await user.save();
-            return res.status(200).json(user);
+                    user.password = password;
+                    await user.save();
+
+                    return res.status(200).json({
+                        user,
+                        accessToken: token,
+                    });
+                }
+                return res.status(400).json({ message: 'Senha Incorreta' });
+            }
+            throw new Error({ err: 'Usuário não encontrado' });
         } catch (err) {
             return res
                 .status(500)
