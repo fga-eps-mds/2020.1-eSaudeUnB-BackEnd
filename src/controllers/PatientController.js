@@ -249,18 +249,15 @@ module.exports = {
     async updatePassword(req, res) {
         try {
             const { oldPassword, password } = req.body;
-
             const user = await UserPatient.findOne({
                 email: req.params.email,
             }).select('+password');
-
             if (user) {
                 if (await bcrypt.compare(oldPassword, user.password)) {
                     user.password = password;
                     await user.save();
-
                     return res.status(200).json({
-                        user
+                        user,
                     });
                 }
                 return res.status(400).json({ message: 'Senha Incorreta' });

@@ -203,21 +203,14 @@ module.exports = {
     async updatePassword(req, res) {
         try {
             const { oldPassword, password } = req.body;
-
             const { email } = req.params;
-
             const user = await Psychologist.findOne({
                 email
             });
-            // .select('+password');
-
             if (user) {
-                // if (await bcrypt.compare(oldPassword, user.password)) {
                 if (oldPassword === user.password) {
-
                     user.password = password;
                     await user.save();
-
                     return res.status(200).json({
                         user
                     });
