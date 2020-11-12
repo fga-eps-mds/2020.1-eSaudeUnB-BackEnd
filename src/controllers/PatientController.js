@@ -117,6 +117,13 @@ const schemaUpdate = Joi.object({
 
 }).options({ abortEarly: false });
 
+const schemaUpdatePassword = Joi.object({
+    password: Joi.string()
+        .min(8)
+        .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+
+});
+
 module.exports = {
     async store(req, res) {
         try {
@@ -458,7 +465,15 @@ module.exports = {
             }).select('+password');
             if (user) {
                 if (await bcrypt.compare(oldPassword, user.password)) {
-                    user.password = password;
+                    const { error, value } = schemaUpdatePassword.validate({
+                        password
+                    });
+                    if (error) {
+                        return res.status(203).json({ value, error });
+                    }
+                    const encriptedPassword = bcrypt.hashSync(password, 8);
+
+                    user.password = encriptedPassword;
                     await user.save();
                     return res.status(200).json({
                         user,
