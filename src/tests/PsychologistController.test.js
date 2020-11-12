@@ -135,10 +135,8 @@ describe('Psychologist API', () => {
         const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
         const TokenAdmin = resposit.body.accessToken;
         await request.post('/psychologist').send(user1).set('authorization', TokenAdmin);
-        await request
-            .put(`/psyUpdatePassword/${user1.email}`)
-            .send({ password: '123456789' }).set('authorization', TokenAdmin);
-        const response2 = await request.post('/login/psychologist').send({ email: user1.email, password: '123456789' });
+        const psy = await request.get(`/psychologist/${user1.email}`).set('authorization', TokenAdmin);
+        const response2 = await request.post('/login/psychologist').send({ email: user1.email, password: psy.body.password });
         const TokenPsy = response2.body.accessToken;
 
         const responseUpdate = await request
@@ -160,10 +158,8 @@ describe('Psychologist API', () => {
         const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
         const TokenAdmin = resposit.body.accessToken;
         await request.post('/psychologist').send(user1).set('authorization', TokenAdmin);
-        await request
-            .put(`/psyUpdatePassword/${user1.email}`)
-            .send({ password: '123456789' }).set('authorization', TokenAdmin);
-        const response2 = await request.post('/login/psychologist').send({ email: user1.email, password: '123456789' });
+        const psy = await request.get(`/psychologist/${user1.email}`).set('authorization', TokenAdmin);
+        const response2 = await request.post('/login/psychologist').send({ email: user1.email, password: psy.body.password });
         const TokenPsy = response2.body.accessToken;
 
         const responseUpdate = await request.put(`/psyUpdate/${null}`).send({
@@ -183,15 +179,13 @@ describe('Psychologist API', () => {
         const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
         const TokenAdmin = resposit.body.accessToken;
         await request.post('/psychologist').send(user1).set('authorization', TokenAdmin);
-        await request
-            .put(`/psyUpdatePassword/${user1.email}`)
-            .send({ password: '123456789' }).set('authorization', TokenAdmin);
-        const response2 = await request.post('/login/psychologist').send({ email: user1.email, password: '123456789' });
+        const psy = await request.get(`/psychologist/${user1.email}`).set('authorization', TokenAdmin);
+        const response2 = await request.post('/login/psychologist').send({ email: user1.email, password: psy.body.password });
         const TokenPsy = response2.body.accessToken;
 
         const responseDelete = await request
             .put(`/psyUpdatePassword/${user1.email}`)
-            .send({ password: null }).set('authorization', TokenPsy);
+            .send({ oldPassword: psy.body.password, password: null }).set('authorization', TokenPsy);
 
         expect(responseDelete.status).toBe(500);
     });
