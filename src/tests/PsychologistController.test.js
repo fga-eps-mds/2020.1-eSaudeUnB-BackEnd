@@ -13,6 +13,7 @@ const user1 = {
     lastName: 'Lima',
     email: 'email@email.com',
     phone: '061988888888',
+    password: 'teste12345678',
     gender: 'M',
     bond: 'Psychologist',
     specialization: 'Psicólogo',
@@ -88,10 +89,11 @@ describe('Psychologist API', () => {
         const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
         const TokenAdmin = resposit.body.accessToken;
         await request.post('/psychologist').send(user1).set('authorization', TokenAdmin);
+        const psy = await request.get(`/psychologist/${user1.email}`).set('authorization', TokenAdmin);
 
         const responseDelete = await request
-            .put(`/psyUpdatePassword/${user1.email}`)
-            .send({ password: '123456789' }).set('authorization', TokenAdmin);
+            .put(`/psyUpdatePassword/${psy.body.email}`)
+            .send({ oldPassword:psy.body.password, password: '123456789' }).set('authorization', TokenAdmin);
 
         expect(responseDelete.status).toBe(200);
     });
