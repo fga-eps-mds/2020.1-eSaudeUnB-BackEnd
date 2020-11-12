@@ -268,12 +268,9 @@ module.exports = {
                         return res.status(203).json({ value, error });
                     }
                     const encriptedPassword = bcrypt.hashSync(password, 8);
-
                     user.password = encriptedPassword;
                     await user.save();
-                    return res.status(200).json({
-                        user,
-                    });
+                    return res.status(200).json({ user, });
                 }
                 return res.status(400).json({ message: 'Senha Incorreta' });
             }
