@@ -40,28 +40,11 @@ module.exports = {
         try {
             const { email } = req.params;
 
-            await WaitingList.deleteOne({ email });
+            await WaitingList.deleteOne({ emailPatient: email });
 
             return res.status(200).json();
         } catch (err) {
             return res.status(400).json({ message: err.message });
-        }
-    },
-
-    async update(req, res) {
-        try {
-            const { email, patients } = req.body;
-
-            const waitingList = await WaitingList.findOne({
-                email,
-            }).exec();
-
-            waitingList.patients = patients;
-
-            await waitingList.save();
-            return res.status(200).json(waitingList);
-        } catch (err) {
-            return res.status(500).json({ message: 'falha ao dar o update' });
         }
     },
 }
