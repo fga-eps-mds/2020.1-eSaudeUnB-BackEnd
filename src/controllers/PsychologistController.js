@@ -253,7 +253,7 @@ module.exports = {
     async updatePassword(req, res) {
         try {
             const { oldPassword, password } = req.body;
-            const user = await Psychologist.findOne({ email: req.params });
+            const user = await Psychologist.findOne({ email: req.params.email });
             if (user) {
                 if (oldPassword === user.password) {
                     // const encriptedPassword = bcrypt.hashSync(password, 8);
