@@ -40,7 +40,7 @@ module.exports = {
             const user = await Psychologist.findOne({ email });
 
             if (user) {
-                // Substituir a condição atual por if (bcrypt.compare(password, user.password))
+                // replace if to (bcrypt.compare(password, user.password))
                 if (password === user.password) {
                     const token = jwt.sign(
                         { email: user.email },

@@ -97,10 +97,10 @@ module.exports = {
             });
 
             await transporter.sendMail({
-                from: '"e-saudeunb" <e-saude@unb.br>', // sender address
-                to: email, // list of receivers
-                subject: 'Senha', // Subject line
-                text: `A sua senha é ${password}`, // plain text body
+                from: '"e-saudeunb" <e-saude@unb.br>',
+                to: email,
+                subject: 'Senha',
+                text: `A sua senha é ${password}`,
             });
 
             return res.status(201).json(psychologist);
