@@ -104,9 +104,31 @@ module.exports = {
                 from: '"e-saude UnB" <esaudtest@gmail.com>',
                 to: email,
                 subject: 'Bem vindo ao E-saudeUNB',
-                text: `Gostariamos de dar a boa vindas a plataforma.
-                        seu login para uso e seu email: ${email}.
-                        A sua senha é ${password}`,
+                html: `<body style="justify-content: flex-start; columns: auto; align-items: center">
+                    <img
+                        src="https://svgshare.com/i/RUt.svg"
+                        alt="Logo"
+                        style="background-color: #0459ae; width: 500px; height: 50px"
+                    />
+                    <h1>Olá ${name} ,bem vindo ao E-SaúdeUNB</h1>
+                    <p>
+                        Seja bem vindo(a) à plataforma E-Saúde UNB. Seu email foi cadastrado
+                        como Paciente.
+                    </p>
+                    <p>clique no Botão abaixo para acessar a plataforma</p>
+                    <a
+                        href="http://localhost:3000"
+                        style="
+                    background: none;
+                    border: none;
+                    font: 700 1rem Poppins;
+                    color: #0459ae;
+                    cursor: pointer;
+                    "
+                    >Clique Aqui</a
+                    >
+                </body>`
+                ,
             });
 
             const encriptedPassword = bcrypt.hashSync(password, 8);

@@ -7,38 +7,21 @@ const UserPatient = require('../models/UserPatient');
 const transporter = require('../config/email.config');
 
 const schema = Joi.object({
-    name: Joi.string()
-        .min(3)
-        .max(30)
-        .required(),
+    name: Joi.string().min(3).max(30).required(),
 
-    lastName: Joi.string()
-        .min(3)
-        .max(30)
-        .required(),
+    lastName: Joi.string().min(3).max(30).required(),
 
-    email: Joi.string()
-        .email({ minDomainSegments: 2, tlds: false })
-        .required(),
+    email: Joi.string().email({ minDomainSegments: 2, tlds: false }).required(),
 
-    specialization: Joi.string()
-        .required(),
+    specialization: Joi.string().required(),
 
-    biography: Joi.string()
-        .allow('')
-        .min(0)
-        .max(300),
+    biography: Joi.string().allow('').min(0).max(300),
 
-    gender: Joi.string()
-        .allow('')
-        .max(1)
-        .required(),
+    gender: Joi.string().allow('').max(1).required(),
 
-    bond: Joi.string()
-        .allow(''),
+    bond: Joi.string().allow(''),
 
-    phone: Joi.number()
-        .allow(''),
+    phone: Joi.number().allow(''),
     userImage: Joi.string().allow(''),
 }).options({ abortEarly: false });
 
@@ -100,7 +83,37 @@ module.exports = {
                 from: '"e-saudeunb" <e-saude@unb.br>',
                 to: email,
                 subject: 'Senha',
-                text: `A sua senha é ${password}`,
+                html: `<body style="justify-content: flex-start; columns: auto; align-items: center">
+                    <img
+                        src="https://svgshare.com/i/RUt.svg"
+                        alt="Logo"
+                        style="background-color: #0459ae; width: 500px; height: 50px"
+                    />
+                    <h1>Olá ${name} ,bem vindo ao E-SaúdeUNB</h1>
+                    <p>
+                        Seja bem vindo(a) à plataforma E-Saúde UNB. Seu email foi cadastrado
+                        como Psicologo, e uma senha aleatória foi gerada para a utilização da
+                    plataforma.<br />
+                    </p>
+                    <h2>Sua senha é: ${password}</h2>
+                    <p>
+                        Esta senha,caso sejá de seu interesse, pode ser alterada dentro da
+                        plataforma
+                    </p>
+                    <p>clique no Botão abaixo para acessar a plataforma</p>
+                    <a
+                        href="http://localhost:3000"
+                        style="
+                    background: none;
+                    border: none;
+                    font: 700 1rem Poppins;
+                    color: #0459ae;
+                    cursor: pointer;
+                    "
+                    >Clique Aqui</a
+                    >
+                </body>`
+                ,
             });
 
             return res.status(201).json(psychologist);
@@ -135,7 +148,7 @@ module.exports = {
 
             await Psychologist.deleteOne({ email });
 
-            return res.status(200).json();
+            return res.status(200).json('Psychologist Remove');
         } catch (err) {
             return res.status(400).json({ message: err.message });
         }
@@ -205,7 +218,9 @@ module.exports = {
             await user.save();
             return res.status(200).json(user);
         } catch (err) {
-            return res.status(500).json({ message: 'falha ao dar o update', err });
+            return res
+                .status(500)
+                .json({ message: 'falha ao dar o update', err });
         }
     },
 
