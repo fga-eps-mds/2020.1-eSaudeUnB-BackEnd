@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const UserPatient = require('../models/UserPatient');
 const Psychologist = require('../models/Psychologist');
-
 const authConfig = require('../config/auth.config');
 
 module.exports = {
@@ -41,7 +40,7 @@ module.exports = {
             const user = await Psychologist.findOne({ email });
 
             if (user) {
-                // Substituir a condição atual do if por (bcrypt.compare(password, user.password))
+                // replace if to (bcrypt.compare(password, user.password))
                 if (password === user.password) {
                     const token = jwt.sign(
                         { email: user.email },
