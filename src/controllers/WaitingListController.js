@@ -16,7 +16,6 @@ module.exports = {
             });
 
             return res.status(201).json(waitingList);
-
         } catch (err) {
             return res.status(400).json({ error: err.message });
         }
@@ -47,4 +46,4 @@ module.exports = {
             return res.status(400).json({ message: err.message });
         }
     },
-}
+};

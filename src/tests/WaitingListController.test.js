@@ -90,5 +90,4 @@ describe('Psychologist API', () => {
 
         expect(response.status).toBe(200);
     });
-
 });
