@@ -79,6 +79,8 @@ module.exports = {
                 userImage,
             });
 
+            const userBond = 'P' ? 'Psicólogo' : 'N' ? 'Nutricionista' : 'A' ? 'Assistente Social' : 'Profissional';
+
             await transporter.sendMail({
                 from: '"e-saudeunb" <e-saude@unb.br>',
                 to: email,
@@ -92,7 +94,7 @@ module.exports = {
                     <h1>Olá ${name} ,bem vindo ao E-SaúdeUNB</h1>
                     <p>
                         Seja bem vindo(a) à plataforma E-Saúde UNB. Seu email foi cadastrado
-                        como Psicologo, e uma senha aleatória foi gerada para a utilização da
+                        como ${userBond}, e uma senha aleatória foi gerada para a utilização da
                     plataforma.<br />
                     </p>
                     <h2>Sua senha é: ${password}</h2>
