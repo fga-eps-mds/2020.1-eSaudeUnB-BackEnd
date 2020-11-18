@@ -382,46 +382,46 @@ module.exports = {
             if (userImage) {
                 user.userImage = userImage;
             }
-            if(race){
+            if (race) {
                 user.race = race;
             }
-            if(sexualOrientation){
+            if (sexualOrientation) {
                 user.sexualOrientation = sexualOrientation;
             }
-            if(children){
+            if (children) {
                 user.children = children;
             }
-            if(emergencyContactName){
+            if (emergencyContactName) {
                 user.emergencyContactName = emergencyContactName;
             }
-            if(emergencyContactPhone){
-                user.emergencyContactPhone;
+            if (emergencyContactPhone) {
+                user.emergencyContactPhone = emergencyContactPhone;
             }
-            if(emergencyContactBond){
+            if (emergencyContactBond) {
                 user.emergencyContactBond = emergencyContactBond;
             }
-            if(motherName){
+            if (motherName) {
                 user.motherName = motherName;
             }
-            if (fatherName){
+            if (fatherName) {
                 user.fatherName = fatherName;
             }
-            if (affiliationPhone){
+            if (affiliationPhone) {
                 user.affiliationPhone = affiliationPhone;
             }
-            if (socialPrograms){
+            if (socialPrograms) {
                 user.socialPrograms = socialPrograms;
             }
-            if (studentHouseResidence){
+            if (studentHouseResidence) {
                 user.studentHouseResidence = studentHouseResidence;
             }
-            if (psychiatricFollowUp){
+            if (psychiatricFollowUp) {
                 user.psychiatricFollowUp = psychiatricFollowUp;
             }
-            if (medication){
+            if (medication) {
                 user.medication = medication;
             }
-            if (mainComplaint){
+            if (mainComplaint) {
                 user.mainComplaint = mainComplaint;
             }
 

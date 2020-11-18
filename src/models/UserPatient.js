@@ -45,25 +45,21 @@ const UserPatientSchema = new mongoose.Schema(
             default: null,
             required: false,
         },
-        //1
         race: {
             type: String,
             default: null,
             required: false,
         },
-        //2
         sexualOrientation: {
             type: String,
             default: null,
             required: false,
         },
-        //3
         children: {
             type: String,
             default: null,
             required: false,
         },
-        //4
         emergencyContactName: {
             type: String,
             default: null,
@@ -79,7 +75,6 @@ const UserPatientSchema = new mongoose.Schema(
             default: null,
             required: false,
         },
-        //5
         motherName: {
             type: String,
             default: null,
@@ -95,31 +90,26 @@ const UserPatientSchema = new mongoose.Schema(
             default: null,
             required: false,
         },
-        //6
         socialPrograms: {
             type: String,
             default: null,
             required: false,
         },
-        //7
         studentHouseResidence: {
             type: String,
             default: null,
             require: false,
         },
-        //8
         psychiatricFollowUp: {
             type: String,
             default: null,
             require: false,
         },
-        //9
         medication: {
             type: String,
             default: null,
             require: false,
         },
-        //10
         mainComplaint: {
             type: String,
             default: null,
