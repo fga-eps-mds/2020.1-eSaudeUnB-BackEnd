@@ -79,7 +79,14 @@ module.exports = {
                 userImage,
             });
 
-            const userBond = 'P' ? 'Psicólogo' : 'N' ? 'Nutricionista' : 'A' ? 'Assistente Social' : 'Profissional';
+            let userBond;
+            if (bond === 'P') {
+                userBond = 'Psicólogo';
+            } else if (bond === 'N') {
+                userBond = 'Nutricionista';
+            } else {
+                userBond = 'Assistente Social';
+            }
 
             await transporter.sendMail({
                 from: '"e-saudeunb" <e-saude@unb.br>',
