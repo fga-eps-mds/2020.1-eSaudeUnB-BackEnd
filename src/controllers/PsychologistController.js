@@ -256,6 +256,8 @@ module.exports = {
             const user = await Psychologist.findOne({ email: req.params.email });
             if (user) {
                 if (oldPassword === user.password) {
+                    // const encriptedPassword = bcrypt.hashSync(password, 8);
+
                     const { error, value } = schemaUpdatePasswordPsy.validate({
                         password,
                     });
