@@ -97,7 +97,7 @@ const schemaUpdate = Joi.object({
 
     fatherName: Joi.string().min(3).allow(''),
 
-    affiliationPhone: Joi.number().allow(''),
+    affiliationPhone: Joi.number().allow('').allow(null),
 
     socialPrograms: Joi.string().allow('').allow(null),
 
@@ -107,7 +107,7 @@ const schemaUpdate = Joi.object({
 
     medication: Joi.string().allow('').allow(null),
 
-    mainComplaint: Joi.string().allow('').allow(null),
+    mainComplaint: Joi.string().allow(''),
 
 }).options({ abortEarly: false });
 
