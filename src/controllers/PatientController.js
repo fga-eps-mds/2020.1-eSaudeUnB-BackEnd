@@ -87,9 +87,9 @@ const schemaUpdate = Joi.object({
 
     userImage: Joi.string().allow(''),
 
-    race: Joi.string().allow('').allow(null),
+    race: Joi.string().allow(''),
 
-    sexualOrientation: Joi.string().allow('').allow(null),
+    sexualOrientation: Joi.string().allow(''),
 
     children: Joi.string().allow('').allow(null),
 
