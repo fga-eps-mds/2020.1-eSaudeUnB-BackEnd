@@ -93,17 +93,17 @@ const schemaUpdate = Joi.object({
 
     children: Joi.string().allow('').allow(null),
 
-    emergencyContactName: Joi.string().allow('').allow(null),
+    emergencyContactName: Joi.string().min(3).allow(''),
 
-    emergencyContactPhone: Joi.number().allow('').allow(null),
+    emergencyContactPhone: Joi.number().allow(''),
 
-    emergencyContactBond: Joi.string().allow('').allow(null),
+    emergencyContactBond: Joi.string().min(3).allow(''),
 
-    motherName: Joi.string().allow('').allow(null),
+    motherName: Joi.string().min(3).allow(''),
 
-    fatherName: Joi.string().allow('').allow(null),
+    fatherName: Joi.string().min(3).allow(''),
 
-    affiliationPhone: Joi.number().allow('').allow(null),
+    affiliationPhone: Joi.number().allow(''),
 
     socialPrograms: Joi.string().allow('').allow(null),
 
