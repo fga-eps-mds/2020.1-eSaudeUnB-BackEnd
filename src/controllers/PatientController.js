@@ -27,7 +27,7 @@ const schemaCreate = Joi.object({
 
     bond: Joi.string().allow(''),
 
-    userImage: Joi.string().allow(''),
+    userImage: Joi.string().allow('').allow(null),
 
     race: Joi.string().allow('').allow(null),
 
