@@ -10,10 +10,9 @@ const schemaCreate = Joi.object({
     lastName: Joi.string().min(3).max(30).required(),
 
     email: Joi.string().email({ minDomainSegments: 2, tlds: false }).required(),
-    password: Joi.string()
-        .min(8)
-        .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
-        .required(),
+
+    password: Joi.string().min(8).pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
+
     phone: Joi.number().allow(''),
 
     gender: Joi.string().max(1).allow(''),
@@ -22,13 +21,10 @@ const schemaCreate = Joi.object({
 
     civilStatus: Joi.string().allow('').allow(null),
 
-    unbRegistration: Joi.string()
-        .pattern(new RegExp('^[0-9]+$'))
-        .min(8)
-        .max(10)
-        .allow(''),
+    unbRegistration: Joi.string().pattern(new RegExp('^[0-9]+$')).min(8).max(10).allow(''),
 
     bond: Joi.string().allow(''),
+
     userImage: Joi.string().allow(''),
 
 }).options({ abortEarly: false });
@@ -48,11 +44,7 @@ const schemaUpdate = Joi.object({
 
     civilStatus: Joi.string().allow('').allow(null),
 
-    unbRegistration: Joi.string()
-        .pattern(new RegExp('^[0-9]+$'))
-        .min(8)
-        .max(10)
-        .allow(''),
+    unbRegistration: Joi.string().pattern(new RegExp('^[0-9]+$')).min(8).max(10).allow(''),
 
     bond: Joi.string().allow(''),
 
@@ -61,9 +53,7 @@ const schemaUpdate = Joi.object({
 }).options({ abortEarly: false });
 
 const schemaUpdatePassword = Joi.object({
-    password: Joi.string()
-        .min(8)
-        .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+    password: Joi.string().min(8).pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
 
 });
 
@@ -229,36 +219,25 @@ module.exports = {
                 email,
             }).exec();
 
-            if (name) {
-                user.name = name;
-            }
-            if (lastName) {
-                user.lastName = lastName;
-            }
-            if (email) {
-                user.email = email;
-            }
-            if (phone) {
-                user.phone = phone;
-            }
-            if (unbRegistration) {
-                user.unbRegistration = unbRegistration;
-            }
-            if (gender) {
-                user.gender = gender;
-            }
-            if (bond) {
-                user.bond = bond;
-            }
-            if (civilStatus) {
-                user.civilStatus = civilStatus;
-            }
-            if (religion) {
-                user.religion = religion;
-            }
-            if (userImage) {
-                user.userImage = userImage;
-            }
+            if (name) user.name = name;
+
+            if (lastName) user.lastName = lastName;
+
+            if (email) user.email = email;
+
+            if (phone) user.phone = phone;
+
+            if (unbRegistration) user.unbRegistration = unbRegistration;
+
+            if (gender) user.gender = gender;
+
+            if (bond) user.bond = bond;
+
+            if (civilStatus) user.civilStatus = civilStatus;
+
+            if (religion) user.religion = religion;
+
+            if (userImage) user.userImage = userImage;
 
             await user.save();
             return res.status(200).json(user);

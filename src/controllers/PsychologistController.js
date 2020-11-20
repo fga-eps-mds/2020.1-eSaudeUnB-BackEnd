@@ -259,7 +259,7 @@ module.exports = {
                     // const encriptedPassword = bcrypt.hashSync(password, 8);
 
                     const { error, value } = schemaUpdatePasswordPsy.validate({
-                        password
+                        password,
                     });
                     if (error) {
                         return res.status(203).json({ value, error });
