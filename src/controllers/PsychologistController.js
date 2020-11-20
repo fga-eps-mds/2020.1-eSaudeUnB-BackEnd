@@ -258,7 +258,7 @@ module.exports = {
                 if (oldPassword === user.password) {
                     // const encriptedPassword = bcrypt.hashSync(password, 8);
 
-                    const { error, value } = schemaUpdatePassword.validate({
+                    const { error, value } = schemaUpdatePasswordPsy.validate({
                         password
                     });
                     if (error) {
