@@ -186,7 +186,7 @@ module.exports = {
                 return res.status(203).json({ value, error });
             }
 
-            await transporter.sendMail({
+            transporter.sendMail({
                 from: '"e-saude UnB" <esaudtest@gmail.com>',
                 to: email,
                 subject: 'Bem vindo ao E-saudeUNB',
