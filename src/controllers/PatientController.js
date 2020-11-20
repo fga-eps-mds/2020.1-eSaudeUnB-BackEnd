@@ -21,7 +21,8 @@ const schemaCreate = Joi.object({
 
     civilStatus: Joi.string().allow('').allow(null),
 
-    unbRegistration: Joi.string().pattern(new RegExp('^[0-9]+$')).min(8).max(10).allow(''),
+    unbRegistration: Joi.string().pattern(new RegExp('^[0-9]+$')).min(8).max(10)
+        .allow(''),
 
     bond: Joi.string().allow(''),
 
@@ -44,7 +45,8 @@ const schemaUpdate = Joi.object({
 
     civilStatus: Joi.string().allow('').allow(null),
 
-    unbRegistration: Joi.string().pattern(new RegExp('^[0-9]+$')).min(8).max(10).allow(''),
+    unbRegistration: Joi.string().pattern(new RegExp('^[0-9]+$')).min(8).max(10)
+        .allow(''),
 
     bond: Joi.string().allow(''),
 

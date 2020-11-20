@@ -84,7 +84,7 @@ describe('Psychologist API', () => {
         await request.post('/psychologist').send(user2).set('authorization', TokenAdmin);
         const response2 = await request.post('/psychologist').send(user2).set('authorization', TokenAdmin);
         expect(response.status).toBe(203);
-        expect(response2.status).toBe(200)
+        expect(response2.status).toBe(200);
     });
 
     it('should be able to update a psychologist password', async () => {
@@ -95,7 +95,7 @@ describe('Psychologist API', () => {
 
         const responseDelete = await request
             .put(`/psyUpdatePassword/${psy.body.email}`)
-            .send({ oldPassword:psy.body.password, password: '123456789' }).set('authorization', TokenAdmin);
+            .send({ oldPassword: psy.body.password, password: '123456789' }).set('authorization', TokenAdmin);
 
         expect(responseDelete.status).toBe(200);
     });

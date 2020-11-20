@@ -166,7 +166,7 @@ describe('Patient API', () => {
 
         const responseUpdate = await request
             .put(`/user/password/${user3.email}`)
-            .send({oldPassword:user3.password, password: '12345678' })
+            .send({ oldPassword: user3.password, password: '12345678' })
             .set('authorization', TokenPatient);
 
         expect(responseUpdate.status).toBe(200);
