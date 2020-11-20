@@ -10,10 +10,9 @@ const schemaCreate = Joi.object({
     lastName: Joi.string().min(3).max(30).required(),
 
     email: Joi.string().email({ minDomainSegments: 2, tlds: false }).required(),
-    password: Joi.string()
-        .min(8)
-        .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
-        .required(),
+
+    password: Joi.string().min(8).pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
+
     phone: Joi.number().allow(''),
 
     gender: Joi.string().max(1).allow(''),
@@ -22,13 +21,11 @@ const schemaCreate = Joi.object({
 
     civilStatus: Joi.string().allow('').allow(null),
 
-    unbRegistration: Joi.string()
-        .pattern(new RegExp('^[0-9]+$'))
-        .min(8)
-        .max(10)
+    unbRegistration: Joi.string().pattern(new RegExp('^[0-9]+$')).min(8).max(10)
         .allow(''),
 
     bond: Joi.string().allow(''),
+
     userImage: Joi.string().allow(''),
 
 }).options({ abortEarly: false });
@@ -48,10 +45,7 @@ const schemaUpdate = Joi.object({
 
     civilStatus: Joi.string().allow('').allow(null),
 
-    unbRegistration: Joi.string()
-        .pattern(new RegExp('^[0-9]+$'))
-        .min(8)
-        .max(10)
+    unbRegistration: Joi.string().pattern(new RegExp('^[0-9]+$')).min(8).max(10)
         .allow(''),
 
     bond: Joi.string().allow(''),
@@ -59,6 +53,11 @@ const schemaUpdate = Joi.object({
     userImage: Joi.string().allow(''),
 
 }).options({ abortEarly: false });
+
+const schemaUpdatePassword = Joi.object({
+    password: Joi.string().min(8).pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+
+});
 
 module.exports = {
     async store(req, res) {
@@ -222,36 +221,25 @@ module.exports = {
                 email,
             }).exec();
 
-            if (name) {
-                user.name = name;
-            }
-            if (lastName) {
-                user.lastName = lastName;
-            }
-            if (email) {
-                user.email = email;
-            }
-            if (phone) {
-                user.phone = phone;
-            }
-            if (unbRegistration) {
-                user.unbRegistration = unbRegistration;
-            }
-            if (gender) {
-                user.gender = gender;
-            }
-            if (bond) {
-                user.bond = bond;
-            }
-            if (civilStatus) {
-                user.civilStatus = civilStatus;
-            }
-            if (religion) {
-                user.religion = religion;
-            }
-            if (userImage) {
-                user.userImage = userImage;
-            }
+            if (name) user.name = name;
+
+            if (lastName) user.lastName = lastName;
+
+            if (email) user.email = email;
+
+            if (phone) user.phone = phone;
+
+            if (unbRegistration) user.unbRegistration = unbRegistration;
+
+            if (gender) user.gender = gender;
+
+            if (bond) user.bond = bond;
+
+            if (civilStatus) user.civilStatus = civilStatus;
+
+            if (religion) user.religion = religion;
+
+            if (userImage) user.userImage = userImage;
 
             await user.save();
             return res.status(200).json(user);
@@ -280,16 +268,24 @@ module.exports = {
 
     async updatePassword(req, res) {
         try {
-            const { password } = req.body;
-
+            const { oldPassword, password } = req.body;
             const user = await UserPatient.findOne({
                 email: req.params.email,
-            }).exec();
-
-            user.password = password;
-
-            await user.save();
-            return res.status(200).json(user);
+            }).select('+password');
+            if (user) {
+                if (await bcrypt.compare(oldPassword, user.password)) {
+                    const { error, value } = schemaUpdatePassword.validate({ password });
+                    if (error) {
+                        return res.status(203).json({ value, error });
+                    }
+                    const encriptedPassword = bcrypt.hashSync(password, 8);
+                    user.password = encriptedPassword;
+                    await user.save();
+                    return res.status(200).json({ user });
+                }
+                return res.status(400).json({ message: 'Senha Incorreta' });
+            }
+            throw new Error({ err: 'Usuário não encontrado' });
         } catch (err) {
             return res
                 .status(500)

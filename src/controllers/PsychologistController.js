@@ -7,23 +7,49 @@ const UserPatient = require('../models/UserPatient');
 const transporter = require('../config/email.config');
 
 const schema = Joi.object({
-    name: Joi.string().min(3).max(30).required(),
+    name: Joi.string()
+        .min(3)
+        .max(30)
+        .required(),
 
-    lastName: Joi.string().min(3).max(30).required(),
+    lastName: Joi.string()
+        .min(3)
+        .max(30)
+        .required(),
 
-    email: Joi.string().email({ minDomainSegments: 2, tlds: false }).required(),
+    email: Joi.string()
+        .email({ minDomainSegments: 2, tlds: false })
+        .required(),
 
-    specialization: Joi.string().required(),
+    specialization: Joi.string()
+        .required(),
 
-    biography: Joi.string().allow('').min(0).max(300),
+    biography: Joi.string()
+        .allow('')
+        .min(0)
+        .max(300),
 
-    gender: Joi.string().allow('').max(1).required(),
+    gender: Joi.string()
+        .allow('')
+        .max(1)
+        .required(),
 
-    bond: Joi.string().allow(''),
+    bond: Joi.string()
+        .allow(''),
 
-    phone: Joi.number().allow(''),
-    userImage: Joi.string().allow(''),
+    phone: Joi.number()
+        .allow(''),
+
+    userImage: Joi.string()
+        .allow(''),
 }).options({ abortEarly: false });
+
+const schemaUpdatePasswordPsy = Joi.object({
+    password: Joi.string()
+        .min(8)
+        .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+
+});
 
 module.exports = {
     async store(req, res) {
@@ -226,16 +252,26 @@ module.exports = {
 
     async updatePassword(req, res) {
         try {
-            const { password } = req.body;
+            const { oldPassword, password } = req.body;
+            const user = await Psychologist.findOne({ email: req.params.email });
+            if (user) {
+                if (oldPassword === user.password) {
+                    // const encriptedPassword = bcrypt.hashSync(password, 8);
 
-            const user = await Psychologist.findOne({
-                email: req.params.email,
-            }).exec();
+                    const { error, value } = schemaUpdatePasswordPsy.validate({
+                        password,
+                    });
+                    if (error) {
+                        return res.status(203).json({ value, error });
+                    }
 
-            user.password = password;
-
-            await user.save();
-            return res.status(200).json(user);
+                    user.password = password;
+                    await user.save();
+                    return res.status(200).json({ user });
+                }
+                return res.status(400).json({ message: 'Senha Incorreta' });
+            }
+            throw new Error({ err: 'Usuário não encontrado' });
         } catch (err) {
             return res
                 .status(500)
