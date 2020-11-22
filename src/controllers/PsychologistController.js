@@ -79,15 +79,6 @@ module.exports = {
                 userImage,
             });
 
-            let userBond;
-            if (bond === 'P') {
-                userBond = 'Psicólogo';
-            } else if (bond === 'N') {
-                userBond = 'Nutricionista';
-            } else {
-                userBond = 'Assistente Social';
-            }
-
             await transporter.sendMail({
                 from: '"e-saudeunb" <e-saude@unb.br>',
                 to: email,
@@ -101,7 +92,7 @@ module.exports = {
                     <h1>Olá ${name} ,bem vindo ao E-SaúdeUNB</h1>
                     <p>
                         Seja bem vindo(a) à plataforma E-Saúde UNB. Seu email foi cadastrado
-                        como ${userBond}, e uma senha aleatória foi gerada para a utilização da
+                        como ${bond}, e uma senha aleatória foi gerada para a utilização da
                     plataforma.<br />
                     </p>
                     <h2>Sua senha é: ${password}</h2>
