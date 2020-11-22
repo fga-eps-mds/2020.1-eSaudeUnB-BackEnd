@@ -36,3 +36,9 @@ steps:
     configMode: 'manual'
     cliProjectKey: 'fga-eps-mds_2020.1-eSaudeUnB-BackEnd'
     cliSources: '.'
+
+- task: SonarCloudAnalyze@1
+
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
