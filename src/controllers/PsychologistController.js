@@ -105,7 +105,7 @@ module.exports = {
                 userImage,
             });
 
-            transporter.sendMail({
+            await transporter.sendMail({
                 from: '"e-saudeunb" <e-saude@unb.br>',
                 to: email,
                 subject: 'Senha',
