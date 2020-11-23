@@ -15,7 +15,7 @@ const user1 = {
     phone: '061988888888',
     password: 'teste12345678',
     gender: 'M',
-    bond: 'Psychologist',
+    bond: 'Psicologo',
     specialization: 'Psicólogo',
     biography: '',
 };
@@ -26,7 +26,7 @@ const user2 = {
     email: 'email2@email.com',
     phone: '061988888888',
     gender: 'M',
-    bond: 'Psychologist',
+    bond: 'Psicologo',
     specialization: 'Psicólogo',
     biography: '',
 };
@@ -37,7 +37,7 @@ const user3 = {
     email: null,
     gender: 'M',
     phone: '',
-    bond: 'Psychologist',
+    bond: 'Psicologo',
     specialization: 'Psicólogo',
     biography: '',
 };

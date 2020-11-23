@@ -44,7 +44,7 @@ const psyUser = {
     email: 'emailPsy@email.com',
     phone: '061999999999',
     gender: 'M',
-    bond: 'Psychologist',
+    bond: 'Psicologo',
     specialization: 'psicologo',
     biography: '',
 };
