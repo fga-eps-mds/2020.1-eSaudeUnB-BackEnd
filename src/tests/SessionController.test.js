@@ -72,7 +72,8 @@ describe('Session API', () => {
         const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
         const TokenAdmin = resposit.body.accessToken;
         await request.post('/psychologist').send(psyUser).set('authorization', TokenAdmin);
-        await request.put(`/psyUpdatePassword/${psyUser.email}`).send({ password: '123456789' }).set('authorization', TokenAdmin);
+        const psy = await request.get(`/psychologist/${psyUser.email}`).set('authorization', TokenAdmin);
+        await request.put(`/psyUpdatePassword/${psyUser.email}`).send({ oldPassword: psy.body.password, password: '123456789' }).set('authorization', TokenAdmin);
     });
 
     afterAll(async (done) => {

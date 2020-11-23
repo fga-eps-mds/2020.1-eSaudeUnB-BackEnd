@@ -82,11 +82,9 @@ describe('Login API', () => {
         const TokenAdmin = respose.body.accessToken;
 
         await request.post('/psychologist').set('authorization', TokenAdmin).send(psyUser);
-        await request
-            .put(`/psyUpdatePassword/${psyUser.email}`)
-            .send({ password: '123456789' }).set('authorization', TokenAdmin);
+        const psy = await request.get(`/psychologist/${psyUser.email}`).set('authorization', TokenAdmin);
 
-        const response = await request.post('/login/psychologist').send({ email: psyUser.email, password: '123456789' });
+        const response = await request.post('/login/psychologist').send({ email: psy.body.email, password: psy.body.password });
         expect(response.status).toBe(200);
     });
 
