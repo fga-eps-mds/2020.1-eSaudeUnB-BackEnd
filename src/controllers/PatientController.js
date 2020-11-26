@@ -1,5 +1,6 @@
 const Joi = require('joi');
 const bcrypt = require('bcryptjs');
+const generatePassword = require('password-generator');
 const UserPatient = require('../models/UserPatient');
 const Psychologist = require('../models/Psychologist');
 const transporter = require('../config/email.config');
@@ -11,7 +12,12 @@ const schemaCreate = Joi.object({
 
     email: Joi.string().email({ minDomainSegments: 2, tlds: false }).required(),
 
-    password: Joi.string().min(8).pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
+    password: Joi.string()
+        .min(8)
+        .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
+        .required(),
+
+    ForgetPassword: Joi.boolean().max(1),
 
     phone: Joi.number().allow(''),
 
@@ -21,13 +27,15 @@ const schemaCreate = Joi.object({
 
     civilStatus: Joi.string().allow('').allow(null),
 
-    unbRegistration: Joi.string().pattern(new RegExp('^[0-9]+$')).min(8).max(10)
+    unbRegistration: Joi.string()
+        .pattern(new RegExp('^[0-9]+$'))
+        .min(8)
+        .max(10)
         .allow(''),
 
     bond: Joi.string().allow(''),
 
     userImage: Joi.string().allow(''),
-
 }).options({ abortEarly: false });
 
 const schemaUpdate = Joi.object({
@@ -45,18 +53,19 @@ const schemaUpdate = Joi.object({
 
     civilStatus: Joi.string().allow('').allow(null),
 
-    unbRegistration: Joi.string().pattern(new RegExp('^[0-9]+$')).min(8).max(10)
+    unbRegistration: Joi.string()
+        .pattern(new RegExp('^[0-9]+$'))
+        .min(8)
+        .max(10)
         .allow(''),
 
     bond: Joi.string().allow(''),
 
     userImage: Joi.string().allow(''),
-
 }).options({ abortEarly: false });
 
 const schemaUpdatePassword = Joi.object({
     password: Joi.string().min(8).pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
-
 });
 
 module.exports = {
@@ -68,6 +77,7 @@ module.exports = {
                 email,
                 phone,
                 password,
+                ForgetPassword,
                 gender,
                 unbRegistration,
                 bond,
@@ -89,6 +99,7 @@ module.exports = {
                 email,
                 phone,
                 password,
+                ForgetPassword,
                 gender,
                 unbRegistration,
                 bond,
@@ -126,8 +137,7 @@ module.exports = {
                     "
                     >Clique Aqui</a
                     >
-                </body>`
-                ,
+                </body>`,
             });
 
             const encriptedPassword = bcrypt.hashSync(password, 8);
@@ -138,6 +148,7 @@ module.exports = {
                 email,
                 phone,
                 password: encriptedPassword,
+                ForgetPassword: 0,
                 gender,
                 unbRegistration,
                 bond,
@@ -274,7 +285,9 @@ module.exports = {
             }).select('+password');
             if (user) {
                 if (await bcrypt.compare(oldPassword, user.password)) {
-                    const { error, value } = schemaUpdatePassword.validate({ password });
+                    const { error, value } = schemaUpdatePassword.validate({
+                        password,
+                    });
                     if (error) {
                         return res.status(203).json({ value, error });
                     }
@@ -290,6 +303,95 @@ module.exports = {
             return res
                 .status(500)
                 .json({ message: 'falha ao dar o update da senha' });
+        }
+    },
+
+    async ForgetPass(req, res) {
+        try {
+            const password = generatePassword(8, false);
+            const user = await UserPatient.findOne({
+                email: req.params.email,
+            });
+            if (user) {
+                const encriptedPassword = bcrypt.hashSync(password, 8);
+                user.password = encriptedPassword;
+                user.ForgetPassWord = 1;
+                await user.save();
+                await transporter.sendMail({
+                    from: '"e-saudeunb" <e-saude@unb.br>',
+                    to: user.email,
+                    subject: 'Senha',
+                    html: `<body style="justify-content: flex-start; columns: auto; align-items: center">
+                        <table border="2" cellpadding="0" cellspacing="0">
+                            <td>
+                                <table border="25" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <img
+                                            src="https://svgshare.com/i/RUt.svg"
+                                            alt="Logo"
+                                            style="
+                                                background-color: #0459ae;
+                                                width: 500px;
+                                                height: 50px;
+                                                display: block;
+                                                padding-left: 25px;
+                                                "
+                                        />
+                                    </tr>
+                                    <tr>
+                                        <h1>
+                                            Olá ${user.name} ,Sua senha foi alterado no E-SaúdeUNB
+                                        </h1>
+                                        <p>
+                                            Vim informar que sua senha foi alterada na
+                                            plataforma E-SaúdeUNB.
+                                        <br />
+                                        Se foi você. não se preocupe, sua senha foi alterada
+                                        com sucesso<br />
+                                            <h2>Sua senha é: ${password}</h2>
+                                        Caso está solicitação não tenha partido por você,
+                                        solicitamos que você clique no link abaixo, e altere
+                                        sua senha
+                                        </p>
+                                        <a
+                                            href="http://localhost:3000"
+                                            style="
+                                                background: none;
+                                                border: none;
+                                                font: 700 1rem Poppins;
+                                                color: #0459ae;
+                                                cursor: pointer;
+                                                "
+                                        >Clique Aqui</a
+                                        >
+                                    </tr>
+                                    <tr>
+                                        <img
+                                            src="http://marca.unb.br/img/comemorativa_cor/unb50_comp_cor_preview.jpg"
+                                            alt="UNB-50anos"
+                                            style="
+                                            background-color: #0459ae;
+                                            width: 500px;
+                                            height: 50px;
+                                            display: block;
+                                            padding-left: 25px;
+                                            "
+                                        />
+                                    </tr>
+                                </td>
+                                </table>
+                                </td>
+                                </table>
+                                </body>
+                                `,
+                });
+                return res.status(200).json({ user });
+            }
+            throw new Error({ err: 'Usuário não encontrado' });
+        } catch (err) {
+            return res
+                .status(500)
+                .json({ message: 'falha ao dar o gerar nova senha' });
         }
     },
 };
