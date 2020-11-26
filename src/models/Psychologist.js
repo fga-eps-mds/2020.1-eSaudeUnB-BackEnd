@@ -20,6 +20,10 @@ const PsychologistSchema = new mongoose.Schema({
         required: true,
         // select:false,
     },
+    ForgetPassword: {
+        type: Boolean,
+        required: true,
+    },
     phone: {
         type: String,
     },
