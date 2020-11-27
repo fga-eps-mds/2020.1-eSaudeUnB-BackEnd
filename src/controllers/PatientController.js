@@ -17,7 +17,7 @@ const schemaCreate = Joi.object({
         .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
         .required(),
 
-    ForgetPassword: Joi.boolean().max(1),
+    ForgetPassword: Joi.boolean(),
 
     phone: Joi.number().allow(''),
 
