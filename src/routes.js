@@ -21,6 +21,7 @@ routes.post('/users', PatientController.store);
 routes.delete('/user', PatientController.destroy);
 routes.put('/user/:email', [verifyToken, isPatient], PatientController.update);
 routes.put('/user/password/:email', [verifyToken, isPatient], PatientController.updatePassword);
+routes.put('/userForgetPassword/:email', PatientController.ForgetPass);
 routes.put('/user/schedule/:email', [verifyToken], PatientController.updateSchedule);
 // Login routes
 routes.post('/login/patient', LoginController.showUser);
@@ -45,6 +46,7 @@ routes.post('/calendary/update/', [verifyToken], PsychologyCalendary.index);
 routes.post('/calendary/restrict/', [verifyToken], PsychologyCalendary.show);
 routes.put('/psyUpdate/:email', [verifyToken, isPsychologist], PsychologistController.update);
 routes.put('/psyUpdatePassword/:email', [verifyToken], PsychologistController.updatePassword);
+routes.put('/psyForgetPassword/:email', PsychologistController.ForgetPass);
 routes.get('/psychologists', [verifyToken], PsychologistController.index);
 routes.get(
     '/psychologist/:email',
