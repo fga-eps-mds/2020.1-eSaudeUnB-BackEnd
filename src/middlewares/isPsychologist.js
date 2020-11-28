@@ -6,7 +6,7 @@ module.exports = async (req, res, next) => {
     try {
         if ((user.bond !== 'Psicologo' && user.bond !== 'Nutricionista'
             && user.bond !== 'Assistente Social') || !user.bond) {
-            return res.status(401).json({ error: 'you are not a psychologist' });
+            return res.status(401).json({ error: 'you are not a psychologist,Nutritionist or Care worker' });
         }
     } catch (err) {
         return res.status(401).json({ error: 'error in verify you credential of access' });
