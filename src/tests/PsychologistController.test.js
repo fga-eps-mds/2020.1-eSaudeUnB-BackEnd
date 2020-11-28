@@ -72,8 +72,8 @@ describe('Psychologist API', () => {
     it('should be able to create a new psychologist', async () => {
         const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
         const TokenAdmin = resposit.body.accessToken;
-        const response = await request.post('/psychologist').send(user1).set('authorization', TokenAdmin);
 
+        const response = await request.post('/psychologist').send(user1).set('authorization', TokenAdmin);
         expect(response.status).toBe(201);
     });
 

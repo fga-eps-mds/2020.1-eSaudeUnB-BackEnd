@@ -67,6 +67,7 @@ module.exports = {
                 gender,
                 bond,
                 userImage,
+                ForgetPassWord,
             } = req.body;
 
             const psyUser = await Psychologist.findOne({ email });
@@ -86,6 +87,7 @@ module.exports = {
                 gender,
                 bond,
                 userImage,
+                ForgetPassWord,
             });
 
             if (error) {
@@ -105,6 +107,7 @@ module.exports = {
                 specialization,
                 biography,
                 userImage,
+                ForgetPassWord,
             });
 
             await transporter.sendMail({

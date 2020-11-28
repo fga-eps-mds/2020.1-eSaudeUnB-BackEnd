@@ -22,7 +22,7 @@ const PsychologistSchema = new mongoose.Schema({
     },
     ForgetPassword: {
         type: Boolean,
-        required: true,
+        required: false,
     },
     phone: {
         type: String,
