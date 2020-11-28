@@ -40,6 +40,8 @@ const schema = Joi.object({
     phone: Joi.number()
         .allow(''),
 
+    ForgetPassWord: Joi.boolean(),
+
     userImage: Joi.string()
         .allow(''),
 }).options({ abortEarly: false });
@@ -278,6 +280,7 @@ module.exports = {
                 .json({ message: 'falha ao atualizar senha' });
         }
     },
+
     async ForgetPass(req, res) {
         try {
             const password = generatePassword(8, false);

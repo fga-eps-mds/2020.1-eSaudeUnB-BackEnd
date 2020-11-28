@@ -51,6 +51,8 @@ const schemaUpdate = Joi.object({
 
     religion: Joi.string().allow('').allow(null),
 
+    ForgetPassword: Joi.boolean(),
+
     civilStatus: Joi.string().allow('').allow(null),
 
     unbRegistration: Joi.string()
