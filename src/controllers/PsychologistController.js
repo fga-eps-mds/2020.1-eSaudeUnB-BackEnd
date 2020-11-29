@@ -103,11 +103,11 @@ module.exports = {
                 gender,
                 bond,
                 password,
+                ForgetPassword: false,
                 phone,
                 specialization,
                 biography,
                 userImage,
-                ForgetPassWord,
             });
 
             await transporter.sendMail({
@@ -195,6 +195,7 @@ module.exports = {
                 phone,
                 specialization,
                 biography,
+                ForgetPassword,
                 userImage,
             } = req.body;
 
@@ -229,6 +230,9 @@ module.exports = {
             }
             if (userImage) {
                 user.userImage = userImage;
+            }
+            if (ForgetPassword) {
+                user.ForgetPassword = ForgetPassword;
             }
 
             const { error, value } = schema.validate({
@@ -291,7 +295,7 @@ module.exports = {
             if (user) {
                 // const encriptedPassword = bcrypt.hashSync(password, 8);
                 user.password = password; // encriptedPassword;
-                user.ForgetPassWord = 1;
+                user.ForgetPassword = true;
                 await user.save();
                 await transporter.sendMail({
                     from: '"e-saudeunb" <e-saude@unb.br>',

@@ -150,7 +150,7 @@ module.exports = {
                 email,
                 phone,
                 password: encriptedPassword,
-                ForgetPassword: 0,
+                ForgetPassword: false,
                 gender,
                 unbRegistration,
                 bond,
@@ -204,6 +204,7 @@ module.exports = {
                 lastName,
                 phone,
                 unbRegistration,
+                ForgetPassword,
                 gender,
                 bond,
                 civilStatus,
@@ -220,6 +221,7 @@ module.exports = {
                 phone,
                 gender,
                 unbRegistration,
+                ForgetPassword,
                 bond,
                 civilStatus,
                 religion,
@@ -253,6 +255,8 @@ module.exports = {
             if (religion) user.religion = religion;
 
             if (userImage) user.userImage = userImage;
+
+            if (ForgetPassword) user.ForgetPassword = ForgetPassword;
 
             await user.save();
             return res.status(200).json(user);
