@@ -243,6 +243,7 @@ module.exports = {
                 bond,
                 phone,
                 specialization,
+                ForgetPassword,
                 biography,
                 userImage,
             });
