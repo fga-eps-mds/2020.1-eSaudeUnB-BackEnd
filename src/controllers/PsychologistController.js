@@ -40,7 +40,9 @@ const schema = Joi.object({
     phone: Joi.number()
         .allow(''),
 
-    ForgetPassWord: Joi.boolean(),
+    ForgetPassword: Joi.boolean()
+        .allow(null)
+        .allow(''),
 
     userImage: Joi.string()
         .allow(''),
@@ -67,7 +69,7 @@ module.exports = {
                 gender,
                 bond,
                 userImage,
-                ForgetPassWord,
+                ForgetPassword,
             } = req.body;
 
             const psyUser = await Psychologist.findOne({ email });
@@ -87,7 +89,7 @@ module.exports = {
                 gender,
                 bond,
                 userImage,
-                ForgetPassWord,
+                ForgetPassword,
             });
 
             if (error) {
@@ -276,6 +278,7 @@ module.exports = {
                     }
 
                     user.password = password;
+                    user.ForgetPassword = false;
                     await user.save();
                     return res.status(200).json({ user });
                 }

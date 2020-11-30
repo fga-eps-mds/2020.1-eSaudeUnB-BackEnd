@@ -17,7 +17,9 @@ const schemaCreate = Joi.object({
         .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
         .required(),
 
-    ForgetPassword: Joi.boolean(),
+    ForgetPassword: Joi.boolean()
+        .allow(null)
+        .allow(''),
 
     phone: Joi.number().allow(''),
 
@@ -51,7 +53,9 @@ const schemaUpdate = Joi.object({
 
     religion: Joi.string().allow('').allow(null),
 
-    ForgetPassword: Joi.boolean(),
+    ForgetPassword: Joi.boolean()
+        .allow(null)
+        .allow(''),
 
     civilStatus: Joi.string().allow('').allow(null),
 
@@ -299,6 +303,7 @@ module.exports = {
                     }
                     const encriptedPassword = bcrypt.hashSync(password, 8);
                     user.password = encriptedPassword;
+                    user.ForgetPassword = false;
                     await user.save();
                     return res.status(200).json({ user });
                 }
@@ -321,7 +326,7 @@ module.exports = {
             if (user) {
                 const encriptedPassword = bcrypt.hashSync(password, 8);
                 user.password = encriptedPassword;
-                user.ForgetPassWord = 1;
+                user.ForgetPassword = true;
                 await user.save();
                 await transporter.sendMail({
                     from: '"e-saudeunb" <e-saude@unb.br>',
