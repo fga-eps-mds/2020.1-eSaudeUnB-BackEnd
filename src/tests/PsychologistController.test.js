@@ -197,4 +197,27 @@ describe('Psychologist API', () => {
 
         expect(responseDelete.status).toBe(500);
     });
+
+    it('should be able to forget Psychologist Password', async () => {
+        const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
+        const TokenAdmin = resposit.body.accessToken;
+        await request.post('/psychologist').send(user1).set('authorization', TokenAdmin);
+
+        const responseValidate = await request
+            .put(`/psyForgetPassword/${user1.email}`);
+
+        expect(responseValidate.status).toBe(200);
+    });
+    it('should not be able to forget Psychologist Password', async () => {
+        const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
+        const TokenAdmin = resposit.body.accessToken;
+        await request.post('/psychologist').send(user1).set('authorization', TokenAdmin);
+
+        const responseValidate = await request
+            .put(`/psyForgetPassword/${user1.email + "ola"}`);
+
+        expect(responseValidate.status).toBe(500);
+    });
+
+
 });
