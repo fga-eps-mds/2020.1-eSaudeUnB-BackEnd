@@ -16,13 +16,10 @@ const schemaCreate = Joi.object({
         .min(8)
         .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
         .required(),
-<<<<<<< HEAD
 
     ForgetPassword: Joi.boolean()
         .allow(null)
         .allow(''),
-=======
->>>>>>> develop
 
     phone: Joi.number().allow(''),
 
@@ -38,9 +35,6 @@ const schemaCreate = Joi.object({
 
     bond: Joi.string().allow(''),
 
-<<<<<<< HEAD
-    userImage: Joi.string().allow(''),
-=======
     userImage: Joi.string().allow('').allow(null),
 
     race: Joi.string().allow('').allow(null),
@@ -71,7 +65,6 @@ const schemaCreate = Joi.object({
 
     mainComplaint: Joi.string().allow('').allow(null),
 
->>>>>>> develop
 }).options({ abortEarly: false });
 
 const schemaUpdate = Joi.object({
@@ -102,8 +95,6 @@ const schemaUpdate = Joi.object({
     bond: Joi.string().allow(''),
 
     userImage: Joi.string().allow(''),
-<<<<<<< HEAD
-=======
 
     race: Joi.string().allow(''),
 
@@ -133,7 +124,6 @@ const schemaUpdate = Joi.object({
 
     mainComplaint: Joi.string().allow(''),
 
->>>>>>> develop
 }).options({ abortEarly: false });
 
 const schemaUpdatePassword = Joi.object({
