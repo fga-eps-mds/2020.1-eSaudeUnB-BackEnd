@@ -49,10 +49,75 @@ const UserPatientSchema = new mongoose.Schema(
             default: null,
             required: false,
         },
-        religion: {
+        race: {
             type: String,
             default: null,
             required: false,
+        },
+        sexualOrientation: {
+            type: String,
+            default: null,
+            required: false,
+        },
+        children: {
+            type: String,
+            default: null,
+            required: false,
+        },
+        emergencyContactName: {
+            type: String,
+            default: null,
+            required: false,
+        },
+        emergencyContactPhone: {
+            type: String,
+            default: null,
+            required: false,
+        },
+        emergencyContactBond: {
+            type: String,
+            default: null,
+            required: false,
+        },
+        motherName: {
+            type: String,
+            default: null,
+            required: false,
+        },
+        fatherName: {
+            type: String,
+            default: null,
+            required: false,
+        },
+        affiliationPhone: {
+            type: String,
+            default: null,
+            required: false,
+        },
+        socialPrograms: {
+            type: String,
+            default: null,
+            required: false,
+        },
+        studentHouseResidence: {
+            type: String,
+            default: null,
+            require: false,
+        },
+        psychiatricFollowUp: {
+            type: String,
+            default: null,
+            require: false,
+        },
+        medication: {
+            type: String,
+            default: null,
+            require: false,
+        },
+        mainComplaint: {
+            type: String,
+            default: null,
+            require: false,
         },
         appointments: [
             {
