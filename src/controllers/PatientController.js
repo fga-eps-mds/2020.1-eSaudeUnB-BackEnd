@@ -3,8 +3,8 @@ const bcrypt = require('bcryptjs');
 const generatePassword = require('password-generator');
 const UserPatient = require('../models/UserPatient');
 const Psychologist = require('../models/Psychologist');
-const PatientEmail = require('../config/Patient_email');
-const Fgetpass = require('../config/ForgetPassword_email');
+// const PatientEmail = require('../config/Patient_email');
+// const Fgetpass = require('../config/ForgetPassword_email');
 
 const schemaCreate = Joi.object({
     name: Joi.string().min(3).max(30).required(),

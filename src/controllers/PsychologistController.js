@@ -4,8 +4,8 @@ const Joi = require('joi');
 // const bcrypt = require('bcryptjs');
 const Psychologist = require('../models/Psychologist');
 const UserPatient = require('../models/UserPatient');
-const PsyEmail = require('../config/Psychologist_email');
-const Fgetpass = require('../config/ForgetPassword_email');
+// const PsyEmail = require('../config/Psychologist_email');
+// const Fgetpass = require('../config/ForgetPassword_email');
 
 const schema = Joi.object({
     name: Joi.string()
@@ -234,14 +234,12 @@ module.exports = {
             if (user) {
                 if (oldPassword === user.password) {
                     // const encriptedPassword = bcrypt.hashSync(password, 8);
-
                     const { error, value } = schemaUpdatePasswordPsy.validate({
                         password,
                     });
                     if (error) {
                         return res.status(203).json({ value, error });
                     }
-
                     user.password = password;
                     user.ForgetPassword = false;
                     await user.save();
