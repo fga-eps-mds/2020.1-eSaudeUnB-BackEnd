@@ -3,8 +3,8 @@ const bcrypt = require('bcryptjs');
 const generatePassword = require('password-generator');
 const UserPatient = require('../models/UserPatient');
 const Psychologist = require('../models/Psychologist');
-const transporter = require('../config/email.config');
-const Fgetpass = require('../config/email.ForgetPass');
+const PatientEmail = require('../config/Patient_email');
+const Fgetpass = require('../config/ForgetPassword_email');
 
 const schemaCreate = Joi.object({
     name: Joi.string().min(3).max(30).required(),
@@ -203,36 +203,6 @@ module.exports = {
                 return res.status(203).json({ value, error });
             }
 
-            transporter.sendMail({
-                from: '"e-saude UnB" <esaudtest@gmail.com>',
-                to: email,
-                subject: 'Bem vindo ao E-saudeUNB',
-                html: `<body style="justify-content: flex-start; columns: auto; align-items: center">
-                    <img
-                        src="https://svgshare.com/i/RUt.svg"
-                        alt="Logo"
-                        style="background-color: #0459ae; width: 500px; height: 50px"
-                    />
-                    <h1>Olá ${name} ,bem vindo ao E-SaúdeUNB</h1>
-                    <p>
-                        Seja bem vindo(a) à plataforma E-Saúde UNB. Seu email foi cadastrado
-                        como Paciente.
-                    </p>
-                    <p>clique no Botão abaixo para acessar a plataforma</p>
-                    <a
-                        href="http://localhost:3000"
-                        style="
-                    background: none;
-                    border: none;
-                    font: 700 1rem Poppins;
-                    color: #0459ae;
-                    cursor: pointer;
-                    "
-                    >Clique Aqui</a
-                    >
-                </body>`,
-            });
-
             const encriptedPassword = bcrypt.hashSync(password, 8);
 
             const patient = await UserPatient.create({
@@ -262,6 +232,8 @@ module.exports = {
                 medication,
                 mainComplaint,
             });
+
+            // await PatientEmail(patient);
 
             return res.status(201).json(patient);
         } catch (err) {
@@ -511,7 +483,7 @@ module.exports = {
                 user.password = encriptedPassword;
                 user.ForgetPassword = true;
                 await user.save();
-                Fgetpass(user, password);
+                // await Fgetpass(user, password);
                 return res.status(200).json({ user });
             }
             throw new Error({ err: 'Usuário não encontrado' });

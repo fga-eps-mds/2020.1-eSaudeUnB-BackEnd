@@ -59,4 +59,5 @@ padding-top: 25px;
         ,
     });
 }
+
 module.exports = Fgetpassword;

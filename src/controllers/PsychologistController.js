@@ -4,8 +4,8 @@ const Joi = require('joi');
 // const bcrypt = require('bcryptjs');
 const Psychologist = require('../models/Psychologist');
 const UserPatient = require('../models/UserPatient');
-const transporter = require('../config/email.config');
-const Fgetpass = require('../config/email.ForgetPass');
+const PsyEmail = require('../config/Psychologist_email');
+const Fgetpass = require('../config/ForgetPassword_email');
 
 const schema = Joi.object({
     name: Joi.string()
@@ -113,43 +113,7 @@ module.exports = {
                 userImage,
             });
 
-            await transporter.sendMail({
-                from: '"e-saudeunb" <e-saude@unb.br>',
-                to: email,
-                subject: 'Senha',
-                html: `<body style="justify-content: flex-start; columns: auto; align-items: center">
-                    <img
-                        src="https://svgshare.com/i/RUt.svg"
-                        alt="Logo"
-                        style="background-color: #0459ae; width: 500px; height: 50px"
-                    />
-                    <h1>Olá ${name} ,bem vindo ao E-SaúdeUNB</h1>
-                    <p>
-                        Seja bem vindo(a) à plataforma E-Saúde UNB. Seu email foi cadastrado
-                        como ${bond}, e uma senha aleatória foi gerada para a utilização da
-                    plataforma.<br />
-                    </p>
-                    <h2>Sua senha é: ${password}</h2>
-                    <p>
-                        Esta senha,caso sejá de seu interesse, pode ser alterada dentro da
-                        plataforma
-                    </p>
-                    <p>clique no Botão abaixo para acessar a plataforma</p>
-                    <a
-                        href="http://localhost:3000"
-                        style="
-                    background: none;
-                    border: none;
-                    font: 700 1rem Poppins;
-                    color: #0459ae;
-                    cursor: pointer;
-                    "
-                    >Clique Aqui</a
-                    >
-                </body>`
-                ,
-            });
-
+            // await PsyEmail(psychologist);
             return res.status(201).json(psychologist);
         } catch (err) {
             return res.status(400).json({ message: err.message });
@@ -302,7 +266,7 @@ module.exports = {
                 user.password = password; // encriptedPassword;
                 user.ForgetPassword = true;
                 await user.save();
-                Fgetpass(user, password);
+                // await Fgetpass(user, password);
                 return res.status(200).json({ user });
             }
             throw new Error({ err: 'Usuário não encontrado' });
