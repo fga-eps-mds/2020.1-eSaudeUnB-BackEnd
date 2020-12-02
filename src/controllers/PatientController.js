@@ -11,13 +11,14 @@ const schemaCreate = Joi.object({
 
     email: Joi.string().email({ minDomainSegments: 2, tlds: false }).required(),
 
-    password: Joi.string().min(8).pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
+    password: Joi.string()
+        .min(8)
+        .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
+        .required(),
 
     phone: Joi.number().allow(''),
 
     gender: Joi.string().max(1).allow(''),
-
-    religion: Joi.string().allow('').allow(null),
 
     civilStatus: Joi.string().allow('').allow(null),
 
@@ -26,7 +27,35 @@ const schemaCreate = Joi.object({
 
     bond: Joi.string().allow(''),
 
-    userImage: Joi.string().allow(''),
+    userImage: Joi.string().allow('').allow(null),
+
+    race: Joi.string().allow('').allow(null),
+
+    sexualOrientation: Joi.string().allow('').allow(null),
+
+    children: Joi.string().allow('').allow(null),
+
+    emergencyContactName: Joi.string().allow('').allow(null),
+
+    emergencyContactPhone: Joi.number().allow('').allow(null),
+
+    emergencyContactBond: Joi.string().allow('').allow(null),
+
+    motherName: Joi.string().allow('').allow(null),
+
+    fatherName: Joi.string().allow('').allow(null),
+
+    affiliationPhone: Joi.number().allow('').allow(null),
+
+    socialPrograms: Joi.string().allow('').allow(null),
+
+    studentHouseResidence: Joi.string().allow('').allow(null),
+
+    psychiatricFollowUp: Joi.string().allow('').allow(null),
+
+    medication: Joi.string().allow('').allow(null),
+
+    mainComplaint: Joi.string().allow('').allow(null),
 
 }).options({ abortEarly: false });
 
@@ -52,6 +81,34 @@ const schemaUpdate = Joi.object({
 
     userImage: Joi.string().allow(''),
 
+    race: Joi.string().allow(''),
+
+    sexualOrientation: Joi.string().allow(''),
+
+    children: Joi.string().allow('').allow(null),
+
+    emergencyContactName: Joi.string().min(3).allow(''),
+
+    emergencyContactPhone: Joi.number().allow(''),
+
+    emergencyContactBond: Joi.string().min(3).allow(''),
+
+    motherName: Joi.string().min(3).allow(''),
+
+    fatherName: Joi.string().min(3).allow(''),
+
+    affiliationPhone: Joi.number().allow('').allow(null),
+
+    socialPrograms: Joi.string().allow('').allow(null),
+
+    studentHouseResidence: Joi.string().allow('').allow(null),
+
+    psychiatricFollowUp: Joi.string().allow('').allow(null),
+
+    medication: Joi.string().allow('').allow(null),
+
+    mainComplaint: Joi.string().allow(''),
+
 }).options({ abortEarly: false });
 
 const schemaUpdatePassword = Joi.object({
@@ -69,9 +126,24 @@ module.exports = {
                 phone,
                 password,
                 gender,
+                civilStatus,
                 unbRegistration,
                 bond,
                 userImage,
+                race,
+                sexualOrientation,
+                children,
+                emergencyContactName,
+                emergencyContactPhone,
+                emergencyContactBond,
+                motherName,
+                fatherName,
+                affiliationPhone,
+                socialPrograms,
+                studentHouseResidence,
+                psychiatricFollowUp,
+                medication,
+                mainComplaint,
             } = req.body;
 
             const user = await UserPatient.findOne({ email });
@@ -90,16 +162,31 @@ module.exports = {
                 phone,
                 password,
                 gender,
+                civilStatus,
                 unbRegistration,
                 bond,
                 userImage,
+                race,
+                sexualOrientation,
+                children,
+                emergencyContactName,
+                emergencyContactPhone,
+                emergencyContactBond,
+                motherName,
+                fatherName,
+                affiliationPhone,
+                socialPrograms,
+                studentHouseResidence,
+                psychiatricFollowUp,
+                medication,
+                mainComplaint,
             });
 
             if (error) {
                 return res.status(203).json({ value, error });
             }
 
-            await transporter.sendMail({
+            transporter.sendMail({
                 from: '"e-saude UnB" <esaudtest@gmail.com>',
                 to: email,
                 subject: 'Bem vindo ao E-saudeUNB',
@@ -139,9 +226,24 @@ module.exports = {
                 phone,
                 password: encriptedPassword,
                 gender,
+                civilStatus,
                 unbRegistration,
                 bond,
                 userImage,
+                race,
+                sexualOrientation,
+                children,
+                emergencyContactName,
+                emergencyContactPhone,
+                emergencyContactBond,
+                motherName,
+                fatherName,
+                affiliationPhone,
+                socialPrograms,
+                studentHouseResidence,
+                psychiatricFollowUp,
+                medication,
+                mainComplaint,
             });
 
             return res.status(201).json(patient);
@@ -196,6 +298,20 @@ module.exports = {
                 civilStatus,
                 religion,
                 userImage,
+                race,
+                sexualOrientation,
+                children,
+                emergencyContactName,
+                emergencyContactPhone,
+                emergencyContactBond,
+                motherName,
+                fatherName,
+                affiliationPhone,
+                socialPrograms,
+                studentHouseResidence,
+                psychiatricFollowUp,
+                medication,
+                mainComplaint,
             } = req.body;
 
             const { email } = req.params;
@@ -211,6 +327,20 @@ module.exports = {
                 civilStatus,
                 religion,
                 userImage,
+                race,
+                sexualOrientation,
+                children,
+                emergencyContactName,
+                emergencyContactPhone,
+                emergencyContactBond,
+                motherName,
+                fatherName,
+                affiliationPhone,
+                socialPrograms,
+                studentHouseResidence,
+                psychiatricFollowUp,
+                medication,
+                mainComplaint,
             });
 
             if (error) {
@@ -221,25 +351,78 @@ module.exports = {
                 email,
             }).exec();
 
-            if (name) user.name = name;
-
-            if (lastName) user.lastName = lastName;
-
-            if (email) user.email = email;
-
-            if (phone) user.phone = phone;
-
-            if (unbRegistration) user.unbRegistration = unbRegistration;
-
-            if (gender) user.gender = gender;
-
-            if (bond) user.bond = bond;
-
-            if (civilStatus) user.civilStatus = civilStatus;
-
-            if (religion) user.religion = religion;
-
-            if (userImage) user.userImage = userImage;
+            if (name) {
+                user.name = name;
+            }
+            if (lastName) {
+                user.lastName = lastName;
+            }
+            if (email) {
+                user.email = email;
+            }
+            if (phone) {
+                user.phone = phone;
+            }
+            if (unbRegistration) {
+                user.unbRegistration = unbRegistration;
+            }
+            if (gender) {
+                user.gender = gender;
+            }
+            if (bond) {
+                user.bond = bond;
+            }
+            if (civilStatus) {
+                user.civilStatus = civilStatus;
+            }
+            if (religion) {
+                user.religion = religion;
+            }
+            if (userImage) {
+                user.userImage = userImage;
+            }
+            if (race) {
+                user.race = race;
+            }
+            if (sexualOrientation) {
+                user.sexualOrientation = sexualOrientation;
+            }
+            if (children) {
+                user.children = children;
+            }
+            if (emergencyContactName) {
+                user.emergencyContactName = emergencyContactName;
+            }
+            if (emergencyContactPhone) {
+                user.emergencyContactPhone = emergencyContactPhone;
+            }
+            if (emergencyContactBond) {
+                user.emergencyContactBond = emergencyContactBond;
+            }
+            if (motherName) {
+                user.motherName = motherName;
+            }
+            if (fatherName) {
+                user.fatherName = fatherName;
+            }
+            if (affiliationPhone) {
+                user.affiliationPhone = affiliationPhone;
+            }
+            if (socialPrograms) {
+                user.socialPrograms = socialPrograms;
+            }
+            if (studentHouseResidence) {
+                user.studentHouseResidence = studentHouseResidence;
+            }
+            if (psychiatricFollowUp) {
+                user.psychiatricFollowUp = psychiatricFollowUp;
+            }
+            if (medication) {
+                user.medication = medication;
+            }
+            if (mainComplaint) {
+                user.mainComplaint = mainComplaint;
+            }
 
             await user.save();
             return res.status(200).json(user);
