@@ -5,7 +5,7 @@ const Joi = require('joi');
 const Psychologist = require('../models/Psychologist');
 const UserPatient = require('../models/UserPatient');
 const transporter = require('../config/email.config');
-const Fgetpass = require('../config/email');
+const Fgetpass = require('../config/email.ForgetPass');
 
 const schema = Joi.object({
     name: Joi.string()

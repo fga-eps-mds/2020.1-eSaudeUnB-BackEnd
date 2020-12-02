@@ -174,12 +174,17 @@ describe('Patient API', () => {
     it('should be able forget Password', async () => {
         await request.post('/users').send(user3);
 
-        const response = await request.post('/login/patient').send({ email: user3.email, password: user3.password });
-        const TokenPatient = response.body.accessToken;
-
         const responseUpdate = await request
             .put(`/userForgetPassword/${user3.email}`);
 
         expect(responseUpdate.status).toBe(200);
+    });
+    it('should not be able forget Password', async () => {
+        await request.post('/users').send(user3);
+
+        const responseUpdate = await request
+            .put(`/userForgetPassword/${`${user3.email}test`}`);
+
+        expect(responseUpdate.status).toBe(500);
     });
 });

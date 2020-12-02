@@ -4,7 +4,7 @@ const generatePassword = require('password-generator');
 const UserPatient = require('../models/UserPatient');
 const Psychologist = require('../models/Psychologist');
 const transporter = require('../config/email.config');
-const Fgetpass = require('../config/email');
+const Fgetpass = require('../config/email.ForgetPass');
 
 const schemaCreate = Joi.object({
     name: Joi.string().min(3).max(30).required(),

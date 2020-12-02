@@ -214,10 +214,8 @@ describe('Psychologist API', () => {
         await request.post('/psychologist').send(user1).set('authorization', TokenAdmin);
 
         const responseValidate = await request
-            .put(`/psyForgetPassword/${user1.email + "ola"}`);
+            .put(`/psyForgetPassword/${`${user1.email}ola`}`);
 
         expect(responseValidate.status).toBe(500);
     });
-
-
 });
