@@ -23,7 +23,7 @@ const schemaCreate = Joi.object({
 
     phone: Joi.number().allow(''),
 
-    gender: Joi.string().max(1).allow(''),
+    gender: Joi.string().allow(''),
 
     civilStatus: Joi.string().allow('').allow(null),
 
@@ -76,7 +76,7 @@ const schemaUpdate = Joi.object({
 
     phone: Joi.number().allow(''),
 
-    gender: Joi.string().max(1).allow(''),
+    gender: Joi.string().allow(''),
 
     religion: Joi.string().allow('').allow(null),
 
