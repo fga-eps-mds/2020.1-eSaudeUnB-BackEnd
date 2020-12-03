@@ -134,6 +134,11 @@ const UserPatientSchema = new mongoose.Schema(
         //     default: 0,
         //     required: false,
         // },
+        canSchedule:{
+            type: Boolean,
+            default: false,
+            required: false,
+        },
         sessions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Session' }],
 
     },
