@@ -133,11 +133,11 @@ const UserPatientSchema = new mongoose.Schema(
             contentType: String,
             required: false,
         },
-        // score: {
-        //     type: Number,
-        //     default: 0,
-        //     required: false,
-        // },
+        score: {
+            type: Number,
+            default: 0,
+            required: false,
+        },
         canSchedule:{
             type: Boolean,
             default: false,
