@@ -5,6 +5,10 @@ const WaitingListSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-}, { timestamps: true });
+}, { 
+    patientScore: {
+        type: Number,
+        required: true,
+    },timestamps: true });
 
 module.exports = mongoose.model('WaitingList', WaitingListSchema);
