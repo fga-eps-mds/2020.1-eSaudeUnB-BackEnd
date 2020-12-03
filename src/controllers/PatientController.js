@@ -176,6 +176,83 @@ const schemaUpdatePassword = Joi.object({
     password: Joi.string().min(8).pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
 });
 
+async function calculateScore(
+    bond,
+    socialPrograms,
+    studentHouseResidence,
+    medication,
+    mainComplaint) {
+        let score = 0;
+        if(mainComplaint === 'Tentativa de suicidio'){
+            score += 837;
+        }
+        if(mainComplaint === 'Ideacao suicida'){
+            score += 427;
+        }
+        if(mainComplaint === 'Solicitação para psiquiatria'){
+            score += 305;
+        }
+        if(mainComplaint === 'Depressão'){
+            score += 218;
+        }
+        if(mainComplaint === 'Ansiedade'){
+            score += 79;
+        }
+        if(mainComplaint === 'assédio, discriminação ou outro tipo de violência'){
+            score += 57;
+        }
+        if(mainComplaint === 'luto'){
+            score += 40;
+        }
+        if(mainComplaint === 'Conflito no trabalho'){
+            score += 40;
+        }
+        if(mainComplaint === 'Uso de drogas'){
+            score += 11;
+        }
+        if(mainComplaint === 'Problemas afetivos'){
+            score += 8;
+        }
+        if(mainComplaint === 'Problemas familiares'){
+            score += 8;
+        }
+        if(mainComplaint === 'Dificuldades academicas'){
+            score += 8;
+        }
+        if(mainComplaint === 'Problemas de saude'){
+            score += 5;
+        }
+        if(mainComplaint === 'Outros'){
+            score += 4;
+        }
+        if(studentHouseResidence === 'sim'){
+            score += 156;
+        }
+        if(socialPrograms === 'sim'){
+            score += 111;
+        }
+        if(bond === 'estudante de graduacao'){
+            score += 29;
+        }
+        if(bond === 'estudante de mestrado'){
+            score += 21;
+        }
+        if(bond === 'estudante de doutorado'){
+            score += 15;
+        }
+        if(bond === 'tecnico-administrativo'){
+            score += 3;
+        }
+        if(bond === 'docente'){
+            score += 2;
+        }
+        if(medication === 'sim'){
+            score += 1;
+        }
+        
+        return score;
+}
+
 module.exports = {
     async store(req, res) {
         try {
@@ -416,6 +493,16 @@ module.exports = {
 
             if (!error2) {
                 user.canSchedule = true;
+            }
+
+            if(user.canSchedule === true){
+                user.score = await calculateScore(
+                        bond,
+                        socialPrograms,
+                        studentHouseResidence,
+                        medication,
+                        mainComplaint
+                    );
             }
 
             if (name) {
