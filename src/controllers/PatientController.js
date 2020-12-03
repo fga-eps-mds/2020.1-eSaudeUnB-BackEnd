@@ -68,6 +68,56 @@ const schemaCreate = Joi.object({
 
 }).options({ abortEarly: false });
 
+const schemaAllRequired = Joi.object({
+    name: Joi.string().min(3).max(30).required(),
+
+    lastName: Joi.string().min(3).max(30).required(),
+
+    email: Joi.string().email({ minDomainSegments: 2, tlds: false }).required(),
+
+    phone: Joi.number().required(),
+
+    gender: Joi.string().required(),
+
+    civilStatus: Joi.string().required(),
+
+    unbRegistration: Joi.string().pattern(new RegExp('^[0-9]+$')).min(8).max(10)
+        .required(),
+
+    bond: Joi.string().required(),
+
+    userImage: Joi.string().allow(''),
+
+    race: Joi.string().required(),
+
+    sexualOrientation: Joi.string().required(),
+
+    children: Joi.string().required(),
+
+    emergencyContactName: Joi.string().min(3).required(),
+
+    emergencyContactPhone: Joi.number().required(),
+
+    emergencyContactBond: Joi.string().min(3).required(),
+
+    motherName: Joi.string().min(3).required(),
+
+    fatherName: Joi.string().min(3).required(),
+
+    affiliationPhone: Joi.number().required(),
+
+    socialPrograms: Joi.string().required(),
+
+    studentHouseResidence: Joi.string().required(),
+
+    psychiatricFollowUp: Joi.string().required(),
+
+    medication: Joi.string().required(),
+
+    mainComplaint: Joi.string().required(),
+
+});
+
 const schemaUpdate = Joi.object({
     name: Joi.string().min(3).max(30).required(),
 
@@ -75,11 +125,9 @@ const schemaUpdate = Joi.object({
 
     email: Joi.string().email({ minDomainSegments: 2, tlds: false }).required(),
 
-    phone: Joi.number().allow(''),
+    phone: Joi.number().allow('').allow(null),
 
-    gender: Joi.string().allow(''),
-
-    religion: Joi.string().allow('').allow(null),
+    gender: Joi.string().allow('').allow(null),
 
     ForgetPassword: Joi.boolean()
         .allow(null)
@@ -87,31 +135,28 @@ const schemaUpdate = Joi.object({
 
     civilStatus: Joi.string().allow('').allow(null),
 
-    unbRegistration: Joi.string()
-        .pattern(new RegExp('^[0-9]+$'))
-        .min(8)
-        .max(10)
-        .allow(''),
+    unbRegistration: Joi.string().pattern(new RegExp('^[0-9]+$')).min(8).max(10)
+        .allow('').allow(null),
 
-    bond: Joi.string().allow(''),
+    bond: Joi.string().allow('').allow(null),
 
-    userImage: Joi.string().allow(''),
+    userImage: Joi.string().allow('').allow(null),
 
-    race: Joi.string().allow(''),
+    race: Joi.string().allow('').allow(null),
 
-    sexualOrientation: Joi.string().allow(''),
+    sexualOrientation: Joi.string().allow('').allow(null),
 
     children: Joi.string().allow('').allow(null),
 
-    emergencyContactName: Joi.string().min(3).allow(''),
+    emergencyContactName: Joi.string().min(3).allow('').allow(null),
 
-    emergencyContactPhone: Joi.number().allow(''),
+    emergencyContactPhone: Joi.number().allow('').allow(null),
 
-    emergencyContactBond: Joi.string().min(3).allow(''),
+    emergencyContactBond: Joi.string().min(3).allow('').allow(null),
 
-    motherName: Joi.string().min(3).allow(''),
+    motherName: Joi.string().min(3).allow('').allow(null),
 
-    fatherName: Joi.string().min(3).allow(''),
+    fatherName: Joi.string().min(3).allow('').allow(null),
 
     affiliationPhone: Joi.number().allow('').allow(null),
 
@@ -123,7 +168,7 @@ const schemaUpdate = Joi.object({
 
     medication: Joi.string().allow('').allow(null),
 
-    mainComplaint: Joi.string().allow(''),
+    mainComplaint: Joi.string().allow('').allow(null),
 
 }).options({ abortEarly: false });
 
@@ -306,7 +351,7 @@ module.exports = {
 
             const { email } = req.params;
 
-            const { error, value } = schemaUpdate.validate({
+            const { error: error1, value: value1 } = schemaUpdate.validate({
                 name,
                 lastName,
                 email,
@@ -316,7 +361,7 @@ module.exports = {
                 ForgetPassword,
                 bond,
                 civilStatus,
-                religion,
+                // religion,
                 userImage,
                 race,
                 sexualOrientation,
@@ -334,13 +379,44 @@ module.exports = {
                 mainComplaint,
             });
 
-            if (error) {
-                return res.status(203).json({ value, error });
+            if (error1) {
+                return res.status(203).json({ value1, error1 });
             }
+
+            const { error: error2, value: value2 } = schemaAllRequired.validate({
+                name,
+                lastName,
+                email,
+                phone,
+                gender,
+                unbRegistration,
+                bond,
+                civilStatus,
+                // religion,
+                userImage,
+                race,
+                sexualOrientation,
+                children,
+                emergencyContactName,
+                emergencyContactPhone,
+                emergencyContactBond,
+                motherName,
+                fatherName,
+                affiliationPhone,
+                socialPrograms,
+                studentHouseResidence,
+                psychiatricFollowUp,
+                medication,
+                mainComplaint,
+            });
 
             const user = await UserPatient.findOne({
                 email,
             }).exec();
+
+            if (!error2) {
+                user.canSchedule = true;
+            }
 
             if (name) {
                 user.name = name;
