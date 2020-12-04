@@ -10,16 +10,17 @@ module.exports = {
                 mainComplaint,
                 secondaryComplaint,
                 complaintEvolution,
+                date,
                 professional,
             } = req.body;
 
             const user = await UserPatient.findOne({ email });
-
             if (user) {
                 const session = await Session.create({
                     mainComplaint,
                     secondaryComplaint,
                     complaintEvolution,
+                    date,
                     professional,
                 });
                 const updatedSessions = user.sessions;
@@ -86,14 +87,16 @@ module.exports = {
                 mainComplaint,
                 secondaryComplaint,
                 complaintEvolution,
+                date,
                 professional,
             } = req.body;
 
             await Session.findByidAndUpdate(id, {
                 mainComplaint,
                 secondaryComplaint,
-                professional,
                 complaintEvolution,
+                date,
+                professional,
             });
 
             const session = await Session.findById(id);
