@@ -3,8 +3,8 @@ const bcrypt = require('bcryptjs');
 const generatePassword = require('password-generator');
 const UserPatient = require('../models/UserPatient');
 const Psychologist = require('../models/Psychologist');
-// const PatientEmail = require('../config/Patient_email');
-// const Fgetpass = require('../config/ForgetPassword_email');
+const PatientEmailUtil = require('../config/Patient_email');
+const FgetpassUtil = require('../config/ForgetPassword_email');
 
 const schemaCreate = Joi.object({
     name: Joi.string().min(3).max(30).required(),
@@ -233,7 +233,7 @@ module.exports = {
                 mainComplaint,
             });
 
-            // await PatientEmail(patient);
+            await PatientEmailUtil.PatientEmail(patient);
 
             return res.status(201).json(patient);
         } catch (err) {
@@ -483,7 +483,7 @@ module.exports = {
                 user.password = encriptedPassword;
                 user.ForgetPassword = true;
                 await user.save();
-                // await Fgetpass(user, password);
+                await FgetpassUtil.Fgetpassword(user, password);
                 return res.status(200).json({ user });
             }
             throw new Error({ err: 'Usuário não encontrado' });

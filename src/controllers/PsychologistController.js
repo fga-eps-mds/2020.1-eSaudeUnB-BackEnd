@@ -1,11 +1,11 @@
 const generatePassword = require('password-generator');
 const Joi = require('joi');
-//  remove coment when use bcrypt in psychologist
+// remove coment when use bcrypt in psychologist
 // const bcrypt = require('bcryptjs');
 const Psychologist = require('../models/Psychologist');
 const UserPatient = require('../models/UserPatient');
-// const PsyEmail = require('../config/Psychologist_email');
-// const Fgetpass = require('../config/ForgetPassword_email');
+const PsychologistEmail = require('../config/Psychologist_email');
+const Fgetpass = require('../config/ForgetPassword_email');
 
 const schema = Joi.object({
     name: Joi.string()
@@ -113,7 +113,7 @@ module.exports = {
                 userImage,
             });
 
-            // await PsyEmail(psychologist);
+            await PsychologistEmail.PsyEmail(psychologist);
             return res.status(201).json(psychologist);
         } catch (err) {
             return res.status(400).json({ message: err.message });
@@ -264,7 +264,7 @@ module.exports = {
                 user.password = password; // encriptedPassword;
                 user.ForgetPassword = true;
                 await user.save();
-                // await Fgetpass(user, password);
+                await Fgetpass.Fgetpassword(user, password);
                 return res.status(200).json({ user });
             }
             throw new Error({ err: 'Usuário não encontrado' });

@@ -1,8 +1,12 @@
 /* eslint-disable linebreak-style */
 const mongoose = require('mongoose');
 const supertest = require('supertest');
+const nodemailer = require('nodemailer');
 const Psychologist = require('../models/Psychologist');
 const UserPatient = require('../models/UserPatient');
+const PsychologistEmail = require('../config/Psychologist_email');
+const PatientEmail = require('../config/Patient_email');
+const ForgertPassword = require('../config/ForgetPassword_email');
 
 const app = require('../server');
 
@@ -56,6 +60,10 @@ describe('Psychologist API', () => {
             useCreateIndex: true,
             useFindAndModify: false,
         });
+        jest.spyOn(PsychologistEmail, 'PsyEmail').mockImplementation(() => true);
+        jest.spyOn(nodemailer, 'createTransport').mockImplementation(() => true);
+        jest.spyOn(PatientEmail, 'PatientEmail').mockImplementation(() => true);
+        jest.spyOn(ForgertPassword, 'Fgetpassword').mockImplementation(() => true);
     });
 
     beforeEach(async () => {
@@ -134,6 +142,8 @@ describe('Psychologist API', () => {
     });
 
     it('should be able to update a psychologist', async () => {
+        jest.spyOn(PsychologistEmail, 'PsyEmail').mockImplementation(() => true);
+
         const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
         const TokenAdmin = resposit.body.accessToken;
         await request.post('/psychologist').send(user1).set('authorization', TokenAdmin);

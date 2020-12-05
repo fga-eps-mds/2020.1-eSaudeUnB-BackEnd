@@ -1,11 +1,12 @@
 const transporter = require('./email.config');
 
-async function Fgetpassword(user, password) {
-    await transporter.sendMail({
-        from: '"e-saudeunb" <e-saude@unb.br>',
-        to: user.email,
-        subject: 'Senha',
-        html: `<body style="justify-content: flex-start; columns: auto; align-items: center">
+module.exports = {
+    async Fgetpassword(user, password) {
+        await transporter.sendMail({
+            from: '"e-saudeunb" <e-saude@unb.br>',
+            to: user.email,
+            subject: 'Senha',
+            html: `<body style="justify-content: flex-start; columns: auto; align-items: center">
                         <img
                             src="https://svgshare.com/i/RUt.svg"
                             alt="Logo"
@@ -56,8 +57,7 @@ padding-top: 25px;
 "
                         />
                     </body>`
-        ,
-    });
-}
-
-module.exports = Fgetpassword;
+            ,
+        });
+    },
+};

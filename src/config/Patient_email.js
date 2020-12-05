@@ -1,11 +1,12 @@
 const transporter = require('./email.config');
 
-async function PatientEmail(user) {
-    await transporter.sendMail({
-        from: '"e-saude UnB" <esaudtest@gmail.com>',
-        to: user.email,
-        subject: 'Bem vindo ao E-saudeUNB',
-        html: `<body style="justify-content: flex-start; columns: auto; align-items: center">
+module.exports = {
+    async PatientEmail(user) {
+        await transporter.sendMail({
+            from: '"e-saude UnB" <esaudtest@gmail.com>',
+            to: user.email,
+            subject: 'Bem vindo ao E-saudeUNB',
+            html: `<body style="justify-content: flex-start; columns: auto; align-items: center">
                     <img
                         src="https://svgshare.com/i/RUt.svg"
                         alt="Logo"
@@ -29,7 +30,6 @@ async function PatientEmail(user) {
                     >Clique Aqui</a
                     >
                 </body>`,
-    });
-}
-
-module.exports = PatientEmail;
+        });
+    },
+};

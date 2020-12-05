@@ -1,8 +1,12 @@
 /* eslint-disable linebreak-style */
 const mongoose = require('mongoose');
 const supertest = require('supertest');
+const nodemailer = require('nodemailer');
 const UserPatient = require('../models/UserPatient');
 const Psychologist = require('../models/Psychologist');
+const PsychologistEmail = require('../config/Psychologist_email');
+const PatientEmail = require('../config/Patient_email');
+const ForgertPassword = require('../config/ForgetPassword_email');
 
 const app = require('../server');
 
@@ -74,6 +78,10 @@ describe('Patient API', () => {
     beforeEach(async () => {
         await UserPatient.collection.deleteMany({});
         await Psychologist.collection.deleteMany({});
+        jest.spyOn(PsychologistEmail, 'PsyEmail').mockImplementation(() => true);
+        jest.spyOn(nodemailer, 'createTransport').mockImplementation(() => true);
+        jest.spyOn(PatientEmail, 'PatientEmail').mockImplementation(() => true);
+        jest.spyOn(ForgertPassword, 'Fgetpassword').mockImplementation(() => true);
     });
 
     afterAll(async (done) => {
@@ -171,6 +179,7 @@ describe('Patient API', () => {
 
         expect(responseUpdate.status).toBe(200);
     });
+
     it('should be able forget Password', async () => {
         await request.post('/users').send(user3);
 
@@ -179,6 +188,7 @@ describe('Patient API', () => {
 
         expect(responseUpdate.status).toBe(200);
     });
+
     it('should not be able forget Password', async () => {
         await request.post('/users').send(user3);
 
