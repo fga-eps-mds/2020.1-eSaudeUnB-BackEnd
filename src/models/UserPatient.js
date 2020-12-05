@@ -25,6 +25,10 @@ const UserPatientSchema = new mongoose.Schema(
             required: true,
             select: false,
         },
+        ForgetPassword: {
+            type: Boolean,
+            required: false,
+        },
         gender: {
             type: String,
             default: null,

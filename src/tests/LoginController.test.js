@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const supertest = require('supertest');
-
+const nodemailer = require('nodemailer');
 const UserPatient = require('../models/UserPatient');
 const Psychologist = require('../models/Psychologist');
 const app = require('../server');
+const PsychologistEmail = require('../config/Psychologist_email');
 
 const request = supertest(app);
 
@@ -50,6 +51,8 @@ describe('Login API', () => {
     beforeEach(async () => {
         await UserPatient.collection.deleteMany({});
         await Psychologist.collection.deleteMany({});
+        jest.spyOn(PsychologistEmail, 'PsyEmail').mockImplementation(() => true);
+        jest.spyOn(nodemailer, 'createTransport').mockImplementation(() => true);
     });
 
     afterAll(async (done) => {
