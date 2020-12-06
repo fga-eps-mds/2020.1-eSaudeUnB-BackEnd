@@ -5,10 +5,12 @@ module.exports = {
         try {
             const {
                 emailPatient,
+                patientScore,
             } = req.body;
 
             const waitingList = await WaitingList.create({
                 emailPatient,
+                patientScore,
             });
 
             return res.status(201).json(waitingList);
