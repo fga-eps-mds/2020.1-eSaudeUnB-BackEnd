@@ -138,7 +138,7 @@ const UserPatientSchema = new mongoose.Schema(
             default: 0,
             required: false,
         },
-        canSchedule:{
+        canSchedule: {
             type: Boolean,
             default: false,
             required: false,
