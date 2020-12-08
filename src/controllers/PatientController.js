@@ -187,44 +187,31 @@ async function calculateScore(
     let score = 0;
     if (mainComplaint === 'Tentativa de suicidio') {
         score += 837;
-    }
-    if (mainComplaint === 'Ideacao suicida') {
+    } else if (mainComplaint === 'Ideacao suicida') {
         score += 427;
-    }
-    if (mainComplaint === 'Solicitação para psiquiatria') {
+    } else if (mainComplaint === 'Solicitação para psiquiatria') {
         score += 305;
-    }
-    if (mainComplaint === 'Depressão') {
+    } else if (mainComplaint === 'Depressão') {
         score += 218;
-    }
-    if (mainComplaint === 'Ansiedade') {
+    } else if (mainComplaint === 'Ansiedade') {
         score += 79;
-    }
-    if (mainComplaint === 'assédio, discriminação ou outro tipo de violência') {
+    } else if (mainComplaint === 'assédio, discriminação ou outro tipo de violência') {
         score += 57;
-    }
-    if (mainComplaint === 'luto') {
+    } else if (mainComplaint === 'luto') {
         score += 40;
-    }
-    if (mainComplaint === 'Conflito no trabalho') {
+    } else if (mainComplaint === 'Conflito no trabalho') {
         score += 40;
-    }
-    if (mainComplaint === 'Uso de drogas') {
+    } else if (mainComplaint === 'Uso de drogas') {
         score += 11;
-    }
-    if (mainComplaint === 'Problemas afetivos') {
+    } else if (mainComplaint === 'Problemas afetivos') {
         score += 8;
-    }
-    if (mainComplaint === 'Problemas familiares') {
+    } else if (mainComplaint === 'Problemas familiares') {
         score += 8;
-    }
-    if (mainComplaint === 'Dificuldades academicas') {
+    } else if (mainComplaint === 'Dificuldades academicas') {
         score += 8;
-    }
-    if (mainComplaint === 'Problemas de saude') {
+    } else if (mainComplaint === 'Problemas de saude') {
         score += 5;
-    }
-    if (mainComplaint === 'Outros') {
+    } else if (mainComplaint === 'Outros') {
         score += 4;
     }
     if (studentHouseResidence === 'sim') {
@@ -235,17 +222,13 @@ async function calculateScore(
     }
     if (bond === 'estudante de graduacao') {
         score += 29;
-    }
-    if (bond === 'estudante de mestrado') {
+    } else if (bond === 'estudante de mestrado') {
         score += 21;
-    }
-    if (bond === 'estudante de doutorado') {
+    } else if (bond === 'estudante de doutorado') {
         score += 15;
-    }
-    if (bond === 'tecnico-administrativo') {
+    } else if (bond === 'tecnico-administrativo') {
         score += 3;
-    }
-    if (bond === 'docente') {
+    } else if (bond === 'docente') {
         score += 2;
     }
     if (medication === 'sim') {
@@ -440,7 +423,6 @@ module.exports = {
                 ForgetPassword,
                 bond,
                 civilStatus,
-                // religion,
                 userImage,
                 race,
                 sexualOrientation,
@@ -471,7 +453,6 @@ module.exports = {
                 unbRegistration,
                 bond,
                 civilStatus,
-                // religion,
                 userImage,
                 race,
                 sexualOrientation,
