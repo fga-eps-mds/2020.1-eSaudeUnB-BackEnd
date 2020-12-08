@@ -15,7 +15,7 @@ module.exports = {
             } = req.body;
 
             const user = await UserPatient.findOne({ email });
-            if (user) {
+            if (user && date) {
                 const session = await Session.create({
                     mainComplaint,
                     secondaryComplaint,
@@ -31,7 +31,9 @@ module.exports = {
                 );
                 return res.status(201).json(user);
             }
-
+            if (date === null) {
+                return res.status(404).json({ message: 'Data não cadastrada' });
+            }
             return res.status(404).json({ message: 'Usuário não encontrado' });
         } catch (err) {
             return res.status(400).json({ error: err.message });
