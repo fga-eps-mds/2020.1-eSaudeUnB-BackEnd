@@ -512,9 +512,6 @@ module.exports = {
             if (civilStatus) {
                 user.civilStatus = civilStatus;
             }
-            if (religion) {
-                user.religion = religion;
-            }
             if (userImage) {
                 user.userImage = userImage;
             }
