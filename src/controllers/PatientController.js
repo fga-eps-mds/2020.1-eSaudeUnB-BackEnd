@@ -177,13 +177,13 @@ const schemaUpdatePassword = Joi.object({
     password: Joi.string().min(8).pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
 });
 
-async function calculateScore(
+async function calculateScore({
     bond,
     socialPrograms,
     studentHouseResidence,
     medication,
     mainComplaint,
-) {
+}) {
     let score = 0;
     if (mainComplaint === 'Tentativa de suicidio') {
         score += 837;
@@ -393,7 +393,6 @@ module.exports = {
                 gender,
                 bond,
                 civilStatus,
-                religion,
                 userImage,
                 race,
                 sexualOrientation,
@@ -479,13 +478,13 @@ module.exports = {
             }
 
             if (user.canSchedule === true) {
-                user.score = await calculateScore(
+                user.score = await calculateScore({
                     bond,
                     socialPrograms,
                     studentHouseResidence,
                     medication,
                     mainComplaint,
-                );
+                });
             }
 
             if (name) {
