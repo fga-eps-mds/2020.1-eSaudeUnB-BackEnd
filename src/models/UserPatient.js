@@ -102,22 +102,22 @@ const UserPatientSchema = new mongoose.Schema(
         studentHouseResidence: {
             type: String,
             default: null,
-            require: false,
+            required: false,
         },
         psychiatricFollowUp: {
             type: String,
             default: null,
-            require: false,
+            required: false,
         },
         medication: {
             type: String,
             default: null,
-            require: false,
+            required: false,
         },
         mainComplaint: {
             type: String,
             default: null,
-            require: false,
+            required: false,
         },
         appointments: [
             {
@@ -131,6 +131,16 @@ const UserPatientSchema = new mongoose.Schema(
         userImage: {
             type: Buffer,
             contentType: String,
+            required: false,
+        },
+        score: {
+            type: Number,
+            default: 0,
+            required: false,
+        },
+        canSchedule: {
+            type: Boolean,
+            default: false,
             required: false,
         },
         sessions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Session' }],

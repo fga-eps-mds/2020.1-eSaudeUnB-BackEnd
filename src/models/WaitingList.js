@@ -1,13 +1,12 @@
 const mongoose = require('mongoose');
 
 const WaitingListSchema = new mongoose.Schema({
-    email: {
+    emailPatient: {
         type: String,
         required: true,
     },
-    namePatient: String,
-    emailPatient: {
-        type: String,
+    patientScore: {
+        type: Number,
         required: true,
     },
 }, { timestamps: true });
