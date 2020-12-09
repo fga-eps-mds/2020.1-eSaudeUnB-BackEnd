@@ -48,6 +48,9 @@ const PsychologistSchema = new mongoose.Schema({
     },
     weekDay: [
         {
+            year: Number,
+            day: Number,
+            month: Number,
             weekDay: Number,
             from: String,
             to: String,
@@ -58,13 +61,6 @@ const PsychologistSchema = new mongoose.Schema({
                 user: { type: mongoose.Schema.Types.ObjectId, ref: 'UserPatient' },
                 name: String,
             }],
-        },
-    ],
-    restrict: [
-        {
-            year: Number,
-            day: Number,
-            month: Number,
         },
     ],
 });

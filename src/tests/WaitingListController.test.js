@@ -23,17 +23,6 @@ const patient = {
     bond: 'graduando',
 };
 
-const psychologist = {
-    name: 'Vinicius',
-    lastName: 'Lima',
-    email: 'email@email.com',
-    phone: '061988888888',
-    gender: 'M',
-    bond: 'Psychologist',
-    specialization: 'Psicólogo',
-    biography: '',
-};
-
 const admin = {
     name: 'Vinicius',
     email: 'vinicius@unb.br',
@@ -68,7 +57,7 @@ describe('Psychologist API', () => {
     it('should be able to create a waiting list', async () => {
         const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
         const TokenAdmin = resposit.body.accessToken;
-        const response = await request.post('/waitingList').send({ email: psychologist.email, emailPatient: patient.password, namePatient: patient.name }).set('authorization', TokenAdmin);
+        const response = await request.post('/waitingList').send({ emailPatient: patient.password, patientScore: 100 }).set('authorization', TokenAdmin);
 
         expect(response.status).toBe(201);
     });
@@ -76,7 +65,7 @@ describe('Psychologist API', () => {
     it('should not be able to create a waiting list', async () => {
         const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
         const TokenAdmin = resposit.body.accessToken;
-        const response = await request.post('/waitingList').send({ email: null, emailPatient: patient.password, namePatient: patient.name }).set('authorization', TokenAdmin);
+        const response = await request.post('/waitingList').send({ emailPatient: null, patientScore: 100 }).set('authorization', TokenAdmin);
 
         expect(response.status).toBe(400);
     });
@@ -84,8 +73,8 @@ describe('Psychologist API', () => {
     it('should be able to list a psychologist waiting list', async () => {
         const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
         const TokenAdmin = resposit.body.accessToken;
-        await request.post('/waitingList').send({ email: psychologist.email, emailPatient: patient.password, namePatient: patient.name }).set('authorization', TokenAdmin);
-        const response = await request.get(`/waitingList/${psychologist.email}`).set('authorization', TokenAdmin);
+        await request.post('/waitingList').send({ emailPatient: patient.password, npatientScore: 100 }).set('authorization', TokenAdmin);
+        const response = await request.get('/waitingList').set('authorization', TokenAdmin);
 
         expect(response.status).toBe(200);
     });
@@ -93,7 +82,7 @@ describe('Psychologist API', () => {
     it('should be able to destroy a waiting list', async () => {
         const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
         const TokenAdmin = resposit.body.accessToken;
-        await request.post('/waitingList').send({ email: psychologist.email, emailPatient: patient.password, namePatient: patient.name }).set('authorization', TokenAdmin);
+        await request.post('/waitingList').send({ emailPatient: patient.password, patientScore: 100 }).set('authorization', TokenAdmin);
         const response = await request.delete(`/waitingList/${patient.email}`).set('authorization', TokenAdmin);
 
         expect(response.status).toBe(200);
