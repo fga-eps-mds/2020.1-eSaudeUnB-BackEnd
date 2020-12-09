@@ -1,8 +1,10 @@
 const Joi = require('joi');
 const bcrypt = require('bcryptjs');
+const generatePassword = require('password-generator');
 const UserPatient = require('../models/UserPatient');
 const Psychologist = require('../models/Psychologist');
-const transporter = require('../config/email.config');
+const PatientEmailUtil = require('../config/Patient_email');
+const FgetpassUtil = require('../config/ForgetPassword_email');
 
 const schemaCreate = Joi.object({
     name: Joi.string().min(3).max(30).required(),
@@ -16,13 +18,20 @@ const schemaCreate = Joi.object({
         .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
         .required(),
 
+    ForgetPassword: Joi.boolean()
+        .allow(null)
+        .allow(''),
+
     phone: Joi.number().allow(''),
 
-    gender: Joi.string().max(1).allow(''),
+    gender: Joi.string().allow(''),
 
     civilStatus: Joi.string().allow('').allow(null),
 
-    unbRegistration: Joi.string().pattern(new RegExp('^[0-9]+$')).min(8).max(10)
+    unbRegistration: Joi.string()
+        .pattern(new RegExp('^[0-9]+$'))
+        .min(8)
+        .max(10)
         .allow(''),
 
     bond: Joi.string().allow(''),
@@ -68,13 +77,20 @@ const schemaUpdate = Joi.object({
 
     phone: Joi.number().allow(''),
 
-    gender: Joi.string().max(1).allow(''),
+    gender: Joi.string().allow(''),
 
     religion: Joi.string().allow('').allow(null),
 
+    ForgetPassword: Joi.boolean()
+        .allow(null)
+        .allow(''),
+
     civilStatus: Joi.string().allow('').allow(null),
 
-    unbRegistration: Joi.string().pattern(new RegExp('^[0-9]+$')).min(8).max(10)
+    unbRegistration: Joi.string()
+        .pattern(new RegExp('^[0-9]+$'))
+        .min(8)
+        .max(10)
         .allow(''),
 
     bond: Joi.string().allow(''),
@@ -113,7 +129,6 @@ const schemaUpdate = Joi.object({
 
 const schemaUpdatePassword = Joi.object({
     password: Joi.string().min(8).pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
-
 });
 
 module.exports = {
@@ -125,6 +140,7 @@ module.exports = {
                 email,
                 phone,
                 password,
+                ForgetPassword,
                 gender,
                 civilStatus,
                 unbRegistration,
@@ -161,6 +177,7 @@ module.exports = {
                 email,
                 phone,
                 password,
+                ForgetPassword,
                 gender,
                 civilStatus,
                 unbRegistration,
@@ -186,37 +203,6 @@ module.exports = {
                 return res.status(203).json({ value, error });
             }
 
-            transporter.sendMail({
-                from: '"e-saude UnB" <esaudtest@gmail.com>',
-                to: email,
-                subject: 'Bem vindo ao E-saudeUNB',
-                html: `<body style="justify-content: flex-start; columns: auto; align-items: center">
-                    <img
-                        src="https://svgshare.com/i/RUt.svg"
-                        alt="Logo"
-                        style="background-color: #0459ae; width: 500px; height: 50px"
-                    />
-                    <h1>Olá ${name} ,bem vindo ao E-SaúdeUNB</h1>
-                    <p>
-                        Seja bem vindo(a) à plataforma E-Saúde UNB. Seu email foi cadastrado
-                        como Paciente.
-                    </p>
-                    <p>clique no Botão abaixo para acessar a plataforma</p>
-                    <a
-                        href="http://localhost:3000"
-                        style="
-                    background: none;
-                    border: none;
-                    font: 700 1rem Poppins;
-                    color: #0459ae;
-                    cursor: pointer;
-                    "
-                    >Clique Aqui</a
-                    >
-                </body>`
-                ,
-            });
-
             const encriptedPassword = bcrypt.hashSync(password, 8);
 
             const patient = await UserPatient.create({
@@ -225,6 +211,7 @@ module.exports = {
                 email,
                 phone,
                 password: encriptedPassword,
+                ForgetPassword: false,
                 gender,
                 civilStatus,
                 unbRegistration,
@@ -245,6 +232,8 @@ module.exports = {
                 medication,
                 mainComplaint,
             });
+
+            await PatientEmailUtil.PatientEmail(patient);
 
             return res.status(201).json(patient);
         } catch (err) {
@@ -293,6 +282,7 @@ module.exports = {
                 lastName,
                 phone,
                 unbRegistration,
+                ForgetPassword,
                 gender,
                 bond,
                 civilStatus,
@@ -323,6 +313,7 @@ module.exports = {
                 phone,
                 gender,
                 unbRegistration,
+                ForgetPassword,
                 bond,
                 civilStatus,
                 religion,
@@ -424,6 +415,8 @@ module.exports = {
                 user.mainComplaint = mainComplaint;
             }
 
+            if (ForgetPassword) user.ForgetPassword = ForgetPassword;
+
             await user.save();
             return res.status(200).json(user);
         } catch (err) {
@@ -457,12 +450,15 @@ module.exports = {
             }).select('+password');
             if (user) {
                 if (await bcrypt.compare(oldPassword, user.password)) {
-                    const { error, value } = schemaUpdatePassword.validate({ password });
+                    const { error, value } = schemaUpdatePassword.validate({
+                        password,
+                    });
                     if (error) {
                         return res.status(203).json({ value, error });
                     }
                     const encriptedPassword = bcrypt.hashSync(password, 8);
                     user.password = encriptedPassword;
+                    user.ForgetPassword = false;
                     await user.save();
                     return res.status(200).json({ user });
                 }
@@ -473,6 +469,28 @@ module.exports = {
             return res
                 .status(500)
                 .json({ message: 'falha ao dar o update da senha' });
+        }
+    },
+
+    async ForgetPass(req, res) {
+        try {
+            const password = generatePassword(8, false);
+            const user = await UserPatient.findOne({
+                email: req.params.email,
+            });
+            if (user) {
+                const encriptedPassword = bcrypt.hashSync(password, 8);
+                user.password = encriptedPassword;
+                user.ForgetPassword = true;
+                await user.save();
+                await FgetpassUtil.Fgetpassword(user, password);
+                return res.status(200).json({ user });
+            }
+            throw new Error({ err: 'Usuário não encontrado' });
+        } catch (err) {
+            return res
+                .status(500)
+                .json({ message: 'falha ao dar o gerar nova senha' });
         }
     },
 };

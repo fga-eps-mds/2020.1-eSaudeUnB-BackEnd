@@ -1,8 +1,12 @@
 const mongoose = require('mongoose');
 const supertest = require('supertest');
+const nodemailer = require('nodemailer');
 const Session = require('../models/Session');
 const UserPatient = require('../models/UserPatient');
 const Psychologist = require('../models/Psychologist');
+const PsychologistEmail = require('../config/Psychologist_email');
+const PatientEmail = require('../config/Patient_email');
+const ForgertPassword = require('../config/ForgetPassword_email');
 
 const app = require('../server');
 
@@ -62,6 +66,10 @@ describe('Session API', () => {
             useCreateIndex: true,
             useFindAndModify: false,
         });
+        jest.spyOn(PsychologistEmail, 'PsyEmail').mockImplementation(() => true);
+        jest.spyOn(nodemailer, 'createTransport').mockImplementation(() => true);
+        jest.spyOn(PatientEmail, 'PatientEmail').mockImplementation(() => true);
+        jest.spyOn(ForgertPassword, 'Fgetpassword').mockImplementation(() => true);
     });
 
     beforeEach(async () => {
