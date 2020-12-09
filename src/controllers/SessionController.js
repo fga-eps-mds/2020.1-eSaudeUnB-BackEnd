@@ -10,16 +10,17 @@ module.exports = {
                 mainComplaint,
                 secondaryComplaint,
                 complaintEvolution,
+                date,
                 professional,
             } = req.body;
 
             const user = await UserPatient.findOne({ email });
-
-            if (user) {
+            if (user && date) {
                 const session = await Session.create({
                     mainComplaint,
                     secondaryComplaint,
                     complaintEvolution,
+                    date,
                     professional,
                 });
                 const updatedSessions = user.sessions;
@@ -30,7 +31,9 @@ module.exports = {
                 );
                 return res.status(201).json(user);
             }
-
+            if (date === null) {
+                return res.status(404).json({ message: 'Data não cadastrada' });
+            }
             return res.status(404).json({ message: 'Usuário não encontrado' });
         } catch (err) {
             return res.status(400).json({ error: err.message });
@@ -86,14 +89,16 @@ module.exports = {
                 mainComplaint,
                 secondaryComplaint,
                 complaintEvolution,
+                date,
                 professional,
             } = req.body;
 
             await Session.findByidAndUpdate(id, {
                 mainComplaint,
                 secondaryComplaint,
-                professional,
                 complaintEvolution,
+                date,
+                professional,
             });
 
             const session = await Session.findById(id);
