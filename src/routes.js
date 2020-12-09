@@ -55,7 +55,7 @@ routes.get(
 );
 
 // Waiting list routes
-routes.get('/waitingList/:email', [verifyToken], WaitingListController.index);
+routes.get('/waitingList', [verifyToken], WaitingListController.index);
 routes.post('/waitingList', [verifyToken], WaitingListController.store);
 routes.delete('/waitingList/:email', [verifyToken], WaitingListController.destroy);
 
