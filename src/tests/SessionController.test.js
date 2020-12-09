@@ -18,6 +18,7 @@ const session = {
     secondaryComplaint: 'testing api',
     complaintEvolution: 'Fallaste ia es mettidas eu da conheces effeitos.',
     professional: 'Pedro Henrique',
+    date: '2020-2-20',
 };
 
 const user = {
@@ -96,6 +97,7 @@ describe('Session API', () => {
 
         const errResponse = await request.post('/session')
             .send({
+                date: '2020-2-5',
                 email: 'email2@email2.com',
                 secondaryComplaint: 'teste 4',
                 professional: 'Pedro Henrique',
