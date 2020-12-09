@@ -4,15 +4,13 @@ module.exports = {
     async store(req, res) {
         try {
             const {
-                email,
                 emailPatient,
-                namePatient,
+                patientScore,
             } = req.body;
 
             const waitingList = await WaitingList.create({
-                email,
                 emailPatient,
-                namePatient,
+                patientScore,
             });
 
             return res.status(201).json(waitingList);
@@ -23,11 +21,7 @@ module.exports = {
 
     async index(req, res) {
         try {
-            const { email } = req.params;
-
-            const waitingLists = await WaitingList.find({
-                email,
-            }).sort({ updatedAt: 1 }).exec();
+            const waitingLists = await WaitingList.find().sort({ patientScore: -1 }).exec();
 
             return res.status(200).json(waitingLists);
         } catch (err) {
