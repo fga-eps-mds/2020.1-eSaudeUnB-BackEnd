@@ -32,6 +32,15 @@ describe('Admin API', () => {
     });
 
     it('should be able to register an admin', async () => {
+        const response = await request.post('/admin').send(user);
+
+        expect(response.status).toBe(201);
+
+        const respose2 = await request.post('/admin').send(user);
+        expect(respose2.status).toBe(409);
+    });
+
+    it('should not be able to register an admin', async () => {
         const errResponse = await request.post('/admin')
             .send({
                 name: 'Vinicius',
@@ -40,12 +49,6 @@ describe('Admin API', () => {
 
         expect(errResponse.status).toBe(400);
 
-        const response = await request.post('/admin').send(user);
-
-        expect(response.status).toBe(201);
-
-        const respose2 = await request.post('/admin').send(user);
-        expect(respose2.status).toBe(409);
     });
 
     it('should be able to login an admin', async () => {
