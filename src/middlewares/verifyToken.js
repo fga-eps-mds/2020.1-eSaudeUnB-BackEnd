@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
     const authHeader = req.headers.authorization;
     try {
         if (!authHeader) {
-            return res.status(401).json({ error: 'No token provided' });
+            return res.status(401).json({ error: 'No token provided' }); // test
         }
 
         jwt.verify(authHeader, authConfig.secret, (err, decoded) => {

@@ -24,7 +24,7 @@ module.exports = {
             }
             return res.status(404).json({ message: 'Usuário não encontrado' });
         } catch (err) {
-            return res.status(400).json({ message: err.message });
+            return res.status(400).json({ message: err.message }); // test
         }
     },
     async index(req, res) {
@@ -33,7 +33,7 @@ module.exports = {
             const psicology = await Psychologist.findOne({ email });
             return res.status(200).json(psicology.weekDay);
         } catch (err) {
-            return res.status(400).json({ message: err.message });
+            return res.status(400).json({ message: err.message }); // test
         }
     },
     async show(req, res) {
