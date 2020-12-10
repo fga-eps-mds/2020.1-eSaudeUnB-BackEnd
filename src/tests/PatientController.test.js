@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 const mongoose = require('mongoose');
 const supertest = require('supertest');
 const nodemailer = require('nodemailer');
@@ -70,7 +69,7 @@ const user4 = {
     email: 'rafael@user.com',
     password: '$2a$08$4HHaGWFu.8ctQMr7km0fNugYABLnySvAFKiPgcZfAWODqrbAwH.Cy',
     ForgetPassword: false,
-}
+};
 
 const admin = {
     name: 'Vinicius',

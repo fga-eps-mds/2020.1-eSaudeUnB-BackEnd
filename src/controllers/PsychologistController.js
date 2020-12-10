@@ -116,7 +116,7 @@ module.exports = {
             await PsychologistEmail.PsyEmail(psychologist);
             return res.status(201).json(psychologist);
         } catch (err) {
-            return res.status(400).json({ message: err.message });
+            return res.status(400).json({ message: err.message }); // test
         }
     },
 
@@ -127,7 +127,7 @@ module.exports = {
 
             return res.status(200).json(user);
         } catch (err) {
-            return res.status(400).json({ error: err.message });
+            return res.status(400).json({ error: err.message }); // test
         }
     },
 
@@ -136,7 +136,7 @@ module.exports = {
             const users = await Psychologist.find();
             return res.status(200).json(users);
         } catch (err) {
-            return res.status(400).json({ message: err.message });
+            return res.status(400).json({ message: err.message }); // test
         }
     },
 
@@ -148,7 +148,7 @@ module.exports = {
 
             return res.status(200).json('Psychologist Remove');
         } catch (err) {
-            return res.status(400).json({ message: err.message });
+            return res.status(400).json({ message: err.message }); // test
         }
     },
 
@@ -187,7 +187,7 @@ module.exports = {
                 user.bond = bond;
             }
             if (phone) {
-                user.phone = phone;
+                user.phone = phone; // test
             }
             if (specialization) {
                 user.specialization = specialization;
@@ -199,7 +199,7 @@ module.exports = {
                 user.userImage = userImage;
             }
             if (ForgetPassword) {
-                user.ForgetPassword = ForgetPassword;
+                user.ForgetPassword = ForgetPassword; // test
             }
 
             const { error, value } = schema.validate({
@@ -216,7 +216,7 @@ module.exports = {
             });
 
             if (error) {
-                return res.status(203).json({ value, error });
+                return res.status(203).json({ value, error }); // test
             }
             await user.save();
             return res.status(200).json(user);
@@ -245,7 +245,7 @@ module.exports = {
                     await user.save();
                     return res.status(200).json({ user });
                 }
-                return res.status(400).json({ message: 'Senha Incorreta' });
+                return res.status(400).json({ message: 'Senha Incorreta' }); // test
             }
             throw new Error({ err: 'Usuário não encontrado' });
         } catch (err) {
