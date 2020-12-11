@@ -27,21 +27,6 @@ steps:
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile.prod'
     tags: 'hml'
-  
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'SONARCLOUD_CONNECTION'
-    organization: 'fga-eps-mds-1'
-    scannerMode: 'CLI'
-    configMode: 'manual'
-    cliProjectKey: 'fga-eps-mds_2020.1-eSaudeUnB-BackEnd'
-    cliSources: '.'
-
-- task: SonarCloudAnalyze@1
-
-- task: SonarCloudPublish@1
-  inputs:
-    pollingTimeoutSec: '300'
 
 - task: NodeTool@0
   inputs:
@@ -57,3 +42,18 @@ steps:
   inputs:
     codeCoverageTool: Cobertura
     summaryFileLocation: $(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml
+
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'SONARCLOUD_CONNECTION'
+    organization: 'fga-eps-mds-1'
+    scannerMode: 'CLI'
+    configMode: 'manual'
+    cliProjectKey: 'fga-eps-mds_2020.1-eSaudeUnB-BackEnd'
+    cliSources: '.'
+
+- task: SonarCloudAnalyze@1
+
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
