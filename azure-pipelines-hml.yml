@@ -36,6 +36,7 @@ steps:
 - script: |
     npm install
     npm run coverage
+    npm run test
   displayName: 'npm install and output coverage'
 
 - task: PublishCodeCoverageResults@1

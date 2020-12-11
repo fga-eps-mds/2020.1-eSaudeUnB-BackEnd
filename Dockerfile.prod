@@ -9,7 +9,5 @@ RUN npm install --silent
 
 COPY . /app
 
-RUN npm run coverage
-
 EXPOSE 8000
 CMD [ "node", "src/start.js" ]
