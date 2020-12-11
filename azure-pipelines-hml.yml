@@ -27,7 +27,22 @@ steps:
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile.prod'
     tags: 'hml'
-  
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install
+    npm run coverage
+  displayName: 'npm install and output coverage'
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: $(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml
+
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'SONARCLOUD_CONNECTION'
@@ -36,6 +51,13 @@ steps:
     configMode: 'manual'
     cliProjectKey: 'fga-eps-mds_2020.1-eSaudeUnB-BackEnd'
     cliSources: '.'
+    extraProperties: |
+      # Additional properties that will be passed to the scanner, 
+      # Put one key=value per line, example:
+      sonar.exclusions=**/*.test.js
+      sonar.language=js
+      sonar.sources=src
+      sonar.javascript.lcov.reportPaths=coverage/lcov.info
 
 - task: SonarCloudAnalyze@1
 
