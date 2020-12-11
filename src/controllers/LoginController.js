@@ -25,7 +25,7 @@ module.exports = {
                         accessToken: token,
                     });
                 }
-                return res.status(400).json({ message: 'Senha Incorreta' });
+                return res.status(400).json({ message: 'Senha Incorreta' }); // test
             }
             throw new Error({ err: 'Usuário não encontrado' });
         } catch (err) {
@@ -55,7 +55,7 @@ module.exports = {
                         accessToken: token,
                     });
                 }
-                return res.status(400).json({ message: 'Senha Incorreta' });
+                return res.status(400).json({ message: 'Senha Incorreta' }); // test
             }
             throw new Error({ err: 'Usuário não encontrado' });
         } catch (err) {

@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
     const authHeader = req.headers.authorization;
     try {
         if (!authHeader) {
-            return res.status(401).json({ error: 'No token provided' }); // test
+            return res.status(401).json({ error: 'No token provided' });
         }
 
         jwt.verify(authHeader, authConfig.secret, (err, decoded) => {
@@ -16,6 +16,6 @@ module.exports = async (req, res, next) => {
             return next();
         });
     } catch (err) {
-        return res.status(401).json({ error: 'error in verify you credential of access' });
+        return res.status(401).json({ error: 'error in verify you credential of access' }); // test
     }
 };

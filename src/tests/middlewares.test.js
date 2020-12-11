@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const supertest = require('supertest');
 const nodemailer = require('nodemailer');
+const app = require('../server');
 const UserPatient = require('../models/UserPatient');
 const Psychologist = require('../models/Psychologist');
 const PsychologistEmail = require('../config/Psychologist_email');
 const EmailConfig = require('../config/email.config');
-const app = require('../server');
 
 const request = supertest(app);
 
@@ -28,7 +28,6 @@ const psy1 = {
     gender: 'M',
     bond: 'Psicologo',
     specialization: 'Psicólogo',
-    biography: '',
 };
 
 const admin = {
@@ -117,5 +116,14 @@ describe('Middlewares API', () => {
         }).set('authorization', TokenAdmin);
 
         expect(response.status).toBe(401);
+    });
+    it('should be able to succssessfully token to admin fuction', async () => {
+        const respose = await request.post('/admin/login').send({
+            email: admin.email, password: admin.password,
+        });
+        const TokenAdmin = respose.body.accessToken;
+        const response = await request.post('/psychologist').send(psy1).set('authorization', TokenAdmin);
+
+        expect(response.status).toBe(201);
     });
 });
