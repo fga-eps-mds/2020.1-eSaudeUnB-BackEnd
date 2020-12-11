@@ -42,7 +42,7 @@ steps:
   inputs:
     codeCoverageTool: Cobertura
     summaryFileLocation: $(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml
-
+    reportDirectory: '$(System.DefaultWorkingDirectory)/**/coverage'
 
 - task: SonarCloudPrepare@1
   inputs:
@@ -58,7 +58,7 @@ steps:
       # sonar.exclusions=**/*.bin
       sonar.language=js
       sonar.sources=src
-      sonar.tests=test
+      sonar.tests=tests
       sonar.exclusions=node_modules/**
       sonar.javascript.lcov.reportPaths=coverage/lcov.info'
 
