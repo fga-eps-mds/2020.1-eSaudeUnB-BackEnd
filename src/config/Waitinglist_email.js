@@ -2,7 +2,7 @@ const transporter = require('./email.config');
 const UserPatient = require('../models/UserPatient');
 
 module.exports = {
-    async waitinglist(emailPatient) {
+    async waitinglist(emailPatient, position) {
         const user = await UserPatient.findOne({ emailPatient });
         if (user != null) {
             await transporter.sendMail({
@@ -25,14 +25,9 @@ padding-left: 25px;
                             Olá ${user.name} 
 </h1>
                         <p>
-                            Vim informar que sua senha foi alterada na
-                            plataforma E-SaúdeUNB.
+                            Nos recebemos sua solicitação de atendimento
 <br />
-Se foi você. não se preocupe, sua senha foi alterada
-com sucesso<br />
-Caso está solicitação não tenha partido por você,
-solicitamos que você clique no link abaixo, e altere
-sua senha
+você é a posição ${position} na lista de espera<br />
 </p>
                         <a
                             href="http://localhost:3000"

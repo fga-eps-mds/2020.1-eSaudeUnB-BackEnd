@@ -383,7 +383,6 @@ describe('Patient API', () => {
         const response = await request
             .get('/users')
             .set('authorization', TokenPatient);
-        console.log(response);
         expect(response.status).toBe(400);
     });
 });
