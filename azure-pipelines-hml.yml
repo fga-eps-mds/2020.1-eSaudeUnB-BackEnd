@@ -36,13 +36,13 @@ steps:
 - script: |
     npm install
     npm run coverage
-    sonar-scanner -Dsonar.projectKey=fga-eps-mds_2020.1-eSaudeUnB-BackEnd
   displayName: 'npm install and output coverage'
 
 - task: PublishCodeCoverageResults@1
   inputs:
     codeCoverageTool: Cobertura
     summaryFileLocation: $(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml
+
 
 - task: SonarCloudPrepare@1
   inputs:
@@ -52,6 +52,15 @@ steps:
     configMode: 'manual'
     cliProjectKey: 'fga-eps-mds_2020.1-eSaudeUnB-BackEnd'
     cliSources: '.'
+    extraProperties: |
+      # Additional properties that will be passed to the scanner, 
+      # Put one key=value per line, example:
+      # sonar.exclusions=**/*.bin
+      sonar.language=js
+      sonar.sources=src
+      sonar.tests=test
+      sonar.exclusions=node_modules/**
+      sonar.javascript.lcov.reportPaths=coverage/lcov.info'
 
 - task: SonarCloudAnalyze@1
 
