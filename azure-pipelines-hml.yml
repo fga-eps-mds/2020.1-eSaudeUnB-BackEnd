@@ -36,6 +36,7 @@ steps:
 - script: |
     npm install
     npm run coverage
+    sonar-scanner -Dsonar.projectKey=fga-eps-mds_2020.1-eSaudeUnB-BackEnd
   displayName: 'npm install and output coverage'
 
 - task: PublishCodeCoverageResults@1
