@@ -6,6 +6,7 @@ const Psychologist = require('../models/Psychologist');
 const PsychologistEmail = require('../config/Psychologist_email');
 const PatientEmail = require('../config/Patient_email');
 const ForgertPassword = require('../config/ForgetPassword_email');
+const PatientController = require('../controllers/PatientController');
 
 const app = require('../server');
 
@@ -372,5 +373,17 @@ describe('Patient API', () => {
             .put(`/userForgetPassword/${`${user3.email}test`}`);
 
         expect(responseUpdate.status).toBe(500);
+    });
+    it('should be able to thow a user', async () => {
+        await request.post('/users').send(user3);
+        jest.spyOn(PatientController, 'index').mockImplementation(() => (new Error('my error message')));
+        const respose = await request.post('/login/patient').send({ email: user3.email, password: user3.password });
+        const TokenPatient = respose.body.accessToken;
+
+        const response = await request
+            .get('/users')
+            .set('authorization', TokenPatient);
+        console.log(response);
+        expect(response.status).toBe(400);
     });
 });

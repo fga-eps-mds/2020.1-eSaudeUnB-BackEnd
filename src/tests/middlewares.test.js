@@ -6,6 +6,7 @@ const UserPatient = require('../models/UserPatient');
 const Psychologist = require('../models/Psychologist');
 const PsychologistEmail = require('../config/Psychologist_email');
 const EmailConfig = require('../config/email.config');
+// const isAdmin = require('../middlewares/isAdmin');
 
 const request = supertest(app);
 
@@ -126,4 +127,13 @@ describe('Middlewares API', () => {
 
         expect(response.status).toBe(201);
     });
+    /* it('should be able not to succssessfully token to admin fuction, trow error', async () => {
+        await request.post('/users').send(user1);
+        const { email, password } = user1;
+        const respose = await request.post('/login/patient').send({ email, password });
+        const Token = respose.body.accessToken;
+        const response = await request.post('/psychologist').send(psy1).set('authorization', Token);
+
+        expect(response.status).toBe(201);
+    }); */
 });
