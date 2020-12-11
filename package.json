@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest --detectOpenHandles --testTimeout=10000 --coverage",
     "dev": "nodemon ./src/start.js",
-    "lint": "eslint --fix ."
+    "lint": "eslint --fix .",
+    "coverage": "jest --detectOpenHandles --coverage --coverageReporters=cobertura"
   },
   "repository": {
     "type": "git",
