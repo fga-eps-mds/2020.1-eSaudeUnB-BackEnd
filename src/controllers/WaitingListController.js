@@ -1,4 +1,5 @@
 const WaitingList = require('../models/WaitingList');
+const WaitinglistemailUtil = require('../config/Waitinglist_email');
 
 module.exports = {
     async store(req, res) {
@@ -12,7 +13,9 @@ module.exports = {
                 emailPatient,
                 patientScore,
             });
-
+            const DB = await WaitingList.find().sort({ patientScore: -1 }).exec();
+            const position = DB.findIndex((obj) => obj.emailPatient === emailPatient) + 1;
+            await WaitinglistemailUtil.waitinglist(emailPatient, position);
             return res.status(201).json(waitingList);
         } catch (err) {
             return res.status(400).json({ error: err.message });

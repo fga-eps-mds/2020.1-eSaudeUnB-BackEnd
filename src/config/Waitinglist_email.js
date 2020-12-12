@@ -3,13 +3,12 @@ const UserPatient = require('../models/UserPatient');
 
 module.exports = {
     async waitinglist(emailPatient, position) {
-        const user = await UserPatient.findOne({ emailPatient });
-        if (user != null) {
-            await transporter.sendMail({
-                from: '"e-saudeunb" <e-saude@unb.br>', // test
-                to: user.email,
-                subject: 'Lista de Espera',
-                html: `<body style="justify-content: flex-start; columns: auto; align-items: center">
+        const user = await UserPatient.findOne({ email: emailPatient });
+        await transporter.sendMail({
+            from: '"e-saudeunb" <e-saude@unb.br>', // test
+            to: emailPatient,
+            subject: 'Lista de Espera',
+            html: `<body style="justify-content: flex-start; columns: auto; align-items: center">
                         <img
                             src="https://svgshare.com/i/RUt.svg"
                             alt="Logo"
@@ -22,12 +21,12 @@ padding-left: 25px;
 "
                         />
                         <h1>
-                            Olá ${user.name} 
+                            Olá ${user.name} ${user.lastName} 
 </h1>
                         <p>
                             Nos recebemos sua solicitação de atendimento
 <br />
-você é a posição ${position} na lista de espera<br />
+você é o(a) ${position} na lista de espera<br />
 </p>
                         <a
                             href="http://localhost:3000"
@@ -54,8 +53,7 @@ padding-top: 25px;
 "
                         />
                     </body>`
-                ,
-            });
-        }
+            ,
+        });
     },
 };
