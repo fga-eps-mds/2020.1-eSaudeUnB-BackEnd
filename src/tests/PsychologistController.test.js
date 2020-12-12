@@ -137,17 +137,6 @@ describe('Psychologist API', () => {
         expect(response.status).toBe(200);
     });
 
-    it('should not be able to list a single psychologist', async () => {
-        const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
-        const TokenAdmin = resposit.body.accessToken;
-        await request.post('/psychologist').send(user1).set('authorization', TokenAdmin);
-
-        const response = await request.get(`/psychologist/null`).set('authorization', TokenAdmin);
-
-        expect(response.status).toBe(400);
-    });
-
-
     it('should be able to delete a psychologist', async () => {
         const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
         const TokenAdmin = resposit.body.accessToken;
@@ -177,6 +166,7 @@ describe('Psychologist API', () => {
                 lastName: 'abner',
                 email: 'abcdefghij@hotmail.com',
                 gender: 'M',
+                phone: '61999999999',
                 bond: 'Nutritionist',
                 specialization: 'Formado na UnB',
                 biography: '2020200',
@@ -198,6 +188,7 @@ describe('Psychologist API', () => {
             lastName: 'abner',
             email: 'abcdefghij@hotmail.com',
             gender: 'M',
+            phone: '61999999999',
             bond: 'Psychologist',
             specialization: 'Formado na UnB',
             biography: '2020200',
@@ -216,7 +207,7 @@ describe('Psychologist API', () => {
 
         const responseValidate = await request
             .put(`/psyUpdatePassword/${user1.email}`)
-            .send({ oldPassword: psy.body.password, password: null }).set('authorization', TokenPsy);
+            .send({ oldPassword: psy.body.password, password: 'senha' }).set('authorization', TokenPsy);
 
         expect(responseValidate.status).toBe(203);
 
@@ -226,6 +217,7 @@ describe('Psychologist API', () => {
 
         expect(responseDelete.status).toBe(500);
     });
+
 
     it('should be able to forget Psychologist Password', async () => {
         const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
@@ -246,5 +238,40 @@ describe('Psychologist API', () => {
             .put(`/psyForgetPassword/${`${user1.email}ola`}`);
 
         expect(responseValidate.status).toBe(500);
+    });
+    it('should not be able to find psychologist', async () => {
+        const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
+        const TokenAdmin = resposit.body.accessToken;
+        await request.post('/psychologist').send(user1).set('authorization', TokenAdmin);
+        
+        
+        jest.spyOn(Psychologist, 'find').mockImplementation(() => { throw new Error(); });
+        jest.spyOn(Psychologist, 'findOne').mockImplementation(() => { throw new Error(); });
+       
+        const response = await request
+            .get(`/psychologist/${user1.email}`)
+            .set('authorization', TokenAdmin);
+        const response2 = await request
+            .get('/psychologists')
+            .set('authorization', TokenAdmin);
+
+            expect(response.status).toBe(400);
+            expect(response2.status).toBe(400);
+        
+    });
+    it('should not be able to destroy a psychologist', async () => {
+        const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
+        const TokenAdmin = resposit.body.accessToken;
+        await request.post('/psychologist').send(user1).set('authorization', TokenAdmin);
+
+        jest.spyOn(Psychologist, 'deleteOne').mockImplementation(() => { throw new Error(); });
+
+        await request.post('/psychologist').send(user1).set('authorization', TokenAdmin);
+
+        const response = await request
+            .delete(`/psychologist/${user1.email}`)
+            .set('authorization', TokenAdmin);
+
+        expect(response.status).toBe(400);
     });
 });

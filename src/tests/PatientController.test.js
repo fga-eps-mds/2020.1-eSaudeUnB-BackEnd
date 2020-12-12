@@ -375,7 +375,7 @@ describe('Patient API', () => {
         expect(responseUpdate.status).toBe(500);
     });
 
-    it('should be able to thow a user', async () => {
+    it('should be able to throw a user', async () => {
         await request.post('/users').send(user3);
         const respose = await request.post('/login/patient').send({ email: user3.email, password: user3.password });
         const TokenPatient = respose.body.accessToken;
@@ -410,5 +410,23 @@ describe('Patient API', () => {
         expect(response4.status).toBe(400);
         expect(response5.status).toBe(500);
         expect(response6.status).toBe(500);
+    });
+    it('should be able to update user appointments', async () => {
+        await request.post('/users').send(user3);
+
+        const response = await request.post('/login/patient').send({ email: user3.email, password: user3.password });
+        const TokenPatient = response.body.accessToken;
+
+        const requestResponse = await request.put(`/user/schedule/${user3.email}`)
+        .send({appointments: [{
+            psychologist_id: "0001",
+            psychologistName: 'Jose',
+            weekDay: '3',
+            time: '15:00',
+            duration: '60',
+        }]})
+        .set('authorization', TokenPatient);
+
+        expect(requestResponse.status).toBe(200);
     });
 });
