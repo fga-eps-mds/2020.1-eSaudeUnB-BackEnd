@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1607725356234" clover="3.2.0">
-  <project timestamp="1607725356234" name="All files">
-    <metrics statements="557" coveredstatements="516" conditionals="206" coveredconditionals="180" methods="40" coveredmethods="36" elements="803" coveredelements="732" complexity="0" loc="557" ncloc="557" packages="5" files="23" classes="23"/>
+<coverage generated="1607779178732" clover="3.2.0">
+  <project timestamp="1607779178732" name="All files">
+    <metrics statements="566" coveredstatements="523" conditionals="206" coveredconditionals="180" methods="41" coveredmethods="37" elements="813" coveredelements="740" complexity="0" loc="566" ncloc="566" packages="5" files="24" classes="24"/>
     <package name="src">
       <metrics statements="54" coveredstatements="54" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="routes.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/routes.js">
@@ -66,7 +66,7 @@
       </file>
     </package>
     <package name="src.config">
-      <metrics statements="13" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="1"/>
+      <metrics statements="18" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="1"/>
       <file name="ForgetPassword_email.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/config/ForgetPassword_email.js">
         <metrics statements="3" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="8" type="stmt"/>
@@ -85,19 +85,27 @@
         <line num="3" count="8" type="stmt"/>
         <line num="5" count="0" type="stmt"/>
       </file>
+      <file name="Waitinglist_email.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/config/Waitinglist_email.js">
+        <metrics statements="5" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="1" count="8" type="stmt"/>
+        <line num="2" count="8" type="stmt"/>
+        <line num="4" count="8" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
+      </file>
       <file name="auth.config.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/config/auth.config.js">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="8" type="stmt"/>
       </file>
       <file name="email.config.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/config/email.config.js">
-        <metrics statements="3" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="8" type="stmt"/>
         <line num="3" count="8" type="stmt"/>
-        <line num="5" count="0" type="stmt"/>
+        <line num="12" count="8" type="stmt"/>
       </file>
     </package>
     <package name="src.controllers">
-      <metrics statements="418" coveredstatements="385" conditionals="178" coveredconditionals="155" methods="31" coveredmethods="30"/>
+      <metrics statements="422" coveredstatements="388" conditionals="178" coveredconditionals="155" methods="32" coveredmethods="31"/>
       <file name="AdminController.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/controllers/AdminController.js">
         <metrics statements="24" coveredstatements="24" conditionals="6" coveredconditionals="6" methods="2" coveredmethods="2"/>
         <line num="1" count="8" type="stmt"/>
@@ -155,7 +163,7 @@
         <line num="62" count="2" type="stmt"/>
       </file>
       <file name="PatientController.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/controllers/PatientController.js">
-        <metrics statements="183" coveredstatements="168" conditionals="112" coveredconditionals="102" methods="9" coveredmethods="8"/>
+        <metrics statements="183" coveredstatements="167" conditionals="112" coveredconditionals="102" methods="9" coveredmethods="8"/>
         <line num="1" count="8" type="stmt"/>
         <line num="2" count="8" type="stmt"/>
         <line num="3" count="8" type="stmt"/>
@@ -226,8 +234,8 @@
         <line num="313" count="22" type="stmt"/>
         <line num="315" count="22" type="stmt"/>
         <line num="343" count="22" type="stmt"/>
-        <line num="345" count="18" type="stmt"/>
-        <line num="347" count="4" type="stmt"/>
+        <line num="345" count="22" type="stmt"/>
+        <line num="347" count="0" type="stmt"/>
         <line num="352" count="1" type="stmt"/>
         <line num="353" count="1" type="stmt"/>
         <line num="354" count="1" type="stmt"/>
@@ -519,23 +527,27 @@
         <line num="132" count="0" type="stmt"/>
       </file>
       <file name="WaitingListController.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/controllers/WaitingListController.js">
-        <metrics statements="16" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <metrics statements="20" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
         <line num="1" count="8" type="stmt"/>
+        <line num="2" count="8" type="stmt"/>
         <line num="4" count="8" type="stmt"/>
         <line num="6" count="4" type="stmt"/>
         <line num="10" count="4" type="stmt"/>
         <line num="12" count="4" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
         <line num="17" count="2" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
         <line num="19" count="2" type="stmt"/>
-        <line num="24" count="1" type="stmt"/>
-        <line num="25" count="1" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
         <line num="27" count="1" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
-        <line num="34" count="1" type="stmt"/>
-        <line num="35" count="1" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
         <line num="37" count="1" type="stmt"/>
         <line num="39" count="1" type="stmt"/>
-        <line num="41" count="0" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
       </file>
     </package>
     <package name="src.middlewares">

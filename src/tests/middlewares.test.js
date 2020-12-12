@@ -53,7 +53,6 @@ describe('Middlewares API', () => {
         await request.post('/admin').send(admin);
         jest.spyOn(PsychologistEmail, 'PsyEmail').mockImplementation(() => true);
         jest.spyOn(nodemailer, 'createTransport').mockImplementation(() => true);
-        jest.spyOn(EmailConfig, 'transporter').mockImplementation(() => true);
     });
 
     afterAll(async (done) => {

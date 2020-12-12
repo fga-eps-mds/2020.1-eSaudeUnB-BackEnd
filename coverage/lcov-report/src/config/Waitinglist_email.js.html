@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/config/ForgetPassword_email.js</title>
+    <title>Code coverage report for src/config/Waitinglist_email.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/config</a> ForgetPassword_email.js</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/config</a> Waitinglist_email.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>3/5</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>3/5</span>
             </div>
         
             
@@ -116,14 +116,12 @@
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
 <a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
+<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -177,20 +175,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const transporter = require('./email.config');
+const UserPatient = require('../models/UserPatient');
 &nbsp;
 module.exports = {
-<span class="fstat-no" title="function not covered" >    as</span>ync Fgetpassword(user, password) {
+<span class="fstat-no" title="function not covered" >    as</span>ync waitinglist(emailPatient, position) {
+        const user = <span class="cstat-no" title="statement not covered" >await UserPatient.findOne({ email: emailPatient });</span>
 <span class="cstat-no" title="statement not covered" >        await transporter.sendMail({</span>
             from: '"e-saudeunb" &lt;e-saude@unb.br&gt;', // test
-            to: user.email,
-            subject: 'Senha',
+            to: emailPatient,
+            subject: 'Lista de Espera',
             html: `&lt;body style="justify-content: flex-start; columns: auto; align-items: center"&gt;
                         &lt;img
                             src="https://svgshare.com/i/RUt.svg"
@@ -204,18 +198,12 @@ padding-left: 25px;
 "
                         /&gt;
                         &lt;h1&gt;
-                            Olá ${user.name} ,Sua senha foi alterado no E-SaúdeUNB
+                            Olá ${user.name} ${user.lastName} 
 &lt;/h1&gt;
                         &lt;p&gt;
-                            Vim informar que sua senha foi alterada na
-                            plataforma E-SaúdeUNB.
+                            Nos recebemos sua solicitação de atendimento
 &lt;br /&gt;
-Se foi você. não se preocupe, sua senha foi alterada
-com sucesso&lt;br /&gt;
-                            &lt;h2&gt;Sua senha é: ${password}&lt;/h2&gt;
-Caso está solicitação não tenha partido por você,
-solicitamos que você clique no link abaixo, e altere
-sua senha
+você é o(a) ${position} na lista de espera&lt;br /&gt;
 &lt;/p&gt;
                         &lt;a
                             href="http://localhost:3000"

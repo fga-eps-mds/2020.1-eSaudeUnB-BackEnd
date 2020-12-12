@@ -4,9 +4,10 @@ const nodemailer = require('nodemailer');
 const Psychologist = require('../models/Psychologist');
 const UserPatient = require('../models/UserPatient');
 const WaitingList = require('../models/WaitingList');
-const PsychologistEmail = require('../config/Psychologist_email');
-const PatientEmail = require('../config/Patient_email');
-const ForgertPassword = require('../config/ForgetPassword_email');
+const PsychologistEmailUtil = require('../config/Psychologist_email');
+const PatientEmailUtil = require('../config/Patient_email');
+const ForgertPasswordUtil = require('../config/ForgetPassword_email');
+const WaitinglistemailUtil = require('../config/Waitinglist_email');
 
 const app = require('../server');
 
@@ -37,10 +38,11 @@ describe('Psychologist API', () => {
             useCreateIndex: true,
             useFindAndModify: false,
         });
-        jest.spyOn(PsychologistEmail, 'PsyEmail').mockImplementation(() => true);
+        jest.spyOn(PsychologistEmailUtil, 'PsyEmail').mockImplementation(() => true);
         jest.spyOn(nodemailer, 'createTransport').mockImplementation(() => true);
-        jest.spyOn(PatientEmail, 'PatientEmail').mockImplementation(() => true);
-        jest.spyOn(ForgertPassword, 'Fgetpassword').mockImplementation(() => true);
+        jest.spyOn(PatientEmailUtil, 'PatientEmail').mockImplementation(() => true);
+        jest.spyOn(ForgertPasswordUtil, 'Fgetpassword').mockImplementation(() => true);
+        jest.spyOn(WaitinglistemailUtil, 'waitinglist').mockImplementation(() => true);
     });
 
     beforeEach(async () => {
