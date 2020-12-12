@@ -3,10 +3,9 @@ const supertest = require('supertest');
 const nodemailer = require('nodemailer');
 const app = require('../server');
 const UserPatient = require('../models/UserPatient');
+const Admin = require('../models/Admin');
 const Psychologist = require('../models/Psychologist');
 const PsychologistEmail = require('../config/Psychologist_email');
-const EmailConfig = require('../config/email.config');
-// const isAdmin = require('../middlewares/isAdmin');
 
 const request = supertest(app);
 
@@ -102,7 +101,7 @@ describe('Middlewares API', () => {
 
         expect(response.status).toBe(401);
     });
-    it('should able fail with corect user token to psychologist fuction', async () => {
+    it('should able fail with corect admin token to psychologist fuction', async () => {
         const respose = await request.post('/admin/login').send({
             email: admin.email, password: admin.password,
         });
@@ -126,13 +125,44 @@ describe('Middlewares API', () => {
 
         expect(response.status).toBe(201);
     });
-    /* it('should be able not to succssessfully token to admin fuction, trow error', async () => {
+    it('should be able not to succssessfully token to admin fuction, trow error', async () => {
         await request.post('/users').send(user1);
         const { email, password } = user1;
         const respose = await request.post('/login/patient').send({ email, password });
         const Token = respose.body.accessToken;
+        jest.spyOn(UserPatient, 'findOne').mockImplementation(() => { throw new Error(); });
         const response = await request.post('/psychologist').send(psy1).set('authorization', Token);
+        expect(response.status).toBe(401);
+    });
+    it('should be able not to succssessfully token to user fuction, trow error', async () => {
+        await request.post('/users').send(user1);
+        const respose1 = await request.post('/admin/login').send({
+            email: admin.email, password: admin.password,
+        });
+        const TokenAdmin = respose1.body.accessToken;
+        jest.spyOn(Admin, 'findOne').mockImplementation(() => { throw Error(); });
+        const response = await request.put(`/user/${user1.email}`).send({
+            name: 'Vinicius',
+            lastName: 'Lima',
+            email: 'email@email.com',
+            mainComplaint: 'Uso de drogas',
+        }).set('authorization', TokenAdmin);
 
-        expect(response.status).toBe(201);
-    }); */
+        expect(response.status).toBe(401);
+    });
+    it('should be able not to succssessfully token to psychologist fuction, trow error', async () => {
+        const respose1 = await request.post('/admin/login').send({
+            email: admin.email, password: admin.password,
+        });
+        const TokenAdmin = respose1.body.accessToken;
+        jest.spyOn(Admin, 'findOne').mockImplementation(() => { throw Error(); });
+        const response = await request.put('/session').send({
+            date: '2020-2-5',
+            email: 'email@email.com',
+            secondaryComplaint: 'teste 4',
+            professional: 'Pedro Henrique',
+        }).set('authorization', TokenAdmin);
+
+        expect(response.status).toBe(401);
+    });
 });
