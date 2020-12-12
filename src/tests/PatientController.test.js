@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 const supertest = require('supertest');
+const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 const UserPatient = require('../models/UserPatient');
 const Psychologist = require('../models/Psychologist');
 const PsychologistEmail = require('../config/Psychologist_email');
 const PatientEmail = require('../config/Patient_email');
 const ForgertPassword = require('../config/ForgetPassword_email');
-const PatientController = require('../controllers/PatientController');
 
 const app = require('../server');
 
@@ -374,15 +374,41 @@ describe('Patient API', () => {
 
         expect(responseUpdate.status).toBe(500);
     });
+
     it('should be able to thow a user', async () => {
         await request.post('/users').send(user3);
-        jest.spyOn(PatientController, 'index').mockImplementation(() => (new Error('my error message')));
         const respose = await request.post('/login/patient').send({ email: user3.email, password: user3.password });
         const TokenPatient = respose.body.accessToken;
-
-        const response = await request
+        jest.spyOn(bcrypt, 'hashSync').mockImplementation(() => { throw new Error(); });
+        jest.spyOn(UserPatient, 'find').mockImplementation(() => { throw new Error(); });
+        jest.spyOn(UserPatient, 'deleteOne').mockImplementation(() => { throw new Error(); });
+        const response1 = await request.post('/users').send(user1);
+        // jest.spyOn(UserPatient, 'findOne').mockReturnValue(new Error());
+        const response2 = await request
+            .get(`/user/${user1.email}`)
+            .set('authorization', TokenPatient);
+        const response3 = await request
             .get('/users')
             .set('authorization', TokenPatient);
-        expect(response.status).toBe(200);
+        const response4 = await request
+            .delete('/user').send({ email: user1.email });
+        const response5 = await request
+            .put(`/user/${user1.email}`).send({
+                name: 'Rafael',
+                lastName: 'Leão',
+                email: 'rafael@user.com',
+                mainComplaint: 'Problemas de saude',
+            })
+            .set('authorization', TokenPatient);
+        const response6 = await request
+            .put(`/user/password/${user3.email}`)
+            .send({ oldPassword: user3.password, password: '12345678' })
+            .set('authorization', TokenPatient);
+        expect(response1.status).toBe(400);
+        expect(response2.status).toBe(400);
+        expect(response3.status).toBe(400);
+        expect(response4.status).toBe(400);
+        expect(response5.status).toBe(500);
+        expect(response6.status).toBe(500);
     });
 });
