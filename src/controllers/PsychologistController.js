@@ -93,10 +93,6 @@ module.exports = {
                 ForgetPassword,
             });
 
-            if (error) {
-                return res.status(203).json({ value, error });
-            }
-
             // const encriptedPassword = bcrypt.hashSync(password, 8);
 
             const psychologist = await Psychologist.create({

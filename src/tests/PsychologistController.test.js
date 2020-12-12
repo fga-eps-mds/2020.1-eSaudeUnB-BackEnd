@@ -89,10 +89,18 @@ describe('Psychologist API', () => {
         const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
         const TokenAdmin = resposit.body.accessToken;
         const response = await request.post('/psychologist').send(user3).set('authorization', TokenAdmin);
+    
+        expect(response.status).toBe(400);
+    });
+
+    it('should not be able to create the same psychologist', async () => {
+        const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
+        const TokenAdmin = resposit.body.accessToken;
         await request.post('/psychologist').send(user2).set('authorization', TokenAdmin);
-        const response2 = await request.post('/psychologist').send(user2).set('authorization', TokenAdmin);
-        expect(response.status).toBe(203);
-        expect(response2.status).toBe(200);
+    
+        const response = await request.post('/psychologist').send(user2).set('authorization', TokenAdmin);
+
+        expect(response.status).toBe(200);
     });
 
     it('should be able to update a psychologist password', async () => {
@@ -128,6 +136,17 @@ describe('Psychologist API', () => {
 
         expect(response.status).toBe(200);
     });
+
+    it('should not be able to list a single psychologist', async () => {
+        const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
+        const TokenAdmin = resposit.body.accessToken;
+        await request.post('/psychologist').send(user1).set('authorization', TokenAdmin);
+
+        const response = await request.get(`/psychologist/null`).set('authorization', TokenAdmin);
+
+        expect(response.status).toBe(400);
+    });
+
 
     it('should be able to delete a psychologist', async () => {
         const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });

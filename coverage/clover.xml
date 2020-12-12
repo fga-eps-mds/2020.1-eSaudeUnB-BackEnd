@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1607779178732" clover="3.2.0">
-  <project timestamp="1607779178732" name="All files">
-    <metrics statements="566" coveredstatements="523" conditionals="206" coveredconditionals="180" methods="41" coveredmethods="37" elements="813" coveredelements="740" complexity="0" loc="566" ncloc="566" packages="5" files="24" classes="24"/>
+<coverage generated="1607788981310" clover="3.2.0">
+  <project timestamp="1607788981311" name="All files">
+    <metrics statements="564" coveredstatements="522" conditionals="204" coveredconditionals="178" methods="41" coveredmethods="37" elements="809" coveredelements="737" complexity="0" loc="564" ncloc="564" packages="5" files="24" classes="24"/>
     <package name="src">
       <metrics statements="54" coveredstatements="54" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="routes.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/routes.js">
+      <file name="routes.js" path="/app/src/routes.js">
         <metrics statements="44" coveredstatements="44" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="8" type="stmt"/>
         <line num="2" count="8" type="stmt"/>
@@ -51,7 +51,7 @@
         <line num="60" count="8" type="stmt"/>
         <line num="62" count="8" type="stmt"/>
       </file>
-      <file name="server.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/server.js">
+      <file name="server.js" path="/app/src/server.js">
         <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="8" type="stmt"/>
         <line num="2" count="8" type="stmt"/>
@@ -67,25 +67,25 @@
     </package>
     <package name="src.config">
       <metrics statements="18" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="1"/>
-      <file name="ForgetPassword_email.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/config/ForgetPassword_email.js">
+      <file name="ForgetPassword_email.js" path="/app/src/config/ForgetPassword_email.js">
         <metrics statements="3" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="8" type="stmt"/>
         <line num="3" count="8" type="stmt"/>
         <line num="5" count="0" type="stmt"/>
       </file>
-      <file name="Patient_email.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/config/Patient_email.js">
+      <file name="Patient_email.js" path="/app/src/config/Patient_email.js">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="8" type="stmt"/>
         <line num="3" count="8" type="stmt"/>
         <line num="5" count="4" type="stmt"/>
       </file>
-      <file name="Psychologist_email.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/config/Psychologist_email.js">
+      <file name="Psychologist_email.js" path="/app/src/config/Psychologist_email.js">
         <metrics statements="3" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="8" type="stmt"/>
         <line num="3" count="8" type="stmt"/>
         <line num="5" count="0" type="stmt"/>
       </file>
-      <file name="Waitinglist_email.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/config/Waitinglist_email.js">
+      <file name="Waitinglist_email.js" path="/app/src/config/Waitinglist_email.js">
         <metrics statements="5" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="8" type="stmt"/>
         <line num="2" count="8" type="stmt"/>
@@ -93,11 +93,11 @@
         <line num="6" count="0" type="stmt"/>
         <line num="7" count="0" type="stmt"/>
       </file>
-      <file name="auth.config.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/config/auth.config.js">
+      <file name="auth.config.js" path="/app/src/config/auth.config.js">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="8" type="stmt"/>
       </file>
-      <file name="email.config.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/config/email.config.js">
+      <file name="email.config.js" path="/app/src/config/email.config.js">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="8" type="stmt"/>
         <line num="3" count="8" type="stmt"/>
@@ -105,35 +105,35 @@
       </file>
     </package>
     <package name="src.controllers">
-      <metrics statements="422" coveredstatements="388" conditionals="178" coveredconditionals="155" methods="32" coveredmethods="31"/>
-      <file name="AdminController.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/controllers/AdminController.js">
+      <metrics statements="420" coveredstatements="387" conditionals="176" coveredconditionals="153" methods="32" coveredmethods="31"/>
+      <file name="AdminController.js" path="/app/src/controllers/AdminController.js">
         <metrics statements="24" coveredstatements="24" conditionals="6" coveredconditionals="6" methods="2" coveredmethods="2"/>
         <line num="1" count="8" type="stmt"/>
         <line num="2" count="8" type="stmt"/>
         <line num="3" count="8" type="stmt"/>
         <line num="5" count="8" type="stmt"/>
         <line num="7" count="8" type="stmt"/>
-        <line num="9" count="36" type="stmt"/>
-        <line num="10" count="36" type="stmt"/>
-        <line num="12" count="36" type="stmt"/>
-        <line num="14" count="36" type="cond" truecount="2" falsecount="0"/>
-        <line num="15" count="31" type="stmt"/>
+        <line num="9" count="38" type="stmt"/>
+        <line num="10" count="38" type="stmt"/>
+        <line num="12" count="38" type="stmt"/>
+        <line num="14" count="38" type="cond" truecount="2" falsecount="0"/>
+        <line num="15" count="33" type="stmt"/>
         <line num="18" count="5" type="stmt"/>
         <line num="20" count="4" type="stmt"/>
         <line num="26" count="4" type="stmt"/>
         <line num="28" count="1" type="stmt"/>
-        <line num="33" count="35" type="stmt"/>
-        <line num="34" count="35" type="stmt"/>
-        <line num="35" count="35" type="stmt"/>
-        <line num="37" count="35" type="cond" truecount="2" falsecount="0"/>
-        <line num="38" count="34" type="cond" truecount="2" falsecount="0"/>
-        <line num="39" count="33" type="stmt"/>
-        <line num="43" count="33" type="stmt"/>
+        <line num="33" count="37" type="stmt"/>
+        <line num="34" count="37" type="stmt"/>
+        <line num="35" count="37" type="stmt"/>
+        <line num="37" count="37" type="cond" truecount="2" falsecount="0"/>
+        <line num="38" count="36" type="cond" truecount="2" falsecount="0"/>
+        <line num="39" count="35" type="stmt"/>
+        <line num="43" count="35" type="stmt"/>
         <line num="48" count="1" type="stmt"/>
         <line num="50" count="1" type="stmt"/>
         <line num="52" count="1" type="stmt"/>
       </file>
-      <file name="LoginController.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/controllers/LoginController.js">
+      <file name="LoginController.js" path="/app/src/controllers/LoginController.js">
         <metrics statements="26" coveredstatements="26" conditionals="8" coveredconditionals="8" methods="2" coveredmethods="2"/>
         <line num="1" count="8" type="stmt"/>
         <line num="2" count="8" type="stmt"/>
@@ -162,7 +162,7 @@
         <line num="60" count="2" type="stmt"/>
         <line num="62" count="2" type="stmt"/>
       </file>
-      <file name="PatientController.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/controllers/PatientController.js">
+      <file name="PatientController.js" path="/app/src/controllers/PatientController.js">
         <metrics statements="183" coveredstatements="167" conditionals="112" coveredconditionals="102" methods="9" coveredmethods="8"/>
         <line num="1" count="8" type="stmt"/>
         <line num="2" count="8" type="stmt"/>
@@ -348,8 +348,8 @@
         <line num="631" count="1" type="stmt"/>
         <line num="633" count="1" type="stmt"/>
       </file>
-      <file name="PsychologistController.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/controllers/PsychologistController.js">
-        <metrics statements="93" coveredstatements="85" conditionals="36" coveredconditionals="24" methods="7" coveredmethods="7"/>
+      <file name="PsychologistController.js" path="/app/src/controllers/PsychologistController.js">
+        <metrics statements="91" coveredstatements="84" conditionals="34" coveredconditionals="22" methods="7" coveredmethods="7"/>
         <line num="1" count="8" type="stmt"/>
         <line num="2" count="8" type="stmt"/>
         <line num="5" count="8" type="stmt"/>
@@ -359,92 +359,90 @@
         <line num="10" count="8" type="stmt"/>
         <line num="52" count="8" type="stmt"/>
         <line num="59" count="8" type="stmt"/>
-        <line num="61" count="27" type="stmt"/>
-        <line num="62" count="27" type="stmt"/>
-        <line num="74" count="27" type="stmt"/>
-        <line num="76" count="27" type="stmt"/>
-        <line num="77" count="27" type="stmt"/>
-        <line num="79" count="27" type="cond" truecount="4" falsecount="0"/>
+        <line num="61" count="28" type="stmt"/>
+        <line num="62" count="28" type="stmt"/>
+        <line num="74" count="28" type="stmt"/>
+        <line num="76" count="28" type="stmt"/>
+        <line num="77" count="28" type="stmt"/>
+        <line num="79" count="28" type="cond" truecount="4" falsecount="0"/>
         <line num="80" count="1" type="stmt"/>
-        <line num="83" count="26" type="stmt"/>
-        <line num="96" count="26" type="cond" truecount="2" falsecount="0"/>
-        <line num="97" count="1" type="stmt"/>
-        <line num="102" count="25" type="stmt"/>
-        <line num="116" count="25" type="stmt"/>
-        <line num="117" count="25" type="stmt"/>
-        <line num="119" count="0" type="stmt"/>
-        <line num="124" count="17" type="stmt"/>
-        <line num="125" count="17" type="stmt"/>
-        <line num="126" count="17" type="stmt"/>
-        <line num="128" count="17" type="stmt"/>
-        <line num="130" count="0" type="stmt"/>
-        <line num="135" count="1" type="stmt"/>
-        <line num="136" count="1" type="stmt"/>
-        <line num="137" count="1" type="stmt"/>
-        <line num="139" count="0" type="stmt"/>
-        <line num="144" count="1" type="stmt"/>
+        <line num="83" count="27" type="stmt"/>
+        <line num="98" count="27" type="stmt"/>
+        <line num="112" count="26" type="stmt"/>
+        <line num="113" count="26" type="stmt"/>
+        <line num="115" count="1" type="stmt"/>
+        <line num="120" count="18" type="stmt"/>
+        <line num="121" count="18" type="stmt"/>
+        <line num="122" count="18" type="stmt"/>
+        <line num="124" count="18" type="stmt"/>
+        <line num="126" count="0" type="stmt"/>
+        <line num="131" count="1" type="stmt"/>
+        <line num="132" count="1" type="stmt"/>
+        <line num="133" count="1" type="stmt"/>
+        <line num="135" count="0" type="stmt"/>
+        <line num="140" count="1" type="stmt"/>
+        <line num="141" count="1" type="stmt"/>
+        <line num="143" count="1" type="stmt"/>
         <line num="145" count="1" type="stmt"/>
-        <line num="147" count="1" type="stmt"/>
-        <line num="149" count="1" type="stmt"/>
-        <line num="151" count="0" type="stmt"/>
-        <line num="156" count="2" type="stmt"/>
-        <line num="167" count="2" type="stmt"/>
-        <line num="169" count="2" type="stmt"/>
-        <line num="170" count="2" type="stmt"/>
-        <line num="174" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="175" count="2" type="stmt"/>
-        <line num="177" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="178" count="1" type="stmt"/>
-        <line num="180" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="181" count="1" type="stmt"/>
-        <line num="183" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="184" count="1" type="stmt"/>
-        <line num="186" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="187" count="1" type="stmt"/>
-        <line num="189" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="190" count="0" type="stmt"/>
-        <line num="192" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="193" count="1" type="stmt"/>
-        <line num="195" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="196" count="1" type="stmt"/>
-        <line num="198" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="199" count="1" type="stmt"/>
-        <line num="201" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="202" count="0" type="stmt"/>
-        <line num="205" count="1" type="stmt"/>
-        <line num="218" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="219" count="0" type="stmt"/>
-        <line num="221" count="1" type="stmt"/>
-        <line num="222" count="1" type="stmt"/>
-        <line num="224" count="1" type="stmt"/>
-        <line num="231" count="13" type="stmt"/>
-        <line num="232" count="13" type="stmt"/>
-        <line num="233" count="13" type="stmt"/>
-        <line num="234" count="13" type="cond" truecount="2" falsecount="0"/>
-        <line num="235" count="12" type="cond" truecount="1" falsecount="1"/>
-        <line num="237" count="12" type="stmt"/>
-        <line num="240" count="12" type="cond" truecount="2" falsecount="0"/>
-        <line num="241" count="1" type="stmt"/>
-        <line num="243" count="11" type="stmt"/>
-        <line num="244" count="11" type="stmt"/>
-        <line num="245" count="11" type="stmt"/>
-        <line num="246" count="11" type="stmt"/>
-        <line num="248" count="0" type="stmt"/>
-        <line num="250" count="1" type="stmt"/>
-        <line num="252" count="1" type="stmt"/>
-        <line num="259" count="2" type="stmt"/>
-        <line num="260" count="2" type="stmt"/>
-        <line num="261" count="2" type="stmt"/>
-        <line num="262" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="147" count="0" type="stmt"/>
+        <line num="152" count="2" type="stmt"/>
+        <line num="163" count="2" type="stmt"/>
+        <line num="165" count="2" type="stmt"/>
+        <line num="166" count="2" type="stmt"/>
+        <line num="170" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="171" count="2" type="stmt"/>
+        <line num="173" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="174" count="1" type="stmt"/>
+        <line num="176" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="177" count="1" type="stmt"/>
+        <line num="179" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="180" count="1" type="stmt"/>
+        <line num="182" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="183" count="1" type="stmt"/>
+        <line num="185" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="186" count="0" type="stmt"/>
+        <line num="188" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="189" count="1" type="stmt"/>
+        <line num="191" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="192" count="1" type="stmt"/>
+        <line num="194" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="195" count="1" type="stmt"/>
+        <line num="197" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="198" count="0" type="stmt"/>
+        <line num="201" count="1" type="stmt"/>
+        <line num="214" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="215" count="0" type="stmt"/>
+        <line num="217" count="1" type="stmt"/>
+        <line num="218" count="1" type="stmt"/>
+        <line num="220" count="1" type="stmt"/>
+        <line num="227" count="13" type="stmt"/>
+        <line num="228" count="13" type="stmt"/>
+        <line num="229" count="13" type="stmt"/>
+        <line num="230" count="13" type="cond" truecount="2" falsecount="0"/>
+        <line num="231" count="12" type="cond" truecount="1" falsecount="1"/>
+        <line num="233" count="12" type="stmt"/>
+        <line num="236" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="237" count="1" type="stmt"/>
+        <line num="239" count="11" type="stmt"/>
+        <line num="240" count="11" type="stmt"/>
+        <line num="241" count="11" type="stmt"/>
+        <line num="242" count="11" type="stmt"/>
+        <line num="244" count="0" type="stmt"/>
+        <line num="246" count="1" type="stmt"/>
+        <line num="248" count="1" type="stmt"/>
+        <line num="255" count="2" type="stmt"/>
+        <line num="256" count="2" type="stmt"/>
+        <line num="257" count="2" type="stmt"/>
+        <line num="258" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="260" count="1" type="stmt"/>
+        <line num="261" count="1" type="stmt"/>
+        <line num="262" count="1" type="stmt"/>
+        <line num="263" count="1" type="stmt"/>
         <line num="264" count="1" type="stmt"/>
-        <line num="265" count="1" type="stmt"/>
         <line num="266" count="1" type="stmt"/>
-        <line num="267" count="1" type="stmt"/>
         <line num="268" count="1" type="stmt"/>
-        <line num="270" count="1" type="stmt"/>
-        <line num="272" count="1" type="stmt"/>
       </file>
-      <file name="PsychologyCalendary.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/controllers/PsychologyCalendary.js">
+      <file name="PsychologyCalendary.js" path="/app/src/controllers/PsychologyCalendary.js">
         <metrics statements="22" coveredstatements="20" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
         <line num="1" count="8" type="stmt"/>
         <line num="3" count="8" type="stmt"/>
@@ -469,7 +467,7 @@
         <line num="43" count="2" type="stmt"/>
         <line num="45" count="1" type="stmt"/>
       </file>
-      <file name="SessionController.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/controllers/SessionController.js">
+      <file name="SessionController.js" path="/app/src/controllers/SessionController.js">
         <metrics statements="54" coveredstatements="48" conditionals="12" coveredconditionals="11" methods="5" coveredmethods="5"/>
         <line num="1" count="8" type="stmt"/>
         <line num="2" count="8" type="stmt"/>
@@ -526,7 +524,7 @@
         <line num="130" count="1" type="stmt"/>
         <line num="132" count="0" type="stmt"/>
       </file>
-      <file name="WaitingListController.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/controllers/WaitingListController.js">
+      <file name="WaitingListController.js" path="/app/src/controllers/WaitingListController.js">
         <metrics statements="20" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
         <line num="1" count="8" type="stmt"/>
         <line num="2" count="8" type="stmt"/>
@@ -552,25 +550,25 @@
     </package>
     <package name="src.middlewares">
       <metrics statements="57" coveredstatements="52" conditionals="28" coveredconditionals="25" methods="5" coveredmethods="5"/>
-      <file name="isAdmin.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/middlewares/isAdmin.js">
+      <file name="isAdmin.js" path="/app/src/middlewares/isAdmin.js">
         <metrics statements="15" coveredstatements="13" conditionals="6" coveredconditionals="5" methods="1" coveredmethods="1"/>
         <line num="1" count="8" type="stmt"/>
         <line num="2" count="8" type="stmt"/>
         <line num="3" count="8" type="stmt"/>
         <line num="5" count="8" type="stmt"/>
-        <line num="6" count="29" type="stmt"/>
-        <line num="7" count="29" type="stmt"/>
-        <line num="8" count="29" type="cond" truecount="2" falsecount="0"/>
+        <line num="6" count="30" type="stmt"/>
+        <line num="7" count="30" type="stmt"/>
+        <line num="8" count="30" type="cond" truecount="2" falsecount="0"/>
         <line num="9" count="1" type="stmt"/>
         <line num="10" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="11" count="0" type="stmt"/>
-        <line num="14" count="29" type="stmt"/>
-        <line num="15" count="29" type="cond" truecount="2" falsecount="0"/>
+        <line num="14" count="30" type="stmt"/>
+        <line num="15" count="30" type="cond" truecount="2" falsecount="0"/>
         <line num="16" count="1" type="stmt"/>
         <line num="19" count="0" type="stmt"/>
-        <line num="21" count="28" type="stmt"/>
+        <line num="21" count="29" type="stmt"/>
       </file>
-      <file name="isPatient.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/middlewares/isPatient.js">
+      <file name="isPatient.js" path="/app/src/middlewares/isPatient.js">
         <metrics statements="15" coveredstatements="14" conditionals="8" coveredconditionals="7" methods="1" coveredmethods="1"/>
         <line num="1" count="8" type="stmt"/>
         <line num="2" count="8" type="stmt"/>
@@ -588,7 +586,7 @@
         <line num="19" count="0" type="stmt"/>
         <line num="21" count="16" type="stmt"/>
       </file>
-      <file name="isPsychologist.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/middlewares/isPsychologist.js">
+      <file name="isPsychologist.js" path="/app/src/middlewares/isPsychologist.js">
         <metrics statements="15" coveredstatements="14" conditionals="10" coveredconditionals="9" methods="1" coveredmethods="1"/>
         <line num="1" count="8" type="stmt"/>
         <line num="2" count="8" type="stmt"/>
@@ -606,49 +604,49 @@
         <line num="20" count="0" type="stmt"/>
         <line num="22" count="16" type="stmt"/>
       </file>
-      <file name="verifyToken.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/middlewares/verifyToken.js">
+      <file name="verifyToken.js" path="/app/src/middlewares/verifyToken.js">
         <metrics statements="12" coveredstatements="11" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
         <line num="3" count="8" type="stmt"/>
         <line num="4" count="8" type="stmt"/>
         <line num="6" count="8" type="stmt"/>
-        <line num="7" count="111" type="stmt"/>
-        <line num="8" count="111" type="stmt"/>
-        <line num="9" count="111" type="cond" truecount="2" falsecount="0"/>
+        <line num="7" count="113" type="stmt"/>
+        <line num="8" count="113" type="stmt"/>
+        <line num="9" count="113" type="cond" truecount="2" falsecount="0"/>
         <line num="10" count="1" type="stmt"/>
-        <line num="13" count="110" type="stmt"/>
-        <line num="14" count="110" type="cond" truecount="2" falsecount="0"/>
-        <line num="15" count="109" type="stmt"/>
-        <line num="16" count="109" type="stmt"/>
+        <line num="13" count="112" type="stmt"/>
+        <line num="14" count="112" type="cond" truecount="2" falsecount="0"/>
+        <line num="15" count="111" type="stmt"/>
+        <line num="16" count="111" type="stmt"/>
         <line num="19" count="0" type="stmt"/>
       </file>
     </package>
     <package name="src.models">
       <metrics statements="15" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="Admin.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/models/Admin.js">
+      <file name="Admin.js" path="/app/src/models/Admin.js">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="8" type="stmt"/>
         <line num="3" count="8" type="stmt"/>
         <line num="19" count="8" type="stmt"/>
       </file>
-      <file name="Psychologist.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/models/Psychologist.js">
+      <file name="Psychologist.js" path="/app/src/models/Psychologist.js">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="2" count="8" type="stmt"/>
         <line num="4" count="8" type="stmt"/>
         <line num="68" count="8" type="stmt"/>
       </file>
-      <file name="Session.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/models/Session.js">
+      <file name="Session.js" path="/app/src/models/Session.js">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="8" type="stmt"/>
         <line num="3" count="8" type="stmt"/>
         <line num="31" count="8" type="stmt"/>
       </file>
-      <file name="UserPatient.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/models/UserPatient.js">
+      <file name="UserPatient.js" path="/app/src/models/UserPatient.js">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="8" type="stmt"/>
         <line num="3" count="8" type="stmt"/>
         <line num="152" count="8" type="stmt"/>
       </file>
-      <file name="WaitingList.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/models/WaitingList.js">
+      <file name="WaitingList.js" path="/app/src/models/WaitingList.js">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="8" type="stmt"/>
         <line num="3" count="8" type="stmt"/>
