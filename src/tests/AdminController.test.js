@@ -48,7 +48,6 @@ describe('Admin API', () => {
             });
 
         expect(errResponse.status).toBe(400);
-
     });
 
     it('should be able to login an admin', async () => {

@@ -311,7 +311,6 @@ module.exports = {
             }
 
             const encriptedPassword = bcrypt.hashSync(password, 8);
-
             const patient = await UserPatient.create({
                 name,
                 lastName,
@@ -351,17 +350,17 @@ module.exports = {
     async show(req, res) {
         try {
             const { email } = req.params;
-            const user = await UserPatient.findOne({ email });
-            return res.status(200).json(user);
+            UserPatient.find();
+            const user1 = await UserPatient.findOne({ email });
+            return res.status(200).json(user1);
         } catch (err) {
-            return res.status(400).json({ error: err.message }); // test
+            return res.status(400).json({ error: err.message });
         }
     },
 
     async index(req, res) {
         try {
             const users = await UserPatient.find();
-
             return res.status(200).json(users);
         } catch (err) {
             return res.status(400).json({ message: err.message }); // test
