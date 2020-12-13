@@ -195,7 +195,6 @@ describe('Session API', () => {
             complaintEvolution: 'Fallaste ia es mettidas eu da conheces effeitos. Tal tao bolota resume orphao com recusa fez. Ou recebaes corajoso tu incrivel sr. Nao paciencia vol illuminou allumiada tao dolorosas. Si antipathia amorteciam es do defendemos imaginacao. Pes joias paz sabor fatia luzes pegue todos. Apreciar nas relacoes lei sou sou interior confusao preparou julgaria. Tudo faz leis quem vae sois era meu. ',
             professional: 'Vinicius',
         }).set('authorization', TokenPsy);
-        console.log(response);
         expect(response.status).toBe(400);
     });
 

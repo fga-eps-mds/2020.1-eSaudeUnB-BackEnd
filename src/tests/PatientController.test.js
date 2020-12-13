@@ -450,21 +450,11 @@ describe('Patient API', () => {
         await request.post('/users').send(user1);
         const respose = await request.post('/login/patient').send({ email: user3.email, password: user3.password });
         const TokenPatient = respose.body.accessToken;
-<<<<<<< HEAD
         jest.spyOn(bcrypt, 'hashSync').mockImplementationOnce(() => { throw new Error(); });
         jest.spyOn(UserPatient, 'find').mockImplementationOnce(() => { throw new Error(); });
         jest.spyOn(UserPatient, 'deleteOne').mockImplementationOnce(() => { throw new Error(); });
         
         
-=======
-        jest.spyOn(bcrypt, 'hashSync').mockImplementation(() => { throw new Error(); });
-        jest.spyOn(UserPatient, 'find').mockImplementation(() => { throw new Error(); });
-        jest.spyOn(UserPatient, 'deleteOne').mockImplementation(() => { throw new Error(); });
-        const response1 = await request.post('/users').send(user1);
-        const response2 = await request
-            .get(`/user/${user1.email}`)
-            .set('authorization', TokenPatient);
->>>>>>> d1b2cd00398f390b00e677682bf02d9606a553cd
         const response3 = await request
             .get('/users')
             .set('authorization', TokenPatient);
