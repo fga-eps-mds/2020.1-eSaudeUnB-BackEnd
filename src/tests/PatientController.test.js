@@ -7,6 +7,7 @@ const Psychologist = require('../models/Psychologist');
 const PsychologistEmail = require('../config/Psychologist_email');
 const PatientEmail = require('../config/Patient_email');
 const ForgertPassword = require('../config/ForgetPassword_email');
+const CalculaScore = require('../config/CalculaScore');
 
 const app = require('../server');
 
@@ -363,18 +364,14 @@ describe('Patient API', () => {
 
         expect(response.status).toBe(203);
 
-        // const respose2 = await request.post('/login/patient')
-        // .send({ email: user3.email, password: user3.password });
-        // const TokenPatient2 = respose2.body.accessToken;
+        jest.spyOn(CalculaScore, 'calculateScore').mockImplementation(() => { throw new Error(); });
 
-        // jest.spyOn(UserPatient, 'findOne').mockImplementationOnce(() => {throw new Error()});
+        const response2 = await request
+            .put(`/user/${user3.email}`)
+            .send(user4)
+            .set('authorization', TokenPatient);
 
-        // const response2 = await request
-        //     .put(`/user/${user3.email}`)
-        //     .send(user1)
-        //     .set('authorization', TokenPatient2);
-
-        // expect(response2.status).toBe(400);
+        expect(response2.status).toBe(500);
     });
 
     it('should be able to update a user password', async () => {
@@ -418,15 +415,6 @@ describe('Patient API', () => {
             .set('authorization', TokenPatient);
 
         expect(responseUpdate2.status).toBe(500);
-
-        // jest.spyOn(UserPatient, 'findOne').mockImplementationOnce(() => {throw new Error()});
-
-        // const response2 = await request
-        //     .put(`/user/password/${user3.email}`)
-        //     .send({ oldPassword: user3.password, password: 'senha' })
-        //     .set('authorization', TokenPatient);
-
-        // expect(response2.status).toBe(500);
     });
 
     it('should be able forget Password', async () => {

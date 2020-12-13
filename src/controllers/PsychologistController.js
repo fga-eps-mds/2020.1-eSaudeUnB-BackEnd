@@ -6,6 +6,7 @@ const Psychologist = require('../models/Psychologist');
 const UserPatient = require('../models/UserPatient');
 const PsychologistEmail = require('../config/Psychologist_email');
 const Fgetpass = require('../config/ForgetPassword_email');
+const CalculaScore = require('../config/CalculaScore');
 
 const schema = Joi.object({
     name: Joi.string()
