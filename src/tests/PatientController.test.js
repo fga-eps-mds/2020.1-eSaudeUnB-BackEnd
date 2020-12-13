@@ -121,8 +121,7 @@ describe('Patient API', () => {
         const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
         const TokenAdmin = resposit.body.accessToken;
 
-
-        jest.spyOn(UserPatient, 'findOne').mockImplementationOnce(() => {throw new Error()});
+        jest.spyOn(UserPatient, 'findOne').mockImplementationOnce(() => { throw new Error(); });
 
         const response = await request.get(`/user/${user1.email}`).set('authorization', TokenAdmin);
 
@@ -167,11 +166,11 @@ describe('Patient API', () => {
         expect(response.status).toBe(203);
         expect(response2.status).toBe(409);
 
-        jest.spyOn(UserPatient, 'findOne').mockImplementationOnce(() => {throw new Error()});
+        jest.spyOn(UserPatient, 'findOne').mockImplementationOnce(() => { throw new Error(); });
 
         const response3 = await request.post('/users').send(user2);
 
-        expect (response3.status).toBe(400);
+        expect(response3.status).toBe(400);
     });
 
     it('should be able to delete a user', async () => {
@@ -364,9 +363,8 @@ describe('Patient API', () => {
 
         expect(response.status).toBe(203);
 
-
-
-        // const respose2 = await request.post('/login/patient').send({ email: user3.email, password: user3.password });
+        // const respose2 = await request.post('/login/patient')
+        // .send({ email: user3.email, password: user3.password });
         // const TokenPatient2 = respose2.body.accessToken;
 
         // jest.spyOn(UserPatient, 'findOne').mockImplementationOnce(() => {throw new Error()});
@@ -413,8 +411,6 @@ describe('Patient API', () => {
 
         expect(responseUpdate2.status).toBe(500);
 
-        
-
         // jest.spyOn(UserPatient, 'findOne').mockImplementationOnce(() => {throw new Error()});
 
         // const response2 = await request
@@ -423,8 +419,6 @@ describe('Patient API', () => {
         //     .set('authorization', TokenPatient);
 
         // expect(response2.status).toBe(500);
-        
-
     });
 
     it('should be able forget Password', async () => {
@@ -453,14 +447,13 @@ describe('Patient API', () => {
         jest.spyOn(bcrypt, 'hashSync').mockImplementationOnce(() => { throw new Error(); });
         jest.spyOn(UserPatient, 'find').mockImplementationOnce(() => { throw new Error(); });
         jest.spyOn(UserPatient, 'deleteOne').mockImplementationOnce(() => { throw new Error(); });
-        
-        
+
         const response3 = await request
             .get('/users')
             .set('authorization', TokenPatient);
         const response4 = await request
             .delete('/user').send({ email: user1.email });
-      
+
         const response6 = await request
             .put(`/user/password/${user3.email}`)
             .send({ oldPassword: user3.password, password: '12345678' })
@@ -478,14 +471,16 @@ describe('Patient API', () => {
         const TokenPatient = response.body.accessToken;
 
         const requestResponse = await request.put(`/user/schedule/${user3.email}`)
-        .send({appointments: [{
-            psychologist_id: "0001",
-            psychologistName: 'Jose',
-            weekDay: '3',
-            time: '15:00',
-            duration: '60',
-        }]})
-        .set('authorization', TokenPatient);
+            .send({
+                appointments: [{
+                    psychologist_id: '0001',
+                    psychologistName: 'Jose',
+                    weekDay: '3',
+                    time: '15:00',
+                    duration: '60',
+                }],
+            })
+            .set('authorization', TokenPatient);
 
         expect(requestResponse.status).toBe(200);
     });
@@ -496,17 +491,19 @@ describe('Patient API', () => {
         const response = await request.post('/login/patient').send({ email: user3.email, password: user3.password });
         const TokenPatient = response.body.accessToken;
 
-        jest.spyOn(UserPatient, 'findOne').mockImplementationOnce(() => {throw new Error()});
+        jest.spyOn(UserPatient, 'findOne').mockImplementationOnce(() => { throw new Error(); });
 
         const requestResponse = await request.put(`/user/schedule/${user3.email}`)
-        .send({appointments: [{
-            psychologist_id: "0001",
-            psychologistName: 'Jose',
-            weekDay: '3',
-            time: '15:00',
-            duration: '60',
-        }]})
-        .set('authorization', TokenPatient);
+            .send({
+                appointments: [{
+                    psychologist_id: '0001',
+                    psychologistName: 'Jose',
+                    weekDay: '3',
+                    time: '15:00',
+                    duration: '60',
+                }],
+            })
+            .set('authorization', TokenPatient);
 
         expect(requestResponse.status).toBe(500);
     });

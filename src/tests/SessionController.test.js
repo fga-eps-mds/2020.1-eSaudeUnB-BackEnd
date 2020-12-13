@@ -184,7 +184,6 @@ describe('Session API', () => {
         expect(response.status).toBe(200);
     });
 
-
     it('should be able to delete a session', async () => {
         const response2 = await request.post('/login/psychologist').send({ email: psyUser.email, password: '123456789' });
         const TokenPsy = response2.body.accessToken;
@@ -248,5 +247,4 @@ describe('Session API', () => {
         }).set('authorization', TokenPsy);
         expect(response.status).toBe(400);
     });
-
 });

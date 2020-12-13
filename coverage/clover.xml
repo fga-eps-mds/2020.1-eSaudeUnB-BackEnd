@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1607885311017" clover="3.2.0">
-  <project timestamp="1607885311017" name="All files">
-    <metrics statements="564" coveredstatements="557" conditionals="204" coveredconditionals="187" methods="41" coveredmethods="38" elements="809" coveredelements="782" complexity="0" loc="564" ncloc="564" packages="5" files="24" classes="24"/>
+<coverage generated="1607885793991" clover="3.2.0">
+  <project timestamp="1607885793991" name="All files">
+    <metrics statements="564" coveredstatements="558" conditionals="204" coveredconditionals="188" methods="41" coveredmethods="38" elements="809" coveredelements="784" complexity="0" loc="564" ncloc="564" packages="5" files="24" classes="24"/>
     <package name="src">
       <metrics statements="54" coveredstatements="54" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="routes.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/routes.js">
@@ -105,7 +105,7 @@
       </file>
     </package>
     <package name="src.controllers">
-      <metrics statements="420" coveredstatements="417" conditionals="176" coveredconditionals="160" methods="32" coveredmethods="32"/>
+      <metrics statements="420" coveredstatements="418" conditionals="176" coveredconditionals="161" methods="32" coveredmethods="32"/>
       <file name="AdminController.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/controllers/AdminController.js">
         <metrics statements="24" coveredstatements="24" conditionals="6" coveredconditionals="6" methods="2" coveredmethods="2"/>
         <line num="1" count="8" type="stmt"/>
@@ -349,7 +349,7 @@
         <line num="633" count="1" type="stmt"/>
       </file>
       <file name="PsychologistController.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/controllers/PsychologistController.js">
-        <metrics statements="91" coveredstatements="90" conditionals="34" coveredconditionals="26" methods="7" coveredmethods="7"/>
+        <metrics statements="91" coveredstatements="91" conditionals="34" coveredconditionals="27" methods="7" coveredmethods="7"/>
         <line num="1" count="8" type="stmt"/>
         <line num="2" count="8" type="stmt"/>
         <line num="5" count="8" type="stmt"/>
@@ -415,11 +415,11 @@
         <line num="217" count="1" type="stmt"/>
         <line num="218" count="1" type="stmt"/>
         <line num="220" count="1" type="stmt"/>
-        <line num="227" count="21" type="stmt"/>
-        <line num="228" count="21" type="stmt"/>
-        <line num="229" count="21" type="stmt"/>
-        <line num="230" count="21" type="cond" truecount="2" falsecount="0"/>
-        <line num="231" count="20" type="cond" truecount="1" falsecount="1"/>
+        <line num="227" count="22" type="stmt"/>
+        <line num="228" count="22" type="stmt"/>
+        <line num="229" count="22" type="stmt"/>
+        <line num="230" count="22" type="cond" truecount="2" falsecount="0"/>
+        <line num="231" count="21" type="cond" truecount="2" falsecount="0"/>
         <line num="233" count="20" type="stmt"/>
         <line num="236" count="20" type="cond" truecount="2" falsecount="0"/>
         <line num="237" count="1" type="stmt"/>
@@ -427,7 +427,7 @@
         <line num="240" count="19" type="stmt"/>
         <line num="241" count="19" type="stmt"/>
         <line num="242" count="19" type="stmt"/>
-        <line num="244" count="0" type="stmt"/>
+        <line num="244" count="1" type="stmt"/>
         <line num="246" count="1" type="stmt"/>
         <line num="248" count="1" type="stmt"/>
         <line num="255" count="2" type="stmt"/>
@@ -609,14 +609,14 @@
         <line num="3" count="8" type="stmt"/>
         <line num="4" count="8" type="stmt"/>
         <line num="6" count="8" type="stmt"/>
-        <line num="7" count="170" type="stmt"/>
-        <line num="8" count="170" type="stmt"/>
-        <line num="9" count="170" type="cond" truecount="2" falsecount="0"/>
+        <line num="7" count="171" type="stmt"/>
+        <line num="8" count="171" type="stmt"/>
+        <line num="9" count="171" type="cond" truecount="2" falsecount="0"/>
         <line num="10" count="1" type="stmt"/>
-        <line num="13" count="169" type="stmt"/>
-        <line num="14" count="168" type="cond" truecount="2" falsecount="0"/>
-        <line num="15" count="167" type="stmt"/>
-        <line num="16" count="167" type="stmt"/>
+        <line num="13" count="170" type="stmt"/>
+        <line num="14" count="169" type="cond" truecount="2" falsecount="0"/>
+        <line num="15" count="168" type="stmt"/>
+        <line num="16" count="168" type="stmt"/>
         <line num="19" count="1" type="stmt"/>
       </file>
     </package>

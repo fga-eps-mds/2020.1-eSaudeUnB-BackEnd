@@ -89,7 +89,7 @@ describe('Psychologist API', () => {
         const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
         const TokenAdmin = resposit.body.accessToken;
         const response = await request.post('/psychologist').send(user3).set('authorization', TokenAdmin);
-    
+
         expect(response.status).toBe(400);
     });
 
@@ -97,7 +97,7 @@ describe('Psychologist API', () => {
         const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
         const TokenAdmin = resposit.body.accessToken;
         await request.post('/psychologist').send(user2).set('authorization', TokenAdmin);
-    
+
         const response = await request.post('/psychologist').send(user2).set('authorization', TokenAdmin);
 
         expect(response.status).toBe(200);
@@ -226,13 +226,18 @@ describe('Psychologist API', () => {
 
         expect(responseValidate.status).toBe(203);
 
+        const responseIncorrectPass = await request
+            .put(`/psyUpdatePassword/${user1.email}`)
+            .send({ oldPassword: 'pass', password: 'monitor' }).set('authorization', TokenPsy);
+
+        expect(responseIncorrectPass.status).toBe(400);
+
         const responseDelete = await request
             .put(`/psyUpdatePassword/${null}`)
             .send({ oldPassword: psy.body.password, password: 'teste123' }).set('authorization', TokenPsy);
 
         expect(responseDelete.status).toBe(500);
     });
-
 
     it('should be able to forget Psychologist Password', async () => {
         const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
@@ -258,11 +263,10 @@ describe('Psychologist API', () => {
         const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
         const TokenAdmin = resposit.body.accessToken;
         await request.post('/psychologist').send(user1).set('authorization', TokenAdmin);
-        
-        
+
         jest.spyOn(Psychologist, 'find').mockImplementation(() => { throw new Error(); });
         jest.spyOn(Psychologist, 'findOne').mockImplementation(() => { throw new Error(); });
-       
+
         const response = await request
             .get(`/psychologist/${user1.email}`)
             .set('authorization', TokenAdmin);
@@ -270,9 +274,8 @@ describe('Psychologist API', () => {
             .get('/psychologists')
             .set('authorization', TokenAdmin);
 
-            expect(response.status).toBe(400);
-            expect(response2.status).toBe(400);
-        
+        expect(response.status).toBe(400);
+        expect(response2.status).toBe(400);
     });
     it('should not be able to destroy a psychologist', async () => {
         const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
