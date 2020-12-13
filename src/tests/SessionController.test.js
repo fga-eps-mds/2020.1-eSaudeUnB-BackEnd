@@ -158,7 +158,7 @@ describe('Session API', () => {
 
         expect(response.status).toBe(400);
     });
-    it('should not be able to list all sessions', async () => {
+    it('should not be able to list a session', async () => {
         const response2 = await request.post('/login/psychologist').send({ email: psyUser.email, password: '123456789' });
         const TokenPsy = response2.body.accessToken;
         await request.post('/users').send(user);
@@ -184,19 +184,6 @@ describe('Session API', () => {
         expect(response.status).toBe(200);
     });
 
-    it('should be able to update a session', async () => {
-        await request.post('/users').send(user);
-        const response2 = await request.post('/login/psychologist').send({ email: psyUser.email, password: '123456789' });
-        const TokenPsy = response2.body.accessToken;
-        await request.post('/session').send(session).set('authorization', TokenPsy);
-        const response = await request.put('/session').send({
-            mainComplaint: 'Teste update',
-            secondaryComplaint: 'Update teste',
-            complaintEvolution: 'Fallaste ia es mettidas eu da conheces effeitos. Tal tao bolota resume orphao com recusa fez. Ou recebaes corajoso tu incrivel sr. Nao paciencia vol illuminou allumiada tao dolorosas. Si antipathia amorteciam es do defendemos imaginacao. Pes joias paz sabor fatia luzes pegue todos. Apreciar nas relacoes lei sou sou interior confusao preparou julgaria. Tudo faz leis quem vae sois era meu. ',
-            professional: 'Vinicius',
-        }).set('authorization', TokenPsy);
-        expect(response.status).toBe(400);
-    });
 
     it('should be able to delete a session', async () => {
         const response2 = await request.post('/login/psychologist').send({ email: psyUser.email, password: '123456789' });
@@ -211,4 +198,55 @@ describe('Session API', () => {
 
         expect(response.status).toBe(200);
     });
+
+    it('should not be able to delete a session', async () => {
+        await request.post('/users').send(user);
+        const response2 = await request.post('/login/psychologist').send({ email: psyUser.email, password: '123456789' });
+        const TokenPsy = response2.body.accessToken;
+        const respose = await request.post('/session').send(session).set('authorization', TokenPsy);
+        const id = respose.body.sessions[0];
+        jest.spyOn(Session, 'findById').mockImplementationOnce(() => { throw new Error(); });
+        const responseError = await request.delete(`/session/${user.email}`).send({
+            id,
+        }).set('authorization', TokenPsy);
+
+        expect(responseError.status).toBe(400);
+    });
+    it('should be able to update a session', async () => {
+        await request.post('/users').send(user);
+        const response2 = await request.post('/login/psychologist').send({ email: psyUser.email, password: '123456789' });
+        const TokenPsy = response2.body.accessToken;
+
+        const respose = await request.post('/session').send(session).set('authorization', TokenPsy);
+        const id = respose.body.sessions[0];
+
+        const response = await request.put('/session').send({
+            id,
+            mainComplaint: ' update',
+            secondaryComplaint: 'Update teste',
+            complaintEvolution: 'Fallaste ia es mettidas eu da conheces effeitos. Tal tao bolota resume orphao com recusa fez. Ou recebaes corajoso tu incrivel sr. Nao paciencia vol illuminou allumiada tao dolorosas. Si antipathia amorteciam es do defendemos imaginacao. Pes joias paz sabor fatia luzes pegue todos. Apreciar nas relacoes lei sou sou interior confusao preparou julgaria. Tudo faz leis quem vae sois era meu. ',
+            professional: 'Hilmer',
+            date: '2020-2-20',
+        }).set('authorization', TokenPsy);
+        expect(response.status).toBe(200);
+    });
+    it('should not be able to update a session', async () => {
+        await request.post('/users').send(user);
+        const response2 = await request.post('/login/psychologist').send({ email: psyUser.email, password: '123456789' });
+        const TokenPsy = response2.body.accessToken;
+
+        const respose = await request.post('/session').send(session).set('authorization', TokenPsy);
+        const id = respose.body.sessions[0];
+        jest.spyOn(Session, 'findOneAndUpdate').mockImplementationOnce(() => { throw new Error(); });
+        const response = await request.put('/session').send({
+            id,
+            mainComplaint: ' update',
+            secondaryComplaint: 'Update teste',
+            complaintEvolution: 'Fallaste ia es mettidas eu da conheces effeitos. Tal tao bolota resume orphao com recusa fez. Ou recebaes corajoso tu incrivel sr. Nao paciencia vol illuminou allumiada tao dolorosas. Si antipathia amorteciam es do defendemos imaginacao. Pes joias paz sabor fatia luzes pegue todos. Apreciar nas relacoes lei sou sou interior confusao preparou julgaria. Tudo faz leis quem vae sois era meu. ',
+            professional: 'Hilmer',
+            date: '2020-2-20',
+        }).set('authorization', TokenPsy);
+        expect(response.status).toBe(400);
+    });
+
 });

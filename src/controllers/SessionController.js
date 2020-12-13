@@ -93,7 +93,7 @@ module.exports = {
                 professional,
             } = req.body;
 
-            await Session.findByidAndUpdate(id, {
+            await Session.findOneAndUpdate(id, {
                 mainComplaint,
                 secondaryComplaint,
                 complaintEvolution,
