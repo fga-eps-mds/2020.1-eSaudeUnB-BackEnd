@@ -377,13 +377,15 @@ describe('Patient API', () => {
 
     it('should be able to throw a user', async () => {
         await request.post('/users').send(user3);
+        await request.post('/users').send(user1);
         const respose = await request.post('/login/patient').send({ email: user3.email, password: user3.password });
         const TokenPatient = respose.body.accessToken;
-        jest.spyOn(bcrypt, 'hashSync').mockImplementation(() => { throw new Error(); });
-        jest.spyOn(UserPatient, 'find').mockImplementation(() => { throw new Error(); });
-        jest.spyOn(UserPatient, 'deleteOne').mockImplementation(() => { throw new Error(); });
-        const response1 = await request.post('/users').send(user1);
-        // jest.spyOn(UserPatient, 'findOne').mockReturnValue(new Error());
+        jest.spyOn(bcrypt, 'hashSync').mockImplementationOnce(() => { throw new Error(); });
+        jest.spyOn(UserPatient, 'find').mockImplementationOnce(() => { throw new Error(); });
+        jest.spyOn(UserPatient, 'findOne').mockImplementationOnce(() => { throw new Error()});
+        jest.spyOn(UserPatient, 'deleteOne').mockImplementationOnce(() => { throw new Error(); });
+        
+        
         const response2 = await request
             .get(`/user/${user1.email}`)
             .set('authorization', TokenPatient);
@@ -392,23 +394,16 @@ describe('Patient API', () => {
             .set('authorization', TokenPatient);
         const response4 = await request
             .delete('/user').send({ email: user1.email });
-        const response5 = await request
-            .put(`/user/${user1.email}`).send({
-                name: 'Rafael',
-                lastName: 'Leão',
-                email: 'rafael@user.com',
-                mainComplaint: 'Problemas de saude',
-            })
-            .set('authorization', TokenPatient);
+      
         const response6 = await request
             .put(`/user/password/${user3.email}`)
             .send({ oldPassword: user3.password, password: '12345678' })
             .set('authorization', TokenPatient);
-        expect(response1.status).toBe(400);
+
         expect(response2.status).toBe(400);
         expect(response3.status).toBe(400);
         expect(response4.status).toBe(400);
-        expect(response5.status).toBe(500);
+
         expect(response6.status).toBe(500);
     });
     it('should be able to update user appointments', async () => {

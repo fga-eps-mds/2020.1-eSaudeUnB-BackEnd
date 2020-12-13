@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1607802768254" clover="3.2.0">
-  <project timestamp="1607802768256" name="All files">
-    <metrics statements="564" coveredstatements="531" conditionals="204" coveredconditionals="178" methods="41" coveredmethods="37" elements="809" coveredelements="746" complexity="0" loc="564" ncloc="564" packages="5" files="24" classes="24"/>
+<coverage generated="1607866832649" clover="3.2.0">
+  <project timestamp="1607866832650" name="All files">
+    <metrics statements="564" coveredstatements="537" conditionals="204" coveredconditionals="178" methods="41" coveredmethods="38" elements="809" coveredelements="753" complexity="0" loc="564" ncloc="564" packages="5" files="24" classes="24"/>
     <package name="src">
       <metrics statements="54" coveredstatements="54" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="routes.js" path="/app/src/routes.js">
@@ -105,7 +105,7 @@
       </file>
     </package>
     <package name="src.controllers">
-      <metrics statements="420" coveredstatements="396" conditionals="176" coveredconditionals="153" methods="32" coveredmethods="31"/>
+      <metrics statements="420" coveredstatements="402" conditionals="176" coveredconditionals="153" methods="32" coveredmethods="32"/>
       <file name="AdminController.js" path="/app/src/controllers/AdminController.js">
         <metrics statements="24" coveredstatements="24" conditionals="6" coveredconditionals="6" methods="2" coveredmethods="2"/>
         <line num="1" count="8" type="stmt"/>
@@ -145,12 +145,12 @@
         <line num="10" count="12" type="stmt"/>
         <line num="11" count="12" type="stmt"/>
         <line num="13" count="12" type="cond" truecount="2" falsecount="0"/>
-        <line num="14" count="9" type="cond" truecount="2" falsecount="0"/>
-        <line num="15" count="8" type="stmt"/>
-        <line num="23" count="8" type="stmt"/>
+        <line num="14" count="10" type="cond" truecount="2" falsecount="0"/>
+        <line num="15" count="9" type="stmt"/>
+        <line num="23" count="9" type="stmt"/>
         <line num="28" count="1" type="stmt"/>
-        <line num="30" count="3" type="stmt"/>
-        <line num="32" count="3" type="stmt"/>
+        <line num="30" count="2" type="stmt"/>
+        <line num="32" count="2" type="stmt"/>
         <line num="37" count="17" type="stmt"/>
         <line num="38" count="17" type="stmt"/>
         <line num="40" count="17" type="stmt"/>
@@ -163,7 +163,7 @@
         <line num="62" count="2" type="stmt"/>
       </file>
       <file name="PatientController.js" path="/app/src/controllers/PatientController.js">
-        <metrics statements="183" coveredstatements="172" conditionals="112" coveredconditionals="102" methods="9" coveredmethods="8"/>
+        <metrics statements="183" coveredstatements="178" conditionals="112" coveredconditionals="102" methods="9" coveredmethods="9"/>
         <line num="1" count="8" type="stmt"/>
         <line num="2" count="8" type="stmt"/>
         <line num="3" count="8" type="stmt"/>
@@ -232,15 +232,15 @@
         <line num="309" count="26" type="cond" truecount="2" falsecount="0"/>
         <line num="310" count="1" type="stmt"/>
         <line num="313" count="25" type="stmt"/>
-        <line num="315" count="23" type="stmt"/>
-        <line num="343" count="23" type="stmt"/>
-        <line num="345" count="23" type="stmt"/>
-        <line num="347" count="3" type="stmt"/>
+        <line num="315" count="25" type="stmt"/>
+        <line num="343" count="25" type="stmt"/>
+        <line num="345" count="25" type="stmt"/>
+        <line num="347" count="1" type="stmt"/>
         <line num="352" count="2" type="stmt"/>
         <line num="353" count="2" type="stmt"/>
         <line num="354" count="2" type="stmt"/>
-        <line num="355" count="2" type="stmt"/>
-        <line num="357" count="0" type="stmt"/>
+        <line num="355" count="1" type="stmt"/>
+        <line num="357" count="1" type="stmt"/>
         <line num="362" count="2" type="stmt"/>
         <line num="363" count="2" type="stmt"/>
         <line num="365" count="1" type="stmt"/>
@@ -250,17 +250,17 @@
         <line num="375" count="2" type="stmt"/>
         <line num="377" count="1" type="stmt"/>
         <line num="381" count="1" type="stmt"/>
-        <line num="386" count="16" type="stmt"/>
-        <line num="411" count="16" type="stmt"/>
-        <line num="413" count="16" type="stmt"/>
-        <line num="415" count="16" type="stmt"/>
-        <line num="442" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="386" count="15" type="stmt"/>
+        <line num="411" count="15" type="stmt"/>
+        <line num="413" count="15" type="stmt"/>
+        <line num="415" count="15" type="stmt"/>
+        <line num="442" count="15" type="cond" truecount="2" falsecount="0"/>
         <line num="443" count="1" type="stmt"/>
-        <line num="446" count="15" type="stmt"/>
-        <line num="472" count="15" type="stmt"/>
-        <line num="476" count="15" type="cond" truecount="2" falsecount="0"/>
+        <line num="446" count="14" type="stmt"/>
+        <line num="472" count="14" type="stmt"/>
+        <line num="476" count="14" type="cond" truecount="2" falsecount="0"/>
         <line num="477" count="1" type="stmt"/>
-        <line num="480" count="15" type="cond" truecount="1" falsecount="1"/>
+        <line num="480" count="14" type="cond" truecount="1" falsecount="1"/>
         <line num="481" count="14" type="stmt"/>
         <line num="490" count="14" type="cond" truecount="1" falsecount="1"/>
         <line num="491" count="14" type="stmt"/>
@@ -311,13 +311,13 @@
         <line num="560" count="14" type="cond" truecount="1" falsecount="1"/>
         <line num="562" count="14" type="stmt"/>
         <line num="563" count="14" type="stmt"/>
-        <line num="565" count="1" type="stmt"/>
-        <line num="570" count="0" type="stmt"/>
-        <line num="571" count="0" type="stmt"/>
-        <line num="573" count="0" type="stmt"/>
-        <line num="577" count="0" type="stmt"/>
-        <line num="579" count="0" type="stmt"/>
-        <line num="581" count="0" type="stmt"/>
+        <line num="565" count="0" type="stmt"/>
+        <line num="570" count="1" type="stmt"/>
+        <line num="571" count="1" type="stmt"/>
+        <line num="573" count="1" type="stmt"/>
+        <line num="577" count="1" type="stmt"/>
+        <line num="579" count="1" type="stmt"/>
+        <line num="581" count="1" type="stmt"/>
         <line num="583" count="0" type="stmt"/>
         <line num="588" count="2" type="stmt"/>
         <line num="589" count="2" type="stmt"/>
@@ -574,17 +574,17 @@
         <line num="2" count="8" type="stmt"/>
         <line num="3" count="8" type="stmt"/>
         <line num="5" count="8" type="stmt"/>
-        <line num="6" count="20" type="stmt"/>
-        <line num="7" count="20" type="stmt"/>
-        <line num="8" count="19" type="cond" truecount="2" falsecount="0"/>
+        <line num="6" count="19" type="stmt"/>
+        <line num="7" count="19" type="stmt"/>
+        <line num="8" count="18" type="cond" truecount="2" falsecount="0"/>
         <line num="9" count="1" type="stmt"/>
         <line num="10" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="11" count="1" type="stmt"/>
-        <line num="14" count="19" type="stmt"/>
-        <line num="15" count="19" type="cond" truecount="4" falsecount="0"/>
+        <line num="14" count="18" type="stmt"/>
+        <line num="15" count="18" type="cond" truecount="4" falsecount="0"/>
         <line num="16" count="1" type="stmt"/>
         <line num="19" count="0" type="stmt"/>
-        <line num="21" count="18" type="stmt"/>
+        <line num="21" count="17" type="stmt"/>
       </file>
       <file name="isPsychologist.js" path="/app/src/middlewares/isPsychologist.js">
         <metrics statements="15" coveredstatements="14" conditionals="10" coveredconditionals="9" methods="1" coveredmethods="1"/>
