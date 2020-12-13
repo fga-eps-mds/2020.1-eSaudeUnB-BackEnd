@@ -116,19 +116,57 @@ describe('Session API', () => {
         expect(response.status).toBe(201);
     });
 
-    it('should be able to list all sessions', async () => {
+    it('should not be able to register a new session', async () => {
+        await request.post('/users').send(user);
+        const response2 = await request.post('/login/psychologist').send({ email: psyUser.email, password: '123456789' });
+        const TokenPsy = response2.body.accessToken;
+
+        const response = await request.post('/session').send({
+            email: 'email@email.com',
+            mainComplaint: 'testing api',
+            secondaryComplaint: 'testing api',
+            complaintEvolution: 'Fallaste ia es mettidas eu da conheces effeitos.',
+            professional: 'Pedro Henrique',
+            date: null,
+        }).set('authorization', TokenPsy);
+        expect(response.status).toBe(404);
+    });
+    it('should not be able to list all sessions', async () => {
         const response2 = await request.post('/login/psychologist').send({ email: psyUser.email, password: '123456789' });
         const TokenPsy = response2.body.accessToken;
         const responseError = await request.get('/sessions/test@email.com').set('authorization', TokenPsy);
 
         expect(responseError.status).toBe(404);
-
+    });
+    it('should be able to list all sessions', async () => {
+        const response2 = await request.post('/login/psychologist').send({ email: psyUser.email, password: '123456789' });
+        const TokenPsy = response2.body.accessToken;
         await request.post('/users').send(user);
         await request.post('/session').send(session).set('authorization', TokenPsy);
 
-        const response = await request.get('/sessions/email@email.com').set('authorization', TokenPsy);
+        const response = await request.get(`/sessions/${user.email}`).set('authorization', TokenPsy);
 
         expect(response.status).toBe(200);
+    });
+    it('should not be able to list all sessions', async () => {
+        const response2 = await request.post('/login/psychologist').send({ email: psyUser.email, password: '123456789' });
+        const TokenPsy = response2.body.accessToken;
+        await request.post('/users').send(user);
+        await request.post('/session').send(session).set('authorization', TokenPsy);
+        jest.spyOn(UserPatient, 'findOne').mockImplementationOnce(() => { throw new Error(); });
+        const response = await request.get(`/sessions/${user.email}`).set('authorization', TokenPsy);
+
+        expect(response.status).toBe(400);
+    });
+    it('should not be able to list all sessions', async () => {
+        const response2 = await request.post('/login/psychologist').send({ email: psyUser.email, password: '123456789' });
+        const TokenPsy = response2.body.accessToken;
+        await request.post('/users').send(user);
+        await request.post('/session').send(session).set('authorization', TokenPsy);
+        jest.spyOn(UserPatient, 'findOne').mockImplementationOnce(() => { throw new Error(); });
+        const response = await request.get(`/session/${user.email}`).set('authorization', TokenPsy);
+
+        expect(response.status).toBe(400);
     });
 
     it('should be able to list 4 sessions', async () => {
@@ -157,7 +195,7 @@ describe('Session API', () => {
             complaintEvolution: 'Fallaste ia es mettidas eu da conheces effeitos. Tal tao bolota resume orphao com recusa fez. Ou recebaes corajoso tu incrivel sr. Nao paciencia vol illuminou allumiada tao dolorosas. Si antipathia amorteciam es do defendemos imaginacao. Pes joias paz sabor fatia luzes pegue todos. Apreciar nas relacoes lei sou sou interior confusao preparou julgaria. Tudo faz leis quem vae sois era meu. ',
             professional: 'Vinicius',
         }).set('authorization', TokenPsy);
-
+        console.log(response);
         expect(response.status).toBe(400);
     });
 
