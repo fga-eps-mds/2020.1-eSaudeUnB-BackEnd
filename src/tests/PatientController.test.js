@@ -383,6 +383,7 @@ describe('Patient API', () => {
         const response = await request.post('/login/patient').send({ email: user3.email, password: user3.password });
         const TokenPatient = response.body.accessToken;
 
+
         const responseUpdate = await request
             .put(`/user/password/${user3.email}`)
             .send({ oldPassword: user3.password, password: '12345678' })
@@ -403,6 +404,13 @@ describe('Patient API', () => {
             .set('authorization', TokenPatient);
 
         expect(responseUpdate.status).toBe(203);
+
+        const responseincorrectpass = await request
+            .put(`/user/password/${user3.email}`)
+            .send({ oldPassword: 'ola mundo', password: '12345678' })
+            .set('authorization', TokenPatient);
+
+        expect(responseincorrectpass.status).toBe(400);
 
         const responseUpdate2 = await request
             .put(`/user/password/${null}`)
