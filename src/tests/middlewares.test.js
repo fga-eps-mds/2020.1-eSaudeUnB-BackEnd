@@ -4,11 +4,9 @@ const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 const app = require('../server');
 const UserPatient = require('../models/UserPatient');
-const Admin = require('../models/Admin');
 const PatientEmail = require('../config/Patient_email');
 const Psychologist = require('../models/Psychologist');
 const PsychologistEmail = require('../config/Psychologist_email');
-const PsychologistController = require('../controllers/PsychologistController');
 
 const request = supertest(app);
 
@@ -107,11 +105,10 @@ describe('Middlewares API', () => {
         await request.post('/psychologist').send(psy1).set('authorization', TokenAdmin);
 
         const psy = await request.get(`/psychologist/${psy1.email}`).set('authorization', TokenAdmin);
-
         const PsyLogin = await request.post('/login/psychologist').send({ email: psy.body.email, password: psy.body.password });
         const PsyToken = PsyLogin.body.accessToken;
 
-        const response = await request.post('/psychologist').send(psy1).set('authorization', PsyToken);
+        const response = await request.post('/psychologist').send(psy2).set('authorization', PsyToken);
 
         expect(response.status).toBe(401);
     });
@@ -204,5 +201,4 @@ describe('Middlewares API', () => {
 
         expect(response.status).toBe(401);
     });
-
 });
