@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/15</span>
+                <span class='fraction'>10/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>4/10</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/15</span>
+                <span class='fraction'>10/15</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -80,28 +80,28 @@
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const Admin = require('../models/Admin');
 const UserPatient = require('../models/UserPatient');
@@ -110,19 +110,19 @@ const Psychologist = require('../models/Psychologist');
 module.exports = async (req, res, next) =&gt; {
     const email = req.userEmail;
     let user = await Psychologist.findOne({ email });
-    if (user === null) {
-        user = await UserPatient.findOne({ email });
-        if (user === null) {
-            user = await Admin.findOne({ email });
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (user === null) {
+<span class="cstat-no" title="statement not covered" >        user = await UserPatient.findOne({ email });</span>
+<span class="cstat-no" title="statement not covered" >        if (user === null) {</span>
+<span class="cstat-no" title="statement not covered" >            user = await Admin.findOne({ email });</span>
         }
     }
     try {
-        if ((user.bond !== 'Psicologo' &amp;&amp; user.bond !== 'Nutricionista'
-            &amp;&amp; user.bond !== 'Assistente Social') || !user.bond) {
-            return res.status(401).json({ error: 'you are not a psychologist,Nutritionist or Care worker' });
+        <span class="missing-if-branch" title="if path not taken" >I</span>if ((user.bond !== 'Psicologo' &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >user.bond !== 'Nutricionista'</span>
+            &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >user.bond !== 'Assistente Social')</span> || !user.bond) {
+<span class="cstat-no" title="statement not covered" >            return res.status(401).json({ error: 'you are not a psychologist,Nutritionist or Care worker' });</span>
         }
     } catch (err) {
-        return res.status(401).json({ error: 'error in verify you credential of access' }); // test
+<span class="cstat-no" title="statement not covered" >        return res.status(401).json({ error: 'error in verify you credential of access' }); </span>// test
     }
     return next();
 };
@@ -133,7 +133,7 @@ module.exports = async (req, res, next) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Dec 13 2020 10:34:42 GMT-0300 (Horário Padrão de Brasília)
+                at Sun Dec 13 2020 11:22:05 GMT-0300 (Horário Padrão de Brasília)
             </div>
         </div>
         <script src="../../prettify.js"></script>

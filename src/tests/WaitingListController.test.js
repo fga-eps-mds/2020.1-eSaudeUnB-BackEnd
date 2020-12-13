@@ -1,12 +1,8 @@
 const mongoose = require('mongoose');
 const supertest = require('supertest');
-const nodemailer = require('nodemailer');
 const Psychologist = require('../models/Psychologist');
 const UserPatient = require('../models/UserPatient');
 const WaitingList = require('../models/WaitingList');
-const PsychologistEmailUtil = require('../config/Psychologist_email');
-const PatientEmailUtil = require('../config/Patient_email');
-const ForgertPasswordUtil = require('../config/ForgetPassword_email');
 const WaitinglistemailUtil = require('../config/Waitinglist_email');
 
 const app = require('../server');
