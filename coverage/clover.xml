@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1607884860754" clover="3.2.0">
-  <project timestamp="1607884860754" name="All files">
-    <metrics statements="564" coveredstatements="555" conditionals="204" coveredconditionals="187" methods="41" coveredmethods="38" elements="809" coveredelements="780" complexity="0" loc="564" ncloc="564" packages="5" files="24" classes="24"/>
+<coverage generated="1607885311017" clover="3.2.0">
+  <project timestamp="1607885311017" name="All files">
+    <metrics statements="564" coveredstatements="557" conditionals="204" coveredconditionals="187" methods="41" coveredmethods="38" elements="809" coveredelements="782" complexity="0" loc="564" ncloc="564" packages="5" files="24" classes="24"/>
     <package name="src">
       <metrics statements="54" coveredstatements="54" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="routes.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/routes.js">
@@ -105,7 +105,7 @@
       </file>
     </package>
     <package name="src.controllers">
-      <metrics statements="420" coveredstatements="415" conditionals="176" coveredconditionals="160" methods="32" coveredmethods="32"/>
+      <metrics statements="420" coveredstatements="417" conditionals="176" coveredconditionals="160" methods="32" coveredmethods="32"/>
       <file name="AdminController.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/controllers/AdminController.js">
         <metrics statements="24" coveredstatements="24" conditionals="6" coveredconditionals="6" methods="2" coveredmethods="2"/>
         <line num="1" count="8" type="stmt"/>
@@ -113,22 +113,22 @@
         <line num="3" count="8" type="stmt"/>
         <line num="5" count="8" type="stmt"/>
         <line num="7" count="8" type="stmt"/>
-        <line num="9" count="52" type="stmt"/>
-        <line num="10" count="52" type="stmt"/>
-        <line num="12" count="52" type="stmt"/>
-        <line num="14" count="52" type="cond" truecount="2" falsecount="0"/>
-        <line num="15" count="47" type="stmt"/>
+        <line num="9" count="54" type="stmt"/>
+        <line num="10" count="54" type="stmt"/>
+        <line num="12" count="54" type="stmt"/>
+        <line num="14" count="54" type="cond" truecount="2" falsecount="0"/>
+        <line num="15" count="49" type="stmt"/>
         <line num="18" count="5" type="stmt"/>
         <line num="20" count="4" type="stmt"/>
         <line num="26" count="4" type="stmt"/>
         <line num="28" count="1" type="stmt"/>
-        <line num="33" count="51" type="stmt"/>
-        <line num="34" count="51" type="stmt"/>
-        <line num="35" count="51" type="stmt"/>
-        <line num="37" count="51" type="cond" truecount="2" falsecount="0"/>
-        <line num="38" count="50" type="cond" truecount="2" falsecount="0"/>
-        <line num="39" count="49" type="stmt"/>
-        <line num="43" count="49" type="stmt"/>
+        <line num="33" count="53" type="stmt"/>
+        <line num="34" count="53" type="stmt"/>
+        <line num="35" count="53" type="stmt"/>
+        <line num="37" count="53" type="cond" truecount="2" falsecount="0"/>
+        <line num="38" count="52" type="cond" truecount="2" falsecount="0"/>
+        <line num="39" count="51" type="stmt"/>
+        <line num="43" count="51" type="stmt"/>
         <line num="48" count="1" type="stmt"/>
         <line num="50" count="1" type="stmt"/>
         <line num="52" count="1" type="stmt"/>
@@ -151,13 +151,13 @@
         <line num="28" count="1" type="stmt"/>
         <line num="30" count="2" type="stmt"/>
         <line num="32" count="2" type="stmt"/>
-        <line num="37" count="24" type="stmt"/>
-        <line num="38" count="24" type="stmt"/>
-        <line num="40" count="24" type="stmt"/>
-        <line num="42" count="24" type="cond" truecount="2" falsecount="0"/>
-        <line num="44" count="22" type="cond" truecount="2" falsecount="0"/>
-        <line num="45" count="21" type="stmt"/>
-        <line num="53" count="21" type="stmt"/>
+        <line num="37" count="26" type="stmt"/>
+        <line num="38" count="26" type="stmt"/>
+        <line num="40" count="26" type="stmt"/>
+        <line num="42" count="26" type="cond" truecount="2" falsecount="0"/>
+        <line num="44" count="24" type="cond" truecount="2" falsecount="0"/>
+        <line num="45" count="23" type="stmt"/>
+        <line num="53" count="23" type="stmt"/>
         <line num="58" count="1" type="stmt"/>
         <line num="60" count="2" type="stmt"/>
         <line num="62" count="2" type="stmt"/>
@@ -359,22 +359,22 @@
         <line num="10" count="8" type="stmt"/>
         <line num="52" count="8" type="stmt"/>
         <line num="59" count="8" type="stmt"/>
-        <line num="61" count="37" type="stmt"/>
-        <line num="62" count="37" type="stmt"/>
-        <line num="74" count="37" type="stmt"/>
-        <line num="76" count="37" type="stmt"/>
-        <line num="77" count="35" type="stmt"/>
-        <line num="79" count="35" type="cond" truecount="4" falsecount="0"/>
+        <line num="61" count="39" type="stmt"/>
+        <line num="62" count="39" type="stmt"/>
+        <line num="74" count="39" type="stmt"/>
+        <line num="76" count="39" type="stmt"/>
+        <line num="77" count="37" type="stmt"/>
+        <line num="79" count="37" type="cond" truecount="4" falsecount="0"/>
         <line num="80" count="1" type="stmt"/>
-        <line num="83" count="34" type="stmt"/>
-        <line num="98" count="34" type="stmt"/>
-        <line num="112" count="33" type="stmt"/>
-        <line num="113" count="33" type="stmt"/>
+        <line num="83" count="36" type="stmt"/>
+        <line num="98" count="36" type="stmt"/>
+        <line num="112" count="35" type="stmt"/>
+        <line num="113" count="35" type="stmt"/>
         <line num="115" count="3" type="stmt"/>
-        <line num="120" count="25" type="stmt"/>
-        <line num="121" count="25" type="stmt"/>
-        <line num="122" count="25" type="stmt"/>
-        <line num="124" count="24" type="stmt"/>
+        <line num="120" count="27" type="stmt"/>
+        <line num="121" count="27" type="stmt"/>
+        <line num="122" count="27" type="stmt"/>
+        <line num="124" count="26" type="stmt"/>
         <line num="126" count="1" type="stmt"/>
         <line num="131" count="2" type="stmt"/>
         <line num="132" count="2" type="stmt"/>
@@ -415,18 +415,18 @@
         <line num="217" count="1" type="stmt"/>
         <line num="218" count="1" type="stmt"/>
         <line num="220" count="1" type="stmt"/>
-        <line num="227" count="19" type="stmt"/>
-        <line num="228" count="19" type="stmt"/>
-        <line num="229" count="19" type="stmt"/>
-        <line num="230" count="19" type="cond" truecount="2" falsecount="0"/>
-        <line num="231" count="18" type="cond" truecount="1" falsecount="1"/>
-        <line num="233" count="18" type="stmt"/>
-        <line num="236" count="18" type="cond" truecount="2" falsecount="0"/>
+        <line num="227" count="21" type="stmt"/>
+        <line num="228" count="21" type="stmt"/>
+        <line num="229" count="21" type="stmt"/>
+        <line num="230" count="21" type="cond" truecount="2" falsecount="0"/>
+        <line num="231" count="20" type="cond" truecount="1" falsecount="1"/>
+        <line num="233" count="20" type="stmt"/>
+        <line num="236" count="20" type="cond" truecount="2" falsecount="0"/>
         <line num="237" count="1" type="stmt"/>
-        <line num="239" count="17" type="stmt"/>
-        <line num="240" count="17" type="stmt"/>
-        <line num="241" count="17" type="stmt"/>
-        <line num="242" count="17" type="stmt"/>
+        <line num="239" count="19" type="stmt"/>
+        <line num="240" count="19" type="stmt"/>
+        <line num="241" count="19" type="stmt"/>
+        <line num="242" count="19" type="stmt"/>
         <line num="244" count="0" type="stmt"/>
         <line num="246" count="1" type="stmt"/>
         <line num="248" count="1" type="stmt"/>
@@ -443,24 +443,24 @@
         <line num="268" count="1" type="stmt"/>
       </file>
       <file name="PsychologyCalendary.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/controllers/PsychologyCalendary.js">
-        <metrics statements="22" coveredstatements="20" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
+        <metrics statements="22" coveredstatements="22" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
         <line num="1" count="8" type="stmt"/>
         <line num="3" count="8" type="stmt"/>
-        <line num="5" count="3" type="stmt"/>
-        <line num="6" count="3" type="stmt"/>
-        <line num="7" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="8" count="1" type="stmt"/>
+        <line num="5" count="4" type="stmt"/>
+        <line num="6" count="4" type="stmt"/>
+        <line num="7" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="8" count="2" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
         <line num="16" count="2" type="cond" truecount="2" falsecount="0"/>
         <line num="17" count="1" type="stmt"/>
         <line num="23" count="1" type="stmt"/>
         <line num="25" count="1" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="31" count="1" type="stmt"/>
-        <line num="32" count="1" type="stmt"/>
-        <line num="33" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="31" count="2" type="stmt"/>
+        <line num="32" count="2" type="stmt"/>
+        <line num="33" count="2" type="stmt"/>
         <line num="34" count="1" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
         <line num="40" count="2" type="stmt"/>
         <line num="41" count="2" type="stmt"/>
         <line num="42" count="2" type="stmt"/>
@@ -556,17 +556,17 @@
         <line num="2" count="8" type="stmt"/>
         <line num="3" count="8" type="stmt"/>
         <line num="5" count="8" type="stmt"/>
-        <line num="6" count="42" type="stmt"/>
-        <line num="7" count="42" type="stmt"/>
-        <line num="8" count="42" type="stmt"/>
-        <line num="9" count="42" type="cond" truecount="2" falsecount="0"/>
+        <line num="6" count="44" type="stmt"/>
+        <line num="7" count="44" type="stmt"/>
+        <line num="8" count="44" type="stmt"/>
+        <line num="9" count="44" type="cond" truecount="2" falsecount="0"/>
         <line num="10" count="3" type="stmt"/>
         <line num="11" count="2" type="cond" truecount="2" falsecount="0"/>
         <line num="12" count="1" type="stmt"/>
-        <line num="15" count="41" type="cond" truecount="2" falsecount="0"/>
+        <line num="15" count="43" type="cond" truecount="2" falsecount="0"/>
         <line num="16" count="2" type="stmt"/>
         <line num="19" count="1" type="stmt"/>
-        <line num="21" count="39" type="stmt"/>
+        <line num="21" count="41" type="stmt"/>
       </file>
       <file name="isPatient.js" path="/home/marques/Documents/UNB/MDS/2020.1-eSaudeUnB-BackEnd/src/middlewares/isPatient.js">
         <metrics statements="15" coveredstatements="15" conditionals="8" coveredconditionals="7" methods="1" coveredmethods="1"/>
@@ -609,14 +609,14 @@
         <line num="3" count="8" type="stmt"/>
         <line num="4" count="8" type="stmt"/>
         <line num="6" count="8" type="stmt"/>
-        <line num="7" count="162" type="stmt"/>
-        <line num="8" count="162" type="stmt"/>
-        <line num="9" count="162" type="cond" truecount="2" falsecount="0"/>
+        <line num="7" count="170" type="stmt"/>
+        <line num="8" count="170" type="stmt"/>
+        <line num="9" count="170" type="cond" truecount="2" falsecount="0"/>
         <line num="10" count="1" type="stmt"/>
-        <line num="13" count="161" type="stmt"/>
-        <line num="14" count="160" type="cond" truecount="2" falsecount="0"/>
-        <line num="15" count="159" type="stmt"/>
-        <line num="16" count="159" type="stmt"/>
+        <line num="13" count="169" type="stmt"/>
+        <line num="14" count="168" type="cond" truecount="2" falsecount="0"/>
+        <line num="15" count="167" type="stmt"/>
+        <line num="16" count="167" type="stmt"/>
         <line num="19" count="1" type="stmt"/>
       </file>
     </package>
