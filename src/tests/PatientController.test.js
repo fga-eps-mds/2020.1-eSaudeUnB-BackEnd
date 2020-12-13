@@ -383,7 +383,6 @@ describe('Patient API', () => {
         jest.spyOn(UserPatient, 'find').mockImplementation(() => { throw new Error(); });
         jest.spyOn(UserPatient, 'deleteOne').mockImplementation(() => { throw new Error(); });
         const response1 = await request.post('/users').send(user1);
-        // jest.spyOn(UserPatient, 'findOne').mockReturnValue(new Error());
         const response2 = await request
             .get(`/user/${user1.email}`)
             .set('authorization', TokenPatient);
