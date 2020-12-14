@@ -16,6 +16,6 @@ module.exports = async (req, res, next) => {
             return next();
         });
     } catch (err) {
-        return res.status(401).json({ error: 'error in verify you credential of access' }); // test
+        return res.status(401).json({ error: 'error in verify you credential of access' });
     }
 };

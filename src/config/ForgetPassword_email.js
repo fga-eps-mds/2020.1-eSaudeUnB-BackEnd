@@ -3,7 +3,7 @@ const transporter = require('./email.config');
 module.exports = {
     async Fgetpassword(user, password) {
         await transporter.sendMail({
-            from: '"e-saudeunb" <e-saude@unb.br>', // test
+            from: '"e-saudeunb" <e-saude@unb.br>',
             to: user.email,
             subject: 'Senha',
             html: `<body style="justify-content: flex-start; columns: auto; align-items: center">

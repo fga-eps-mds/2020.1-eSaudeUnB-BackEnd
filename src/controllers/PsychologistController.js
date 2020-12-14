@@ -6,7 +6,6 @@ const Psychologist = require('../models/Psychologist');
 const UserPatient = require('../models/UserPatient');
 const PsychologistEmail = require('../config/Psychologist_email');
 const Fgetpass = require('../config/ForgetPassword_email');
-const CalculaScore = require('../config/CalculaScore');
 
 const schema = Joi.object({
     name: Joi.string()
@@ -113,7 +112,7 @@ module.exports = {
             await PsychologistEmail.PsyEmail(psychologist);
             return res.status(201).json(psychologist);
         } catch (err) {
-            return res.status(400).json({ message: err.message }); // test
+            return res.status(400).json({ message: err.message });
         }
     },
 
@@ -124,7 +123,7 @@ module.exports = {
 
             return res.status(200).json(user);
         } catch (err) {
-            return res.status(400).json({ error: err.message }); // test
+            return res.status(400).json({ error: err.message });
         }
     },
 
@@ -133,7 +132,7 @@ module.exports = {
             const users = await Psychologist.find();
             return res.status(200).json(users);
         } catch (err) {
-            return res.status(400).json({ message: err.message }); // test
+            return res.status(400).json({ message: err.message });
         }
     },
 
@@ -145,7 +144,7 @@ module.exports = {
 
             return res.status(200).json('Psychologist Remove');
         } catch (err) {
-            return res.status(400).json({ message: err.message }); // test
+            return res.status(400).json({ message: err.message });
         }
     },
 
@@ -184,7 +183,7 @@ module.exports = {
                 user.bond = bond;
             }
             if (phone) {
-                user.phone = phone; // test
+                user.phone = phone;
             }
             if (specialization) {
                 user.specialization = specialization;
@@ -196,7 +195,7 @@ module.exports = {
                 user.userImage = userImage;
             }
             if (ForgetPassword) {
-                user.ForgetPassword = ForgetPassword; // test
+                user.ForgetPassword = ForgetPassword;
             }
 
             const { error, value } = schema.validate({
@@ -213,7 +212,7 @@ module.exports = {
             });
 
             if (error) {
-                return res.status(203).json({ value, error }); // test
+                return res.status(203).json({ value, error });
             }
             await user.save();
             return res.status(200).json(user);
@@ -242,7 +241,7 @@ module.exports = {
                     await user.save();
                     return res.status(200).json({ user });
                 }
-                return res.status(400).json({ message: 'Senha Incorreta' }); // test
+                return res.status(400).json({ message: 'Senha Incorreta' });
             }
             throw new Error({ err: 'Usuário não encontrado' });
         } catch (err) {

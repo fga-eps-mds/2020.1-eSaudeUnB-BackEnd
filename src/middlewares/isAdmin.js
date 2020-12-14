@@ -13,10 +13,10 @@ module.exports = async (req, res, next) => {
             }
         }
         if (user.bond) {
-            return res.status(401).json({ error: 'you are not admin user' }); // test
+            return res.status(401).json({ error: 'you are not admin user' });
         }
     } catch (err) {
-        return res.status(401).json({ error: 'error in verify you credential of access' }); // test
+        return res.status(401).json({ error: 'error in verify you credential of access' });
     }
     return next();
 };

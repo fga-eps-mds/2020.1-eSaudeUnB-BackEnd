@@ -17,7 +17,7 @@ module.exports = async (req, res, next) => {
             return res.status(401).json({ error: 'you are not a psychologist,Nutritionist or Care worker' });
         }
     } catch (err) {
-        return res.status(401).json({ error: 'error in verify you credential of access' }); // test
+        return res.status(401).json({ error: 'error in verify you credential of access' });
     }
     return next();
 };

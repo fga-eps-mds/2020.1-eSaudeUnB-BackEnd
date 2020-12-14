@@ -5,7 +5,7 @@ module.exports = {
     async waitinglist(emailPatient, position) {
         const user = await UserPatient.findOne({ email: emailPatient });
         await transporter.sendMail({
-            from: '"e-saudeunb" <e-saude@unb.br>', // test
+            from: '"e-saudeunb" <e-saude@unb.br>',
             to: emailPatient,
             subject: 'Lista de Espera',
             html: `<body style="justify-content: flex-start; columns: auto; align-items: center">

@@ -3,7 +3,7 @@ const transporter = require('./email.config');
 module.exports = {
     async PsyEmail(psychologist) {
         await transporter.sendMail({
-            from: '"e-saudeunb" <e-saude@unb.br>', // test
+            from: '"e-saudeunb" <e-saude@unb.br>',
             to: psychologist.email,
             subject: 'Senha',
             html: `<body style="justify-content: flex-start; columns: auto; align-items: center">

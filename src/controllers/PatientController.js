@@ -284,7 +284,7 @@ module.exports = {
 
             return res.status(201).json(patient);
         } catch (err) {
-            return res.status(400).json({ error: err.message }); // test
+            return res.status(400).json({ error: err.message });
         }
     },
 
@@ -294,7 +294,7 @@ module.exports = {
             const user = await UserPatient.findOne({ email });
             return res.status(200).json(user);
         } catch (err) {
-            return res.status(400).json({ error: err.message }); // test
+            return res.status(400).json({ error: err.message });
         }
     },
 
@@ -304,7 +304,7 @@ module.exports = {
 
             return res.status(200).json(users);
         } catch (err) {
-            return res.status(400).json({ message: err.message }); // test
+            return res.status(400).json({ message: err.message });
         }
     },
 
@@ -318,7 +318,7 @@ module.exports = {
                 .status(200)
                 .json({ message: 'Usuário deletado com sucesso!' });
         } catch (err) {
-            return res.status(400).json({ message: err.message }); // test
+            return res.status(400).json({ message: err.message });
         }
     },
 
@@ -502,11 +502,11 @@ module.exports = {
             await user.save();
             return res.status(200).json(user);
         } catch (err) {
-            return res.status(500).json({ message: 'falha ao dar o update' }); // test
+            return res.status(500).json({ message: 'falha ao dar o update' });
         }
     },
 
-    async updateSchedule(req, res) { // test
+    async updateSchedule(req, res) {
         try {
             const { appointments } = req.body;
 
@@ -520,7 +520,7 @@ module.exports = {
 
             return res.status(200).json(user);
         } catch (err) {
-            return res.status(500).json({ message: 'falha ao dar o update' }); // test
+            return res.status(500).json({ message: 'falha ao dar o update' });
         }
     },
 
@@ -536,7 +536,7 @@ module.exports = {
                         password,
                     });
                     if (error) {
-                        return res.status(203).json({ value, error }); // test
+                        return res.status(203).json({ value, error });
                     }
                     const encriptedPassword = bcrypt.hashSync(password, 8);
                     user.password = encriptedPassword;
@@ -544,13 +544,13 @@ module.exports = {
                     await user.save();
                     return res.status(200).json({ user });
                 }
-                return res.status(400).json({ message: 'Senha Incorreta' }); // test
+                return res.status(400).json({ message: 'Senha Incorreta' });
             }
             throw new Error({ err: 'Usuário não encontrado' });
         } catch (err) {
-            return res // test
+            return res
                 .status(500)
-                .json({ message: 'falha ao dar o update da senha' }); // test
+                .json({ message: 'falha ao dar o update da senha' });
         }
     },
 

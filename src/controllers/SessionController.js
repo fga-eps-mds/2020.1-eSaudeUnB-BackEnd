@@ -32,7 +32,7 @@ module.exports = {
                 return res.status(201).json(user);
             }
             if (date === null) {
-                return res.status(404).json({ message: 'Data não cadastrada' }); // test
+                return res.status(404).json({ message: 'Data não cadastrada' });
             }
             return res.status(404).json({ message: 'Usuário não encontrado' });
         } catch (err) {
@@ -56,7 +56,7 @@ module.exports = {
             }
             return res.status(404).json({ message: 'Usuário não encontrado' });
         } catch (err) {
-            return res.status(400).json({ error: err.message }); // test
+            return res.status(400).json({ error: err.message });
         }
     },
 
@@ -78,7 +78,7 @@ module.exports = {
 
             return res.status(404).json({ message: 'Usuário não encontrado' });
         } catch (err) {
-            return res.status(400).json({ error: err.message }); // test
+            return res.status(400).json({ error: err.message });
         }
     },
 
@@ -103,7 +103,7 @@ module.exports = {
 
             const session = await Session.findById(id);
 
-            return res.status(200).json(session); // test
+            return res.status(200).json(session);
         } catch (err) {
             return res.status(400).json({ error: err.message });
         }
@@ -129,7 +129,7 @@ module.exports = {
             }
             return res.status(404).json({ message: 'Usuário não encontrado' });
         } catch (err) {
-            return res.status(400).json({ message: err.message }); // test
+            return res.status(400).json({ message: err.message });
         }
     },
 };
