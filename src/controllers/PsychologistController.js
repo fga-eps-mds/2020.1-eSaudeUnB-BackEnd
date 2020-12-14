@@ -80,7 +80,7 @@ module.exports = {
                 return res.status(200).json(psyUser);
             }
 
-            const { error, value } = schema.validate({
+            const { error } = schema.validate({
                 name,
                 lastName,
                 email,
@@ -92,6 +92,9 @@ module.exports = {
                 userImage,
                 ForgetPassword,
             });
+            if (error) {
+                return res.status(400).json({ message: error.message });
+            }
 
             // const encriptedPassword = bcrypt.hashSync(password, 8);
 
