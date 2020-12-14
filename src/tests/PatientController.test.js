@@ -167,9 +167,9 @@ describe('Patient API', () => {
         expect(response.status).toBe(203);
         expect(response2.status).toBe(409);
 
-        jest.spyOn(UserPatient, 'findOne').mockImplementationOnce(() => { throw new Error(); });
+        jest.spyOn(bcrypt, 'hashSync').mockImplementationOnce(() => { throw new Error(); });
 
-        const response3 = await request.post('/users').send(user2);
+        const response3 = await request.post('/users').send(user3);
 
         expect(response3.status).toBe(400);
     });
