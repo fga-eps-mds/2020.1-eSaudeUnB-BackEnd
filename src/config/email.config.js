@@ -9,5 +9,4 @@ const transporter = nodemailer.createTransport({
         pass: 'uR64JhObSqU0',
     },
 });
-
 module.exports = transporter;

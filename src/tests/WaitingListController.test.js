@@ -1,12 +1,9 @@
 const mongoose = require('mongoose');
 const supertest = require('supertest');
-const nodemailer = require('nodemailer');
 const Psychologist = require('../models/Psychologist');
 const UserPatient = require('../models/UserPatient');
 const WaitingList = require('../models/WaitingList');
-const PsychologistEmail = require('../config/Psychologist_email');
-const PatientEmail = require('../config/Patient_email');
-const ForgertPassword = require('../config/ForgetPassword_email');
+const WaitinglistemailUtil = require('../config/Waitinglist_email');
 
 const app = require('../server');
 
@@ -37,10 +34,8 @@ describe('Psychologist API', () => {
             useCreateIndex: true,
             useFindAndModify: false,
         });
-        jest.spyOn(PsychologistEmail, 'PsyEmail').mockImplementation(() => true);
-        jest.spyOn(nodemailer, 'createTransport').mockImplementation(() => true);
-        jest.spyOn(PatientEmail, 'PatientEmail').mockImplementation(() => true);
-        jest.spyOn(ForgertPassword, 'Fgetpassword').mockImplementation(() => true);
+        await request.post('/admin').send(admin);
+        jest.spyOn(WaitinglistemailUtil, 'waitinglist').mockImplementation(() => true);
     });
 
     beforeEach(async () => {
@@ -57,7 +52,7 @@ describe('Psychologist API', () => {
     it('should be able to create a waiting list', async () => {
         const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
         const TokenAdmin = resposit.body.accessToken;
-        const response = await request.post('/waitingList').send({ emailPatient: patient.password, patientScore: 100 }).set('authorization', TokenAdmin);
+        const response = await request.post('/waitingList').send({ emailPatient: patient.email, patientScore: 100 }).set('authorization', TokenAdmin);
 
         expect(response.status).toBe(201);
     });
@@ -73,18 +68,36 @@ describe('Psychologist API', () => {
     it('should be able to list a psychologist waiting list', async () => {
         const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
         const TokenAdmin = resposit.body.accessToken;
-        await request.post('/waitingList').send({ emailPatient: patient.password, npatientScore: 100 }).set('authorization', TokenAdmin);
+        await request.post('/waitingList').send({ emailPatient: patient.email, npatientScore: 100 }).set('authorization', TokenAdmin);
         const response = await request.get('/waitingList').set('authorization', TokenAdmin);
 
         expect(response.status).toBe(200);
+    });
+    it('should be not able to list a psychologist waiting list', async () => {
+        const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
+        const TokenAdmin = resposit.body.accessToken;
+        await request.post('/waitingList').send({ emailPatient: patient.email, npatientScore: 100 }).set('authorization', TokenAdmin);
+        jest.spyOn(WaitingList, 'find').mockImplementation(() => { throw new Error(); });
+        const response = await request.get('/waitingList').set('authorization', TokenAdmin);
+
+        expect(response.status).toBe(400);
     });
 
     it('should be able to destroy a waiting list', async () => {
         const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
         const TokenAdmin = resposit.body.accessToken;
-        await request.post('/waitingList').send({ emailPatient: patient.password, patientScore: 100 }).set('authorization', TokenAdmin);
+        await request.post('/waitingList').send({ emailPatient: patient.email, patientScore: 100 }).set('authorization', TokenAdmin);
         const response = await request.delete(`/waitingList/${patient.email}`).set('authorization', TokenAdmin);
 
         expect(response.status).toBe(200);
+    });
+    it('should be not able to destroy a waiting list,throw error', async () => {
+        const resposit = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
+        const TokenAdmin = resposit.body.accessToken;
+        await request.post('/waitingList').send({ emailPatient: patient.email, patientScore: 100 }).set('authorization', TokenAdmin);
+        jest.spyOn(WaitingList, 'deleteOne').mockImplementationOnce(() => { throw new Error(); });
+        const response = await request.delete(`/waitingList/${patient.email}`).set('authorization', TokenAdmin);
+
+        expect(response.status).toBe(400);
     });
 });

@@ -99,6 +99,15 @@ describe('Psychologist API', () => {
             .send(userUpdateweekDay).set('authorization', TokenPsy);
         expect(WeekUpdate.status).toBe(200);
     });
+    it('should not be able to update a psychologist week_day,throw error', async () => {
+        const response2 = await request.post('/login/psychologist').send({ email: psy.email, password: '123456789' });
+        const TokenPsy = response2.body.accessToken;
+        jest.spyOn(Psychologist, 'updateOne').mockImplementationOnce(() => { throw new Error(); });
+        const WeekUpdate = await request
+            .put('/calendary/update')
+            .send(userUpdateweekDay).set('authorization', TokenPsy);
+        expect(WeekUpdate.status).toBe(400);
+    });
     it('should be able to update a psychologist Restrict', async () => {
         const response2 = await request.post('/login/psychologist').send({ email: psy.email, password: '123456789' });
         const TokenPsy = response2.body.accessToken;
@@ -112,6 +121,13 @@ describe('Psychologist API', () => {
         const TokenPsy = response2.body.accessToken;
         const psychologist = await request.post('/calendary/update').send(email).set('authorization', TokenPsy);
         expect(psychologist.status).toBe(200);
+    });
+    it('should not be able to show a psychologist schedule,throw error', async () => {
+        const response2 = await request.post('/login/psychologist').send({ email: psy.email, password: '123456789' });
+        const TokenPsy = response2.body.accessToken;
+        jest.spyOn(Psychologist, 'findOne').mockImplementationOnce(() => { throw new Error(); });
+        const psychologist = await request.post('/calendary/update').send(email).set('authorization', TokenPsy);
+        expect(psychologist.status).toBe(400);
     });
     it('should be able to show a psychologist restrict', async () => {
         const response2 = await request.post('/login/psychologist').send({ email: psy.email, password: '123456789' });

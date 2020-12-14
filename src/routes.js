@@ -48,11 +48,7 @@ routes.put('/psyUpdate/:email', [verifyToken, isPsychologist], PsychologistContr
 routes.put('/psyUpdatePassword/:email', [verifyToken], PsychologistController.updatePassword);
 routes.put('/psyForgetPassword/:email', PsychologistController.ForgetPass);
 routes.get('/psychologists', [verifyToken], PsychologistController.index);
-routes.get(
-    '/psychologist/:email',
-    [verifyToken],
-    PsychologistController.show,
-);
+routes.get('/psychologist/:email', [verifyToken], PsychologistController.show);
 
 // Waiting list routes
 routes.get('/waitingList', [verifyToken], WaitingListController.index);
