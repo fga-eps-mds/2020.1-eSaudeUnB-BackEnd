@@ -209,10 +209,10 @@ module.exports = {
                 mainComplaint,
             } = req.body;
 
-            const user = await UserPatient.findOne({ email });
-            const psyUser = await Psychologist.findOne({ email });
+            const user = await UserPatient.find({ email });
+            const psyUser = await Psychologist.find({ email });
 
-            if (user || psyUser) {
+            if (user.length > 0 || psyUser.length > 0) {
                 return res
                     .status(409)
                     .json({ message: 'Usuário já cadastrado' });
