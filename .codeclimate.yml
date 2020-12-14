@@ -6,12 +6,16 @@ checks:
     complex-logic:
       config:
         threshold: 8
+    file-lines:
+      enabled: false
     method-complexity:
       config:
         threshold: 15
     method-count:
       config:
         threshold: 20
+    method-lines:
+      enabled: false
     nested-control-flow:
       config:
         threshold: 4
