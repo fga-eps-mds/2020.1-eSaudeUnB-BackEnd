@@ -380,7 +380,6 @@ describe('Patient API', () => {
         const response = await request.post('/login/patient').send({ email: user3.email, password: user3.password });
         const TokenPatient = response.body.accessToken;
 
-
         const responseUpdate = await request
             .put(`/user/password/${user3.email}`)
             .send({ oldPassword: user3.password, password: '12345678' })
