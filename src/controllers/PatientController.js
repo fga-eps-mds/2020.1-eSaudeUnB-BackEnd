@@ -1,7 +1,11 @@
 const Joi = require('joi');
 const bcrypt = require('bcryptjs');
+const generatePassword = require('password-generator');
 const UserPatient = require('../models/UserPatient');
 const Psychologist = require('../models/Psychologist');
+const PatientEmailUtil = require('../config/Patient_email');
+const FgetpassUtil = require('../config/ForgetPassword_email');
+const CalculasScore = require('../config/CalculaScore');
 
 const schemaCreate = Joi.object({
     name: Joi.string().min(3).max(30).required(),
@@ -9,15 +13,19 @@ const schemaCreate = Joi.object({
     lastName: Joi.string().min(3).max(30).required(),
 
     email: Joi.string().email({ minDomainSegments: 2, tlds: false }).required(),
+
     password: Joi.string()
         .min(8)
         .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
         .required(),
+
+    ForgetPassword: Joi.boolean()
+        .allow(null)
+        .allow(''),
+
     phone: Joi.number().allow(''),
 
-    gender: Joi.string().max(1).allow(''),
-
-    religion: Joi.string().allow('').allow(null),
+    gender: Joi.string().allow(''),
 
     civilStatus: Joi.string().allow('').allow(null),
 
@@ -28,9 +36,88 @@ const schemaCreate = Joi.object({
         .allow(''),
 
     bond: Joi.string().allow(''),
-    userImage: Joi.string().allow(''),
+
+    userImage: Joi.string().allow('').allow(null),
+
+    race: Joi.string().allow('').allow(null),
+
+    sexualOrientation: Joi.string().allow('').allow(null),
+
+    children: Joi.string().allow('').allow(null),
+
+    emergencyContactName: Joi.string().allow('').allow(null),
+
+    emergencyContactPhone: Joi.number().allow('').allow(null),
+
+    emergencyContactBond: Joi.string().allow('').allow(null),
+
+    motherName: Joi.string().allow('').allow(null),
+
+    fatherName: Joi.string().allow('').allow(null),
+
+    affiliationPhone: Joi.number().allow('').allow(null),
+
+    socialPrograms: Joi.string().allow('').allow(null),
+
+    studentHouseResidence: Joi.string().allow('').allow(null),
+
+    psychiatricFollowUp: Joi.string().allow('').allow(null),
+
+    medication: Joi.string().allow('').allow(null),
+
+    mainComplaint: Joi.string().allow('').allow(null),
 
 }).options({ abortEarly: false });
+
+const schemaAllRequired = Joi.object({
+    name: Joi.string().min(3).max(30).required(),
+
+    lastName: Joi.string().min(3).max(30).required(),
+
+    email: Joi.string().email({ minDomainSegments: 2, tlds: false }).required(),
+
+    phone: Joi.number().required(),
+
+    gender: Joi.string().required(),
+
+    civilStatus: Joi.string().required(),
+
+    unbRegistration: Joi.string().pattern(new RegExp('^[0-9]+$')).min(8).max(10)
+        .required(),
+
+    bond: Joi.string().required(),
+
+    userImage: Joi.string().allow(''),
+
+    race: Joi.string().required(),
+
+    sexualOrientation: Joi.string().required(),
+
+    children: Joi.string().required(),
+
+    emergencyContactName: Joi.string().min(3).required(),
+
+    emergencyContactPhone: Joi.number().required(),
+
+    emergencyContactBond: Joi.string().min(3).required(),
+
+    motherName: Joi.string().min(3).required(),
+
+    fatherName: Joi.string().min(3).required(),
+
+    affiliationPhone: Joi.number().required(),
+
+    socialPrograms: Joi.string().required(),
+
+    studentHouseResidence: Joi.string().required(),
+
+    psychiatricFollowUp: Joi.string().required(),
+
+    medication: Joi.string().required(),
+
+    mainComplaint: Joi.string().required(),
+
+});
 
 const schemaUpdate = Joi.object({
     name: Joi.string().min(3).max(30).required(),
@@ -39,25 +126,57 @@ const schemaUpdate = Joi.object({
 
     email: Joi.string().email({ minDomainSegments: 2, tlds: false }).required(),
 
-    phone: Joi.number().allow(''),
+    phone: Joi.number().allow('').allow(null),
 
-    gender: Joi.string().max(1).allow(''),
+    gender: Joi.string().allow('').allow(null),
 
-    religion: Joi.string().allow('').allow(null),
+    ForgetPassword: Joi.boolean()
+        .allow(null)
+        .allow(''),
 
     civilStatus: Joi.string().allow('').allow(null),
 
-    unbRegistration: Joi.string()
-        .pattern(new RegExp('^[0-9]+$'))
-        .min(8)
-        .max(10)
-        .allow(''),
+    unbRegistration: Joi.string().pattern(new RegExp('^[0-9]+$')).min(8).max(10)
+        .allow('')
+        .allow(null),
 
-    bond: Joi.string().allow(''),
+    bond: Joi.string().allow('').allow(null),
 
-    userImage: Joi.string().allow(''),
+    userImage: Joi.string().allow('').allow(null),
+
+    race: Joi.string().allow('').allow(null),
+
+    sexualOrientation: Joi.string().allow('').allow(null),
+
+    children: Joi.string().allow('').allow(null),
+
+    emergencyContactName: Joi.string().min(3).allow('').allow(null),
+
+    emergencyContactPhone: Joi.number().allow('').allow(null),
+
+    emergencyContactBond: Joi.string().min(3).allow('').allow(null),
+
+    motherName: Joi.string().min(3).allow('').allow(null),
+
+    fatherName: Joi.string().min(3).allow('').allow(null),
+
+    affiliationPhone: Joi.number().allow('').allow(null),
+
+    socialPrograms: Joi.string().allow('').allow(null),
+
+    studentHouseResidence: Joi.string().allow('').allow(null),
+
+    psychiatricFollowUp: Joi.string().allow('').allow(null),
+
+    medication: Joi.string().allow('').allow(null),
+
+    mainComplaint: Joi.string().allow('').allow(null),
 
 }).options({ abortEarly: false });
+
+const schemaUpdatePassword = Joi.object({
+    password: Joi.string().min(8).pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+});
 
 module.exports = {
     async store(req, res) {
@@ -68,16 +187,32 @@ module.exports = {
                 email,
                 phone,
                 password,
+                ForgetPassword,
                 gender,
+                civilStatus,
                 unbRegistration,
                 bond,
                 userImage,
+                race,
+                sexualOrientation,
+                children,
+                emergencyContactName,
+                emergencyContactPhone,
+                emergencyContactBond,
+                motherName,
+                fatherName,
+                affiliationPhone,
+                socialPrograms,
+                studentHouseResidence,
+                psychiatricFollowUp,
+                medication,
+                mainComplaint,
             } = req.body;
 
-            const user = await UserPatient.findOne({ email });
-            const psyUser = await Psychologist.findOne({ email });
+            const user = await UserPatient.find({ email });
+            const psyUser = await Psychologist.find({ email });
 
-            if (user || psyUser) {
+            if (user.length > 0 || psyUser.length > 0) {
                 return res
                     .status(409)
                     .json({ message: 'Usuário já cadastrado' });
@@ -89,10 +224,26 @@ module.exports = {
                 email,
                 phone,
                 password,
+                ForgetPassword,
                 gender,
+                civilStatus,
                 unbRegistration,
                 bond,
                 userImage,
+                race,
+                sexualOrientation,
+                children,
+                emergencyContactName,
+                emergencyContactPhone,
+                emergencyContactBond,
+                motherName,
+                fatherName,
+                affiliationPhone,
+                socialPrograms,
+                studentHouseResidence,
+                psychiatricFollowUp,
+                medication,
+                mainComplaint,
             });
 
             if (error) {
@@ -107,11 +258,29 @@ module.exports = {
                 email,
                 phone,
                 password: encriptedPassword,
+                ForgetPassword: false,
                 gender,
+                civilStatus,
                 unbRegistration,
                 bond,
                 userImage,
+                race,
+                sexualOrientation,
+                children,
+                emergencyContactName,
+                emergencyContactPhone,
+                emergencyContactBond,
+                motherName,
+                fatherName,
+                affiliationPhone,
+                socialPrograms,
+                studentHouseResidence,
+                psychiatricFollowUp,
+                medication,
+                mainComplaint,
             });
+
+            await PatientEmailUtil.PatientEmail(patient);
 
             return res.status(201).json(patient);
         } catch (err) {
@@ -160,16 +329,61 @@ module.exports = {
                 lastName,
                 phone,
                 unbRegistration,
+                ForgetPassword,
                 gender,
                 bond,
                 civilStatus,
-                religion,
                 userImage,
+                race,
+                sexualOrientation,
+                children,
+                emergencyContactName,
+                emergencyContactPhone,
+                emergencyContactBond,
+                motherName,
+                fatherName,
+                affiliationPhone,
+                socialPrograms,
+                studentHouseResidence,
+                psychiatricFollowUp,
+                medication,
+                mainComplaint,
             } = req.body;
 
             const { email } = req.params;
 
-            const { error, value } = schemaUpdate.validate({
+            const { error: error1, value: value1 } = schemaUpdate.validate({
+                name,
+                lastName,
+                email,
+                phone,
+                gender,
+                unbRegistration,
+                ForgetPassword,
+                bond,
+                civilStatus,
+                userImage,
+                race,
+                sexualOrientation,
+                children,
+                emergencyContactName,
+                emergencyContactPhone,
+                emergencyContactBond,
+                motherName,
+                fatherName,
+                affiliationPhone,
+                socialPrograms,
+                studentHouseResidence,
+                psychiatricFollowUp,
+                medication,
+                mainComplaint,
+            });
+
+            if (error1) {
+                return res.status(203).json({ value1, error1 });
+            }
+
+            const { error: error2 } = schemaAllRequired.validate({
                 name,
                 lastName,
                 email,
@@ -178,17 +392,40 @@ module.exports = {
                 unbRegistration,
                 bond,
                 civilStatus,
-                religion,
                 userImage,
+                race,
+                sexualOrientation,
+                children,
+                emergencyContactName,
+                emergencyContactPhone,
+                emergencyContactBond,
+                motherName,
+                fatherName,
+                affiliationPhone,
+                socialPrograms,
+                studentHouseResidence,
+                psychiatricFollowUp,
+                medication,
+                mainComplaint,
             });
-
-            if (error) {
-                return res.status(203).json({ value, error });
-            }
 
             const user = await UserPatient.findOne({
                 email,
             }).exec();
+
+            if (!error2) {
+                user.canSchedule = true;
+            }
+
+            if (user.canSchedule === true) {
+                user.score = await CalculasScore.calculateScore({
+                    bond,
+                    socialPrograms,
+                    studentHouseResidence,
+                    medication,
+                    mainComplaint,
+                });
+            }
 
             if (name) {
                 user.name = name;
@@ -214,12 +451,53 @@ module.exports = {
             if (civilStatus) {
                 user.civilStatus = civilStatus;
             }
-            if (religion) {
-                user.religion = religion;
-            }
             if (userImage) {
                 user.userImage = userImage;
             }
+            if (race) {
+                user.race = race;
+            }
+            if (sexualOrientation) {
+                user.sexualOrientation = sexualOrientation;
+            }
+            if (children) {
+                user.children = children;
+            }
+            if (emergencyContactName) {
+                user.emergencyContactName = emergencyContactName;
+            }
+            if (emergencyContactPhone) {
+                user.emergencyContactPhone = emergencyContactPhone;
+            }
+            if (emergencyContactBond) {
+                user.emergencyContactBond = emergencyContactBond;
+            }
+            if (motherName) {
+                user.motherName = motherName;
+            }
+            if (fatherName) {
+                user.fatherName = fatherName;
+            }
+            if (affiliationPhone) {
+                user.affiliationPhone = affiliationPhone;
+            }
+            if (socialPrograms) {
+                user.socialPrograms = socialPrograms;
+            }
+            if (studentHouseResidence) {
+                user.studentHouseResidence = studentHouseResidence;
+            }
+            if (psychiatricFollowUp) {
+                user.psychiatricFollowUp = psychiatricFollowUp;
+            }
+            if (medication) {
+                user.medication = medication;
+            }
+            if (mainComplaint) {
+                user.mainComplaint = mainComplaint;
+            }
+
+            if (ForgetPassword) user.ForgetPassword = ForgetPassword;
 
             await user.save();
             return res.status(200).json(user);
@@ -248,20 +526,53 @@ module.exports = {
 
     async updatePassword(req, res) {
         try {
-            const { password } = req.body;
-
+            const { oldPassword, password } = req.body;
             const user = await UserPatient.findOne({
                 email: req.params.email,
-            }).exec();
-
-            user.password = password;
-
-            await user.save();
-            return res.status(200).json(user);
+            }).select('+password');
+            if (user) {
+                if (await bcrypt.compare(oldPassword, user.password)) {
+                    const { error, value } = schemaUpdatePassword.validate({
+                        password,
+                    });
+                    if (error) {
+                        return res.status(203).json({ value, error });
+                    }
+                    const encriptedPassword = bcrypt.hashSync(password, 8);
+                    user.password = encriptedPassword;
+                    user.ForgetPassword = false;
+                    await user.save();
+                    return res.status(200).json({ user });
+                }
+                return res.status(400).json({ message: 'Senha Incorreta' });
+            }
+            throw new Error({ err: 'Usuário não encontrado' });
         } catch (err) {
             return res
                 .status(500)
                 .json({ message: 'falha ao dar o update da senha' });
+        }
+    },
+
+    async ForgetPass(req, res) {
+        try {
+            const password = generatePassword(8, false);
+            const user = await UserPatient.findOne({
+                email: req.params.email,
+            });
+            if (user) {
+                const encriptedPassword = bcrypt.hashSync(password, 8);
+                user.password = encriptedPassword;
+                user.ForgetPassword = true;
+                await user.save();
+                await FgetpassUtil.Fgetpassword(user, password);
+                return res.status(200).json({ user });
+            }
+            throw new Error({ err: 'Usuário não encontrado' });
+        } catch (err) {
+            return res
+                .status(500)
+                .json({ message: 'falha ao dar o gerar nova senha' });
         }
     },
 };

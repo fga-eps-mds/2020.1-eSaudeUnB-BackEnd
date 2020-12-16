@@ -25,6 +25,10 @@ const UserPatientSchema = new mongoose.Schema(
             required: true,
             select: false,
         },
+        ForgetPassword: {
+            type: Boolean,
+            required: false,
+        },
         gender: {
             type: String,
             default: null,
@@ -45,7 +49,72 @@ const UserPatientSchema = new mongoose.Schema(
             default: null,
             required: false,
         },
-        religion: {
+        race: {
+            type: String,
+            default: null,
+            required: false,
+        },
+        sexualOrientation: {
+            type: String,
+            default: null,
+            required: false,
+        },
+        children: {
+            type: String,
+            default: null,
+            required: false,
+        },
+        emergencyContactName: {
+            type: String,
+            default: null,
+            required: false,
+        },
+        emergencyContactPhone: {
+            type: String,
+            default: null,
+            required: false,
+        },
+        emergencyContactBond: {
+            type: String,
+            default: null,
+            required: false,
+        },
+        motherName: {
+            type: String,
+            default: null,
+            required: false,
+        },
+        fatherName: {
+            type: String,
+            default: null,
+            required: false,
+        },
+        affiliationPhone: {
+            type: String,
+            default: null,
+            required: false,
+        },
+        socialPrograms: {
+            type: String,
+            default: null,
+            required: false,
+        },
+        studentHouseResidence: {
+            type: String,
+            default: null,
+            required: false,
+        },
+        psychiatricFollowUp: {
+            type: String,
+            default: null,
+            required: false,
+        },
+        medication: {
+            type: String,
+            default: null,
+            required: false,
+        },
+        mainComplaint: {
             type: String,
             default: null,
             required: false,
@@ -62,6 +131,16 @@ const UserPatientSchema = new mongoose.Schema(
         userImage: {
             type: Buffer,
             contentType: String,
+            required: false,
+        },
+        score: {
+            type: Number,
+            default: 0,
+            required: false,
+        },
+        canSchedule: {
+            type: Boolean,
+            default: false,
             required: false,
         },
         sessions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Session' }],

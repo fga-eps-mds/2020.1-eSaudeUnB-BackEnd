@@ -20,6 +20,12 @@ const SessionSchema = new mongoose.Schema({
         required: true,
     },
 
+    date: {
+        type: Date,
+    },
+
+}, {
+    timestamps: true,
 });
 
 module.exports = mongoose.model('Session', SessionSchema);

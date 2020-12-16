@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const supertest = require('supertest');
-
+const nodemailer = require('nodemailer');
 const UserPatient = require('../models/UserPatient');
 const Psychologist = require('../models/Psychologist');
 const app = require('../server');
+const PsychologistEmail = require('../config/Psychologist_email');
 
 const request = supertest(app);
 
@@ -19,7 +20,7 @@ const psyUser = {
     email: 'emailPsy@email.com',
     phone: '061999999999',
     gender: 'M',
-    bond: 'psychologist',
+    bond: 'psicologo',
     specialization: 'psicologo',
     biography: '',
 };
@@ -50,6 +51,8 @@ describe('Login API', () => {
     beforeEach(async () => {
         await UserPatient.collection.deleteMany({});
         await Psychologist.collection.deleteMany({});
+        jest.spyOn(PsychologistEmail, 'PsyEmail').mockImplementation(() => true);
+        jest.spyOn(nodemailer, 'createTransport').mockImplementation(() => true);
     });
 
     afterAll(async (done) => {
@@ -67,6 +70,13 @@ describe('Login API', () => {
     });
 
     it('should fail to login an user', async () => {
+        await request.post('/users').send(user);
+
+        const { email } = user;
+
+        const response = await request.post('/login/patient').send({ email, password: 'senha' });
+        expect(response.status).toBe(400);
+
         const response2 = await request.post('/login/patient').send({});
         expect(response2.status).toBe(404);
 
@@ -76,21 +86,29 @@ describe('Login API', () => {
 
     it('should be able to succssessfully login an psychologist', async () => {
         await request.post('/admin').send(admin);
+        const respose = await request.post('/admin/login').send({ email: admin.email, password: admin.password });
+        const TokenAdmin = respose.body.accessToken;
+
+        await request.post('/psychologist').set('authorization', TokenAdmin).send(psyUser);
+        const psy = await request.get(`/psychologist/${psyUser.email}`).set('authorization', TokenAdmin);
+
+        const response = await request.post('/login/psychologist').send({ email: psy.body.email, password: psy.body.password });
+        expect(response.status).toBe(200);
+    });
+
+    it('should fail to login an psychologist', async () => {
+        await request.post('/admin').send(admin);
         const emailAdmin = admin.email;
         const passwordAdmin = admin.password;
         const respose = await request.post('/admin/login').send({ email: emailAdmin, password: passwordAdmin });
         const TokenAdmin = respose.body.accessToken;
 
         await request.post('/psychologist').set('authorization', TokenAdmin).send(psyUser);
-        await request
-            .put(`/psyUpdatePassword/${psyUser.email}`)
-            .send({ password: '123456789' }).set('authorization', TokenAdmin);
+        const psy = await request.get(`/psychologist/${psyUser.email}`).set('authorization', TokenAdmin);
 
-        const response = await request.post('/login/psychologist').send({ email: psyUser.email, password: '123456789' });
-        expect(response.status).toBe(200);
-    });
+        const response = await request.post('/login/psychologist').send({ email: psy.body.email, password: 'senha' });
+        expect(response.status).toBe(400);
 
-    it('should fail to login an psychologist', async () => {
         const response2 = await request.post('/login/psychologist').send({});
         expect(response2.status).toBe(404);
 
